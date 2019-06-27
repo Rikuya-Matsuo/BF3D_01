@@ -11,6 +11,8 @@ public:
 		Dead,
 	};
 
+	Actor(State state = State::Active, bool gravityFlag = false, float gravityRate = 1.0f);
+
 	virtual void Update(float deltaTime);
 	virtual void Draw();
 
@@ -24,11 +26,17 @@ public:
 	// 重力適用フラグ
 	bool GetGravityFlag() { return mGravityFlag; }
 
+	// 重力倍率
+	float GetGravityRate() { return mGravityRate; }
+
 	/////////////////////////////////////////////////////
 	// セッター
 	/////////////////////////////////////////////////////
 	// 位置座標
 	void SetPosition(const VECTOR & value) { mPosition = value; }
+
+	// アクター状態
+	void SetState(State value) { mState = value; }
 
 	// 速度
 	void SetVelocityX(float in_velX) { mVelocity.x = in_velX; }
@@ -39,6 +47,9 @@ public:
 
 	// 重力適用フラグ
 	void SetGravityFlag(bool value) { mGravityFlag = value; }
+
+	// 重力倍率
+	void SetGravityRate(float value) { mGravityRate = value; }
 
 	/////////////////////////////////////////////////////
 	// アッダー(Adder)
@@ -57,6 +68,9 @@ public:
 protected:
 	VECTOR mPosition;
 	VECTOR mVelocity;
+
+	// 状態
+	State mState;
 
 	// 重力の影響を受けるかどうかのフラグ
 	bool mGravityFlag;

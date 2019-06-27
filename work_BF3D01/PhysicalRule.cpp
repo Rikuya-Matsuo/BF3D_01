@@ -6,5 +6,5 @@ PhysicalRule::~PhysicalRule()
 
 void PhysicalRule::Fall(Actor & actor)
 {
-	actor.AddPosition(VGet(0, mGravity, 0));
+	actor.AddVelocity(VGet(0, mGravity, 0));
 }

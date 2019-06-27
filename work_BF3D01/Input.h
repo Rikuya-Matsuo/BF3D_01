@@ -1,7 +1,8 @@
 #pragma once
+#include "DxLib.h"
 #define KEY_MASS 256
 
-enum KeyStateNum
+enum KeyStateEnum
 {
 	Off,
 	PushDown,
@@ -10,17 +11,29 @@ enum KeyStateNum
 	Invalid
 };
 
+KeyStateEnum& operator ++(KeyStateEnum& val)
+{
+	val = (KeyStateEnum)(val + 1);
+	return val;
+}
+
+KeyStateEnum& operator ++(KeyStateEnum& val, int)
+{
+	val = (KeyStateEnum)(val + 1);
+	return val;
+}
+
 class Input final
 {
 private:
-	Input() {}
+	Input();
 	virtual ~Input() {};
 
-	KeyStateNum key[KEY_MASS];
-	KeyStateNum keyState[2][KEY_MASS];
+	KeyStateEnum mKeyState[KEY_MASS];
+	char mKey[2][KEY_MASS];
 
-	char nowKey;
-	char prevKey;
+	char mNowKey;
+	char mPrevKey;
 
 public:
 	Input& GetInstance()
@@ -31,6 +44,9 @@ public:
 
 	void Update();
 
-	KeyStateNum GetInput(int keyCode) { return key[keyCode]; }
+	KeyStateEnum GetInput(int keyCode) { return mKeyState[keyCode]; }
+	bool GetKeyDown(int keyCode) { return (mKeyState[keyCode] == KeyStateEnum::PushDown); }
+	bool GetKeyPressed(int keyCode) { return (mKeyState[keyCode] == KeyStateEnum::Pressed); }
+	bool GetKeyUp(int keyCode) { return (mKeyState[keyCode] == KeyStateEnum::PullUp); }
 
 };
