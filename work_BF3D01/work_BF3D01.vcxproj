@@ -128,13 +128,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="Common.cpp" />
     <ClCompile Include="GameSystem.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PhysicalRule.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="Common.h" />
     <ClInclude Include="GameSystem.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="PhysicalRule.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
