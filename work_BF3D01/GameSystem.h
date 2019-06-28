@@ -1,5 +1,6 @@
 #pragma once
 #include "Actor.h"
+#include "SceneBase.h"
 #include <vector>
 
 class GameSystem final
@@ -20,6 +21,8 @@ public:
 	int GetScreenWidth() { return mScreenWidth; }
 	int GetScreenHeight() { return mScreenHeight; }
 
+	void SetNowScene(SceneBase * scene) { mNowScene = scene; }
+
 private:
 	GameSystem();
 	
@@ -32,6 +35,8 @@ private:
 	float mNowCount;
 	float mPrevCount;
 	float mDeltaTime;
+
+	SceneBase * mNowScene;
 
 	std::vector<Actor*> mActor;
 
