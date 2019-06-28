@@ -11,7 +11,7 @@ public:
 		Dead,
 	};
 
-	Actor(State state = State::Active, bool gravityFlag = false, float gravityRate = 1.0f);
+	Actor(State state = State::Active, bool gravityFlag = false, float gravityRate = 1.0f, bool drawFlag = true);
 
 	virtual void Update(float deltaTime);
 	virtual void Draw();
@@ -28,6 +28,9 @@ public:
 
 	// 重力倍率
 	float GetGravityRate() { return mGravityRate; }
+
+	// 描画フラグ
+	bool GetDrawFlag() { return mDrawFlag; }
 
 	/////////////////////////////////////////////////////
 	// セッター
@@ -51,6 +54,9 @@ public:
 	// 重力倍率
 	void SetGravityRate(float value) { mGravityRate = value; }
 
+	// 描画フラグ
+	void SetDrawFlag(bool value) { mDrawFlag = value; }
+
 	/////////////////////////////////////////////////////
 	// アッダー(Adder)
 	// 元の値に足し引きしたいときに便利な関数として定義
@@ -71,6 +77,9 @@ protected:
 
 	// 状態
 	State mState;
+
+	// 描画するかどうかのフラグ
+	bool mDrawFlag;
 
 	// 重力の影響を受けるかどうかのフラグ
 	bool mGravityFlag;

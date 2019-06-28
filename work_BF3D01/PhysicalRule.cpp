@@ -4,7 +4,7 @@ PhysicalRule::~PhysicalRule()
 {
 }
 
-void PhysicalRule::Fall(Actor & actor)
+void PhysicalRule::Fall(Actor & actor, float gravityRate)
 {
-	actor.AddVelocity(VGet(0, mGravity, 0));
+	actor.AddVelocity(VGet(0, mGravity * gravityRate, 0));
 }

@@ -11,18 +11,6 @@ enum KeyStateEnum
 	Invalid
 };
 
-KeyStateEnum& operator ++(KeyStateEnum& val)
-{
-	val = (KeyStateEnum)(val + 1);
-	return val;
-}
-
-KeyStateEnum& operator ++(KeyStateEnum& val, int)
-{
-	val = (KeyStateEnum)(val + 1);
-	return val;
-}
-
 class Input final
 {
 private:
@@ -36,7 +24,7 @@ private:
 	char mPrevKeyNum;
 
 public:
-	Input& GetInstance()
+	static Input& GetInstance()
 	{
 		static Input instance;
 		return instance;

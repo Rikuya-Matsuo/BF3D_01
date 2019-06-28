@@ -4,7 +4,7 @@
 class PhysicalRule final
 {
 public:
-	PhysicalRule& GetInstance()
+	static PhysicalRule& GetInstance()
 	{
 		static PhysicalRule instance;
 		return instance;
@@ -13,7 +13,7 @@ public:
 	~PhysicalRule();
 
 	//アクターを落下させる関数
-	void Fall(Actor& actor);
+	void Fall(Actor& actor, float gravityRate = 1.0f);
 
 private:
 	PhysicalRule();
