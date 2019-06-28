@@ -1,8 +1,8 @@
 #include "Input.h"
 
 Input::Input():
-	mNowKey(0),
-	mPrevKey(1)
+	mNowKeyNum(0),
+	mPrevKeyNum(1)
 {
 	for (int i = 0; i < KEY_MASS; i++)
 	{
@@ -14,9 +14,41 @@ Input::Input():
 
 void Input::Update()
 {
-	// （あってる・・・？）
-	mNowKey ^= 1;
-	mPrevKey = 1 - mNowKey;
+	// 番号の反転
+	mNowKeyNum ^= 1;
+	mPrevKeyNum = 1 - mNowKeyNum;
 
-	GetHitKeyStateAll(mKey[mNowKey]);
+	// このフレームにおけるキーの押下情報取得
+	GetHitKeyStateAll(mKey[mNowKeyNum]);
+
+	// キーの状態を判定
+	for (int i = 0; i < KEY_MASS; ++i)
+	{
+		// まず、まったく押されていないキーについては無駄な判定をしたくない
+		if (!mKey[mNowKeyNum][i] && !mKey[mPrevKeyNum][i])
+		{
+			mKeyState[i] = KeyStateEnum::Off;
+			continue;
+		}
+		
+		// このフレームで押されているか
+		if (mKey[mNowKeyNum][i])
+		{
+			// 前のフレームで押されていたか
+			if (mKey[mPrevKeyNum][i])
+			{
+				mKeyState[i] = KeyStateEnum::Pressed;
+			}
+			else
+			{
+				mKeyState[i] = KeyStateEnum::PushDown;
+			}
+		}
+		else
+		{
+			// まったく押されていないキーについては上で判定済み
+			// よって、このフレームで触れられていない場合、自動的に前フレームでは押下されていたことになる
+			mKeyState[i] = KeyStateEnum::PullUp;
+		}
+	}
 }

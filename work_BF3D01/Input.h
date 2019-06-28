@@ -29,11 +29,11 @@ private:
 	Input();
 	virtual ~Input() {};
 
-	KeyStateEnum mKeyState[KEY_MASS];
+	char mKeyState[KEY_MASS];
 	char mKey[2][KEY_MASS];
 
-	char mNowKey;
-	char mPrevKey;
+	char mNowKeyNum;
+	char mPrevKeyNum;
 
 public:
 	Input& GetInstance()
@@ -44,7 +44,7 @@ public:
 
 	void Update();
 
-	KeyStateEnum GetInput(int keyCode) { return mKeyState[keyCode]; }
+	char GetInput(int keyCode) { return mKeyState[keyCode]; }
 	bool GetKeyDown(int keyCode) { return (mKeyState[keyCode] == KeyStateEnum::PushDown); }
 	bool GetKeyPressed(int keyCode) { return (mKeyState[keyCode] == KeyStateEnum::Pressed); }
 	bool GetKeyUp(int keyCode) { return (mKeyState[keyCode] == KeyStateEnum::PullUp); }
