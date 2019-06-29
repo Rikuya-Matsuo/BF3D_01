@@ -13,6 +13,10 @@ SceneBase::~SceneBase()
 {
 }
 
+void SceneBase::Draw()
+{
+}
+
 void SceneBase::GoNextScene(SceneBase * nextScene)
 {
 	// 次シーン移行フラグが真でなければ発動しない

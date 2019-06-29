@@ -12,6 +12,7 @@ public:
 	};
 
 	Actor(State state = State::Active, bool gravityFlag = false, float gravityRate = 1.0f, bool drawFlag = true);
+	virtual ~Actor() {};
 
 	virtual void Update(float deltaTime);
 	virtual void Draw();
@@ -74,6 +75,9 @@ public:
 protected:
 	VECTOR mPosition;
 	VECTOR mVelocity;
+
+	// ƒ‚ƒfƒ‹‚È‚¢‚µ‚Í‰æ‘œƒnƒ“ƒhƒ‹
+	int modelHandle;
 
 	// ó‘Ô
 	State mState;

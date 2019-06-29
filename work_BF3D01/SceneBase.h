@@ -7,6 +7,7 @@ public:
 	virtual ~SceneBase();
 
 	virtual void Update(float deltaTime) = 0;
+	virtual void Draw();
 
 	void GoNextScene(SceneBase * nextScene);
 

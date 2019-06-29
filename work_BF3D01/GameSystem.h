@@ -32,17 +32,17 @@ private:
 	int mScreenHeight;
 	bool mFullScreenFlag;
 
-	float mNowCount;
-	float mPrevCount;
+	int mNowCount;
+	int mPrevCount;
 	float mDeltaTime;
 
 	SceneBase * mNowScene;
 
-	std::vector<Actor*> mActor;
+	std::vector<Actor*> mActors;
 
 	void Init();
-	void GetInput();
 	float CulculateDeltaTime();
-	void ActorUpdate();
+	void UpdateActors();
+	void DrawActors();
 	void ShutDown();
 };
