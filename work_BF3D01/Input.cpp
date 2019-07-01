@@ -10,6 +10,7 @@ Input::Input():
 		mKey[1][i] = 0;
 		mKeyState[i] = KeyStateEnum::Off;
 	}
+	WaitTimer(0);
 }
 
 void Input::Update()
@@ -51,4 +52,5 @@ void Input::Update()
 			mKeyState[i] = KeyStateEnum::PullUp;
 		}
 	}
+	WaitTimer(0);
 }

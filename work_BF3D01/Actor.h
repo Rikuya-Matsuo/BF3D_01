@@ -12,7 +12,7 @@ public:
 	};
 
 	Actor(State state = State::Active, bool gravityFlag = false, float gravityRate = 1.0f, bool drawFlag = true);
-	virtual ~Actor() {};
+	virtual ~Actor();
 
 	virtual void Update(float deltaTime);
 	virtual void Draw();
@@ -25,13 +25,13 @@ public:
 	const VECTOR& GetVelocity() const { return mVelocity; }
 
 	// 重力適用フラグ
-	bool GetGravityFlag() { return mGravityFlag; }
+	bool GetGravityFlag()const { return mGravityFlag; }
 
 	// 重力倍率
-	float GetGravityRate() { return mGravityRate; }
+	float GetGravityRate()const { return mGravityRate; }
 
 	// 描画フラグ
-	bool GetDrawFlag() { return mDrawFlag; }
+	bool GetDrawFlag()const { return mDrawFlag; }
 
 	/////////////////////////////////////////////////////
 	// セッター

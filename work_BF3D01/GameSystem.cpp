@@ -3,12 +3,15 @@
 
 GameSystem::GameSystem():
 	mRunFlag(true),
-	mNowScene(NULL)
+	mNowScene(nullptr)
 {
 }
 
 void GameSystem::Run()
 {
+	// 主にDxlib方面の初期化
+	Init();
+
 	// 最初のフレームでのmDeltaTimeを小さくするため、mPrevCountはループ開始直前に初期化
 	mPrevCount = GetNowCount();
 
@@ -26,11 +29,14 @@ void GameSystem::Run()
 		// アクター更新
 		UpdateActors();
 
+		// スクリーン初期化
+		ClearDrawScreen();
+
 		// シーン描画
 		mNowScene->Draw();
 
 		// アクター描画
-		UpdateActors();
+		DrawActors();
 
 		// 裏画面の情報を表に描画
 		ScreenFlip();
@@ -102,7 +108,7 @@ void GameSystem::ShutDown()
 	DxLib_End();
 }
 
-void GameSystem::SetScreen(int screenWidth, int screenHeight, bool fullScreen)
+void GameSystem::SetScreenInfo(int screenWidth, int screenHeight, bool fullScreen)
 {
 	mScreenWidth = screenWidth;
 	mScreenHeight = screenHeight;

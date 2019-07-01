@@ -12,7 +12,7 @@ public:
 		return instance;
 	}
 
-	void SetScreen(int screenWidth, int screenHeight, bool fullScreen);
+	void SetScreenInfo(int screenWidth, int screenHeight, bool fullScreen);
 	void Run();
 
 	void AddActor(Actor * actor);
