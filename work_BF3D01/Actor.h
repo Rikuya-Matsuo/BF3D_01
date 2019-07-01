@@ -33,6 +33,9 @@ public:
 	// 描画フラグ
 	bool GetDrawFlag()const { return mDrawFlag; }
 
+	// 移動スピード
+	float GetSpeed()const { return mSpeed; }
+
 	/////////////////////////////////////////////////////
 	// セッター
 	/////////////////////////////////////////////////////
@@ -58,6 +61,9 @@ public:
 	// 描画フラグ
 	void SetDrawFlag(bool value) { mDrawFlag = value; }
 
+	// 移動スピード
+	float SetSpeed(float value) { mSpeed = value; }
+
 	/////////////////////////////////////////////////////
 	// アッダー(Adder)
 	// 元の値に足し引きしたいときに便利な関数として定義
@@ -72,12 +78,15 @@ public:
 	void AddVelocity(const VECTOR & value) { mVelocity = VAdd(mVelocity, value); }
 	void AddVelocity(float in_velX, float in_velY, float in_velZ) { mVelocity = VAdd(mVelocity, VGet(in_velX, in_velY, in_velZ)); }
 
+	// 移動スピード
+	void AddSpeed(float value) { mSpeed += value; }
+
 protected:
 	VECTOR mPosition;
 	VECTOR mVelocity;
 
 	// モデルないしは画像ハンドル
-	int modelHandle;
+	int mModelHandle;
 
 	// 状態
 	State mState;
@@ -91,4 +100,8 @@ protected:
 	// 重力の影響を何倍にするか。
 	// これによって落下速度を上げたり下げたりできる。
 	float mGravityRate;
+
+	// 移動する速さ
+	// 単位は「ドット／秒」
+	float mSpeed;
 };

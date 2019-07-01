@@ -18,8 +18,10 @@ public:
 	void AddActor(Actor * actor);
 	void RemoveActor(Actor * actor);
 
-	int GetScreenWidth() { return mScreenWidth; }
-	int GetScreenHeight() { return mScreenHeight; }
+	int GetScreenWidth()const { return mScreenWidth; }
+	int GetScreenHeight()const { return mScreenHeight; }
+	
+	float GetDeltaTime()const { return mDeltaTime; }
 
 	void SetNowScene(SceneBase * scene) { mNowScene = scene; }
 

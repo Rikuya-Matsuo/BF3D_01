@@ -1,10 +1,15 @@
 ﻿#include "PhysicalRule.h"
 
+PhysicalRule::PhysicalRule():
+	mGravity(9.8f)
+{
+}
+
 PhysicalRule::~PhysicalRule()
 {
 }
 
-void PhysicalRule::Fall(Actor & actor, float gravityRate) const
+void PhysicalRule::Fall(Actor & actor) const
 {
-	actor.AddVelocity(VGet(0, mGravity * gravityRate, 0));
+	actor.AddVelocity(VGet(0, mGravity * actor.GetGravityRate(), 0));
 }

@@ -135,6 +135,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PhysicalRule.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneBase.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +145,7 @@
     <ClInclude Include="GameSystem.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="PhysicalRule.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="SceneBase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

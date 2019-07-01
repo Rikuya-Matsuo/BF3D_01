@@ -18,7 +18,7 @@ public:
 	~PhysicalRule();
 
 	//アクターを落下させる関数
-	void Fall (Actor& actor, float gravityRate = 1.0f) const;
+	void Fall (Actor& actor) const;
 
 	//重力加速度セッター
 	void SetGravity(float value) { mGravity = value; }
