@@ -1,4 +1,4 @@
-#include "PhysicalRule.h"
+﻿#include "PhysicalRule.h"
 
 PhysicalRule::~PhysicalRule()
 {

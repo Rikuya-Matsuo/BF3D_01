@@ -1,4 +1,4 @@
-#define _DEBUG_BF3D
+﻿#define _DEBUG_BF3D
 
 #include"DxLib.h"
 #include "GameSystem.h"

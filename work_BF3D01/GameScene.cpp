@@ -1,4 +1,4 @@
-#include "GameScene.h"
+﻿#include "GameScene.h"
 #include "Input.h"
 
 
@@ -15,7 +15,7 @@ GameScene::~GameScene()
 void GameScene::Update(float deltaTime)
 {
 	clsDx();
-
+	
 	printfDx("ゲーム画面\n");
 }
 

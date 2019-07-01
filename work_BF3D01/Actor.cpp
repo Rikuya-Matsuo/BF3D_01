@@ -1,4 +1,4 @@
-#include "Actor.h"
+﻿#include "Actor.h"
 #include "GameSystem.h"
 
 Actor::Actor(State state, bool gravityFlag, float gravityRate, bool drawFlag):
