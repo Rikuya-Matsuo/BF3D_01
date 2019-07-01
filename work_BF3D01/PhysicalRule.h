@@ -1,8 +1,8 @@
 #include "Actor.h"
 
-// ¡Œã‚±‚ÌƒQ[ƒ€ƒVƒXƒeƒ€ƒVƒ“ƒOƒ‹ƒgƒ“‚ðŽg‚¢‚Ü‚í‚·‚±‚Æ‚ðl‚¦‚ÄA
-// uƒvƒƒWƒFƒNƒg“à‚É•¨—–@‘¥ƒNƒ‰ƒX‚ðŠÜ‚Þv‚±‚Æ‚ðŽ¦‚·ƒ}ƒNƒ‚ð’è‹`B
-// ‚Â‚¢‚Å‚Épragma once‚ð­‚µŒÃ‚¢•û–@‚Å‘‚¢‚Ä‚Ý‚½BƒƒŠƒbƒg‚Í‚È‚¢‚ªƒfƒƒŠƒbƒg‚à‚È‚¢B‘½•ªB
+// ä»Šå¾Œã“ã®ã‚²ãƒ¼ãƒ ã‚·ã‚¹ãƒ†ãƒ ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚’ä½¿ã„ã¾ã‚ã™ã“ã¨ã‚’è€ƒãˆã¦ã€
+// ã€Œãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆå†…ã«ç‰©ç†æ³•å‰‡ã‚¯ãƒ©ã‚¹ã‚’å«ã‚€ã€ã“ã¨ã‚’ç¤ºã™ãƒžã‚¯ãƒ­ã‚’å®šç¾©ã€‚
+// ã¤ã„ã§ã«pragma onceã‚’å°‘ã—å¤ã„æ–¹æ³•ã§æ›¸ã„ã¦ã¿ãŸã€‚ãƒ¡ãƒªãƒƒãƒˆã¯ãªã„ãŒãƒ‡ãƒ¡ãƒªãƒƒãƒˆã‚‚ãªã„ã€‚å¤šåˆ†ã€‚
 #ifndef _PHYSICAL_RULE
 #define _PHYSICAL_RULE 1
 
@@ -17,14 +17,14 @@ public:
 
 	~PhysicalRule();
 
-	//ƒAƒNƒ^[‚ð—Ž‰º‚³‚¹‚éŠÖ”
+	//ã‚¢ã‚¯ã‚¿ãƒ¼ã‚’è½ä¸‹ã•ã›ã‚‹é–¢æ•°
 	void Fall (Actor& actor, float gravityRate = 1.0f) const;
 
-	//d—Í‰Á‘¬“xƒZƒbƒ^[
+	//é‡åŠ›åŠ é€Ÿåº¦ã‚»ãƒƒã‚¿ãƒ¼
 	void SetGravity(float value) { mGravity = value; }
 
-	//d—Í‰Á‘¬“xƒQƒbƒ^[
-	//ƒZƒbƒ^[‚ª‚ ‚é‚È‚çƒQƒbƒ^[‚à‚ ‚Á‚½‚Ù‚¤‚ª‚¢‚¢‚æ‚Ë‚Á‚Ä‚±‚Æ‚ÅB
+	//é‡åŠ›åŠ é€Ÿåº¦ã‚²ãƒƒã‚¿ãƒ¼
+	//ã‚»ãƒƒã‚¿ãƒ¼ãŒã‚ã‚‹ãªã‚‰ã‚²ãƒƒã‚¿ãƒ¼ã‚‚ã‚ã£ãŸã»ã†ãŒã„ã„ã‚ˆã­ã£ã¦ã“ã¨ã§ã€‚
 	float GetGravity() { return mGravity; }
 
 private:

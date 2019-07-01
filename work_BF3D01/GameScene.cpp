@@ -16,7 +16,7 @@ void GameScene::Update(float deltaTime)
 {
 	clsDx();
 
-	printfDx("ƒQ[ƒ€‰æ–Ê\n");
+	printfDx("ã‚²ãƒ¼ãƒ ç”»é¢\n");
 }
 
 void GameScene::Draw()

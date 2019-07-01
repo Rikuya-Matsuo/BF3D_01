@@ -19,13 +19,13 @@ void SceneBase::Draw()
 
 void SceneBase::GoNextScene(SceneBase * nextScene)
 {
-	// ���V�[���ڍs�t���O���^�łȂ���Δ������Ȃ�
+	// 次シーン移行フラグが真でなければ発動しない
 	if (mGoNextSceneFlag)
 	{
-		// �V�[���؂�ւ�
+		// シーン切り替え
 		GameSystem::GetInstance().SetNowScene(nextScene);
 
-		// ���̃V�[�����폜�i������N���X�̎��E�B���c�������ꕶ�H�j
+		// このシーンを削除（いわゆるクラスの自殺。物議を醸す一文？）
 		delete this;
 	}
 }

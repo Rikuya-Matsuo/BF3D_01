@@ -18,54 +18,54 @@ public:
 	virtual void Draw();
 
 	/////////////////////////////////////////////////////
-	// ƒQƒbƒ^[
+	// ã‚²ãƒƒã‚¿ãƒ¼
 	/////////////////////////////////////////////////////
-	// ˆÊ’uÀ•W
+	// ä½ç½®åº§æ¨™
 	const VECTOR& GetPosition() const { return mPosition; }
 	const VECTOR& GetVelocity() const { return mVelocity; }
 
-	// d—Í“K—pƒtƒ‰ƒO
+	// é‡åŠ›é©ç”¨ãƒ•ãƒ©ã‚°
 	bool GetGravityFlag()const { return mGravityFlag; }
 
-	// d—Í”{—¦
+	// é‡åŠ›å€ç‡
 	float GetGravityRate()const { return mGravityRate; }
 
-	// •`‰æƒtƒ‰ƒO
+	// æç”»ãƒ•ãƒ©ã‚°
 	bool GetDrawFlag()const { return mDrawFlag; }
 
 	/////////////////////////////////////////////////////
-	// ƒZƒbƒ^[
+	// ã‚»ãƒƒã‚¿ãƒ¼
 	/////////////////////////////////////////////////////
-	// ˆÊ’uÀ•W
+	// ä½ç½®åº§æ¨™
 	void SetPosition(const VECTOR & value) { mPosition = value; }
 
-	// ƒAƒNƒ^[ó‘Ô
+	// ã‚¢ã‚¯ã‚¿ãƒ¼çŠ¶æ…‹
 	void SetState(State value) { mState = value; }
 
-	// ‘¬“x
+	// é€Ÿåº¦
 	void SetVelocityX(float in_velX) { mVelocity.x = in_velX; }
 	void SetVelocityY(float in_velY) { mVelocity.y = in_velY; }
 	void SetVelocityZ(float in_velZ) { mVelocity.z = in_velZ; }
 	void SetVelocity(const VECTOR & value) { mVelocity = value; }
 	void SetVelocity(float in_velX, float in_velY, float in_velZ) { mVelocity = VGet(in_velX, in_velY, in_velZ); }
 
-	// d—Í“K—pƒtƒ‰ƒO
+	// é‡åŠ›é©ç”¨ãƒ•ãƒ©ã‚°
 	void SetGravityFlag(bool value) { mGravityFlag = value; }
 
-	// d—Í”{—¦
+	// é‡åŠ›å€ç‡
 	void SetGravityRate(float value) { mGravityRate = value; }
 
-	// •`‰æƒtƒ‰ƒO
+	// æç”»ãƒ•ãƒ©ã‚°
 	void SetDrawFlag(bool value) { mDrawFlag = value; }
 
 	/////////////////////////////////////////////////////
-	// ƒAƒbƒ_[(Adder)
-	// Œ³‚Ì’l‚É‘«‚µˆø‚«‚µ‚½‚¢‚Æ‚«‚É•Ö—˜‚ÈŠÖ”‚Æ‚µ‚Ä’è‹`
+	// ã‚¢ãƒƒãƒ€ãƒ¼(Adder)
+	// å…ƒã®å€¤ã«è¶³ã—å¼•ãã—ãŸã„ã¨ãã«ä¾¿åˆ©ãªé–¢æ•°ã¨ã—ã¦å®šç¾©
 	/////////////////////////////////////////////////////
-	// ˆÊ’uî•ñ
+	// ä½ç½®æƒ…å ±
 	void AddPosition(const VECTOR & value) { mVelocity = VAdd(mVelocity, value); }
 	
-	// ‘¬“x
+	// é€Ÿåº¦
 	void AddVelocityX(float in_velX) { mVelocity.x += in_velX; }
 	void AddVelocityY(float in_velY) { mVelocity.y += in_velY; }
 	void AddVelocityZ(float in_velZ) { mVelocity.z += in_velZ; }
@@ -76,19 +76,19 @@ protected:
 	VECTOR mPosition;
 	VECTOR mVelocity;
 
-	// ƒ‚ƒfƒ‹‚È‚¢‚µ‚Í‰æ‘œƒnƒ“ƒhƒ‹
+	// ãƒ¢ãƒ‡ãƒ«ãªã„ã—ã¯ç”»åƒãƒãƒ³ãƒ‰ãƒ«
 	int modelHandle;
 
-	// ó‘Ô
+	// çŠ¶æ…‹
 	State mState;
 
-	// •`‰æ‚·‚é‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO
+	// æç”»ã™ã‚‹ã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚°
 	bool mDrawFlag;
 
-	// d—Í‚Ì‰e‹¿‚ğó‚¯‚é‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO
+	// é‡åŠ›ã®å½±éŸ¿ã‚’å—ã‘ã‚‹ã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚°
 	bool mGravityFlag;
 
-	// d—Í‚Ì‰e‹¿‚ğ‰½”{‚É‚·‚é‚©B
-	// ‚±‚ê‚É‚æ‚Á‚Ä—‰º‘¬“x‚ğã‚°‚½‚è‰º‚°‚½‚è‚Å‚«‚éB
+	// é‡åŠ›ã®å½±éŸ¿ã‚’ä½•å€ã«ã™ã‚‹ã‹ã€‚
+	// ã“ã‚Œã«ã‚ˆã£ã¦è½ä¸‹é€Ÿåº¦ã‚’ä¸Šã’ãŸã‚Šä¸‹ã’ãŸã‚Šã§ãã‚‹ã€‚
 	float mGravityRate;
 };

@@ -9,46 +9,46 @@ GameSystem::GameSystem():
 
 void GameSystem::Run()
 {
-	// å‚ÉDxlib•û–Ê‚Ì‰Šú‰»
+	// ä¸»ã«Dxlibæ–¹é¢ã®åˆæœŸåŒ–
 	Init();
 
-	// Å‰‚ÌƒtƒŒ[ƒ€‚Å‚ÌmDeltaTime‚ğ¬‚³‚­‚·‚é‚½‚ßAmPrevCount‚Íƒ‹[ƒvŠJn’¼‘O‚É‰Šú‰»
+	// æœ€åˆã®ãƒ•ãƒ¬ãƒ¼ãƒ ã§ã®mDeltaTimeã‚’å°ã•ãã™ã‚‹ãŸã‚ã€mPrevCountã¯ãƒ«ãƒ¼ãƒ—é–‹å§‹ç›´å‰ã«åˆæœŸåŒ–
 	mPrevCount = GetNowCount();
 
 	while (mRunFlag)
 	{
-		// “ü—Íî•ñ‚ÌXV
+		// å…¥åŠ›æƒ…å ±ã®æ›´æ–°
 		Input::GetInstance().Update();
 
-		// ƒtƒŒ[ƒ€ŠÔ•b”‚ÌZo
+		// ãƒ•ãƒ¬ãƒ¼ãƒ é–“ç§’æ•°ã®ç®—å‡º
 		CulculateDeltaTime();
 
-		// ƒV[ƒ“XV
+		// ã‚·ãƒ¼ãƒ³æ›´æ–°
 		mNowScene->Update(mDeltaTime);
 
-		// ƒAƒNƒ^[XV
+		// ã‚¢ã‚¯ã‚¿ãƒ¼æ›´æ–°
 		UpdateActors();
 
-		// ƒXƒNƒŠ[ƒ“‰Šú‰»
+		// ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åˆæœŸåŒ–
 		ClearDrawScreen();
 
-		// ƒV[ƒ“•`‰æ
+		// ã‚·ãƒ¼ãƒ³æç”»
 		mNowScene->Draw();
 
-		// ƒAƒNƒ^[•`‰æ
+		// ã‚¢ã‚¯ã‚¿ãƒ¼æç”»
 		DrawActors();
 
-		// — ‰æ–Ê‚Ìî•ñ‚ğ•\‚É•`‰æ
+		// è£ç”»é¢ã®æƒ…å ±ã‚’è¡¨ã«æç”»
 		ScreenFlip();
 
-		// ƒQ[ƒ€I—¹”»’è
+		// ã‚²ãƒ¼ãƒ çµ‚äº†åˆ¤å®š
 		if (ProcessMessage() != 0 || Input::GetInstance().GetKeyDown(KEY_INPUT_ESCAPE))
 		{
 			break;
 		}
 	}
 
-	// Œã•Ğ•t‚¯
+	// å¾Œç‰‡ä»˜ã‘
 	ShutDown();
 }
 
@@ -68,15 +68,15 @@ void GameSystem::Init()
 
 float GameSystem::CulculateDeltaTime()
 {
-	// Œ»İ‚ÌƒJƒEƒ“ƒg‚ğæ“¾
+	// ç¾åœ¨ã®ã‚«ã‚¦ãƒ³ãƒˆã‚’å–å¾—
 	mNowCount = GetNowCount();
 
-	// ‘OƒtƒŒ[ƒ€‚©‚ç‚ÌŒo‰ßŠÔ‚ğZo
-	// mDeltaTime‚É‚¨‚¢‚Ä‚Í’PˆÊ‚ğuƒ~ƒŠ•bv‚©‚çu•bv‚É•ÏŠ·
+	// å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã‹ã‚‰ã®çµŒéæ™‚é–“ã‚’ç®—å‡º
+	// mDeltaTimeã«ãŠã„ã¦ã¯å˜ä½ã‚’ã€ŒãƒŸãƒªç§’ã€ã‹ã‚‰ã€Œç§’ã€ã«å¤‰æ›
 	mDeltaTime = (float)(mNowCount - mPrevCount);
 	mDeltaTime /= 1000.0f;
 
-	// ‚±‚ÌƒtƒŒ[ƒ€‚É‚¨‚¯‚éƒJƒEƒ“ƒg‚Ì‹L˜^
+	// ã“ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã«ãŠã‘ã‚‹ã‚«ã‚¦ãƒ³ãƒˆã®è¨˜éŒ²
 	mPrevCount = mNowCount;
 
 	return mDeltaTime;
