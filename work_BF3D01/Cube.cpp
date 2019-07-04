@@ -1,4 +1,4 @@
-#include "Cube.h"
+ï»¿#include "Cube.h"
 
 
 
@@ -28,28 +28,28 @@ void Cube::Draw() const
 	VECTOR copyVertex = mVertex;
 	VECTOR copyInversion = mInversionVertex;
 
-	// X•ûŒüü•ª•`‰æ
+	// Xæ–¹å‘ç·šåˆ†æç”»
 	{
-		// ˆê–{–Ú
+		// ä¸€æœ¬ç›®
 		copyInversion.y = mVertex.y;
 		copyInversion.z = mVertex.z;
 		DrawLine3D(copyVertex, copyInversion, mColor);
 		copyInversion = mInversionVertex;
 
-		// “ñ–{–Ú
+		// äºŒæœ¬ç›®
 		copyVertex.y = mInversionVertex.y;
 		copyInversion.z = mVertex.z;
 		DrawLine3D(copyVertex, copyInversion, mColor);
 		copyVertex = mVertex;
 		copyInversion = mInversionVertex;
 
-		// O–{–Ú
+		// ä¸‰æœ¬ç›®
 		copyVertex.y = mInversionVertex.y;
 		copyVertex.z = mInversionVertex.z;
 		DrawLine3D(copyVertex, copyInversion, mColor);
 		copyVertex = mVertex;
 
-		// l–{–Ú
+		// å››æœ¬ç›®
 		copyInversion.y = mVertex.y;
 		copyVertex.z = mInversionVertex.z;
 		DrawLine3D(copyVertex, copyInversion, mColor);
@@ -57,28 +57,28 @@ void Cube::Draw() const
 		copyInversion = mInversionVertex;
 	}
 
-	// Y•ûŒüü•ª•`‰æ
+	// Yæ–¹å‘ç·šåˆ†æç”»
 	{
-		// ˆê–{–Ú
+		// ä¸€æœ¬ç›®
 		copyInversion.x = mVertex.x;
 		copyInversion.z = mVertex.z;
 		DrawLine3D(copyVertex, copyInversion, mColor);
 		copyInversion = mInversionVertex;
 
-		// “ñ–{–Ú
+		// äºŒæœ¬ç›®
 		copyVertex.x = mInversionVertex.x;
 		copyInversion.z = mVertex.z;
 		DrawLine3D(copyVertex, copyInversion, mColor);
 		copyVertex = mVertex;
 		copyInversion = mInversionVertex;
 
-		// O–{–Ú
+		// ä¸‰æœ¬ç›®
 		copyVertex.x = mInversionVertex.x;
 		copyVertex.z = mInversionVertex.z;
 		DrawLine3D(copyVertex, copyInversion, mColor);
 		copyVertex = mVertex;
 
-		// l–{–Ú
+		// å››æœ¬ç›®
 		copyInversion.x = mVertex.x;
 		copyVertex.z = mInversionVertex.z;
 		DrawLine3D(copyVertex, copyInversion, mColor);
@@ -86,28 +86,28 @@ void Cube::Draw() const
 		copyInversion = mInversionVertex;
 	}
 
-	// Z•ûŒüü•ª•`‰æ
+	// Zæ–¹å‘ç·šåˆ†æç”»
 	{
-		// ˆê–{–Ú
+		// ä¸€æœ¬ç›®
 		copyInversion.x = mVertex.x;
 		copyInversion.y = mVertex.y;
 		DrawLine3D(copyVertex, copyInversion, mColor);
 		copyInversion = mInversionVertex;
 
-		// “ñ–{–Ú
+		// äºŒæœ¬ç›®
 		copyVertex.x = mInversionVertex.x;
 		copyInversion.y = mVertex.y;
 		DrawLine3D(copyVertex, copyInversion, mColor);
 		copyVertex = mVertex;
 		copyInversion = mInversionVertex;
 
-		// O–{–Ú
+		// ä¸‰æœ¬ç›®
 		copyVertex.x = mInversionVertex.x;
 		copyVertex.y = mInversionVertex.y;
 		DrawLine3D(copyVertex, copyInversion, mColor);
 		copyVertex = mVertex;
 
-		// l–{–Ú
+		// å››æœ¬ç›®
 		copyInversion.x = mVertex.x;
 		copyVertex.y = mInversionVertex.y;
 		DrawLine3D(copyVertex, copyInversion, mColor);

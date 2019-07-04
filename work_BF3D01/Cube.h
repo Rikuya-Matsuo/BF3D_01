@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "DxLib.h"
 
 class Cube
@@ -18,14 +18,14 @@ public:
 	void Draw() const;
 
 protected:
-	// ƒLƒ…[ƒu‚Ì’¸“_‚Æ‚»‚Ì”½‘Î‘¤‚Ì’¸“_‚ÌŠeÀ•W
+	// ã‚­ãƒ¥ãƒ¼ãƒ–ã®é ‚ç‚¹ã¨ãã®åå¯¾å´ã®é ‚ç‚¹ã®å„åº§æ¨™
 	VECTOR mVertex;
 	VECTOR mInversionVertex;
 
-	// ƒLƒ…[ƒu‚ÌF
+	// ã‚­ãƒ¥ãƒ¼ãƒ–ã®è‰²
 	unsigned int mColor;
 
-	// ƒRƒŠƒWƒ‡ƒ“‚ğİ‚¯‚é‚©‚Ìƒtƒ‰ƒO
+	// ã‚³ãƒªã‚¸ãƒ§ãƒ³ã‚’è¨­ã‘ã‚‹ã‹ã®ãƒ•ãƒ©ã‚°
 	bool mCollisionFlag;
 };
 
