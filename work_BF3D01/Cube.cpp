@@ -2,7 +2,13 @@
 
 
 
-Cube::Cube()
+Cube::Cube(VECTOR vertex, VECTOR inversionVertex, bool collisionFlag, bool drawFlag, unsigned int color):
+	mVertex(vertex),
+	mInversionVertex(inversionVertex),
+	mCollisionFlag(collisionFlag),
+	mDrawFlag(drawFlag),
+	mDrawSurfaceFlag(true),
+	mColor(color)
 {
 }
 
@@ -25,7 +31,14 @@ void Cube::Move(VECTOR velocity)
 
 void Cube::Draw() const
 {
+	// 描画フラグがfalseなら、関数を抜ける
+	if (!mDrawFlag)
+	{
+		return;
+	}
+
 	// 線で描画
+	if (!mDrawSurfaceFlag)
 	{
 		VECTOR copyVertex = mVertex;
 		VECTOR copyInversion = mInversionVertex;
@@ -119,20 +132,52 @@ void Cube::Draw() const
 	}
 
 	// 面を描画
-	// 三角形を二つ組み合わせて描画する
+	else
 	{
-		// 描画する三角形の頂点
-		VECTOR vertex[3];
+		// 描画する面を指定するために必要なもう一つの頂点座標
+		// これとmVertex, mInversionVertexを使って描画する面の対角を示す
+		VECTOR anotherVertex;
 
 		// 上面
 		{
-			vertex[0] = VGet(mVertex.x, mVertex.y, mInversionVertex.z);
-			vertex[1] = mVertex;
-			vertex[2] = VGet(mInversionVertex.x, mVertex.y, mInversionVertex.z);
-			DrawTriangle3D(vertex[0], vertex[1], vertex[2], mColor, TRUE);
+			anotherVertex = VGet(mInversionVertex.x, mVertex.y, mInversionVertex.z);
 
-			vertex[0] = VGet(mInversionVertex.x, mVertex.y, mVertex.z);
-			DrawTriangle3D(vertex[0], vertex[1], vertex[2], mColor, TRUE);
+			DrawRectangle3D(mVertex, anotherVertex, mColor);
+		}
+
+		// 側面 * 4
+		// ちなみに描画順はanotherVertexの移動する辺が少なくなるよう決めている。
+		// それにより1, 2, 4つ目の座標設定ではVGetを使わず、VECTORメンバ変数だけ書き換えることで処理の軽量化が見込める。
+		// （微々たるものかもしれないが・・・）
+		{
+			// 一つ目
+			anotherVertex = VGet(mInversionVertex.x, mVertex.y, mVertex.z);
+			
+			DrawRectangle3D(mInversionVertex, anotherVertex, mColor);
+
+			// 二つ目
+			anotherVertex = VGet(mInversionVertex.x, mInversionVertex.y, mVertex.z);
+
+			DrawRectangle3D(mVertex, anotherVertex, mColor);
+
+			// 三つ目
+			anotherVertex = VGet(mVertex.x, mVertex.y, mInversionVertex.z);
+
+			DrawRectangle3D(mInversionVertex, anotherVertex, mColor);
+
+			// 四つ目
+			anotherVertex = VGet(mVertex.x, mInversionVertex.y, mInversionVertex.z);
+
+			DrawRectangle3D(mVertex, anotherVertex, mColor);
+		}
+
+		// 底面
+		// ここも上と同じく、Z座標を書き換えるだけで頂点座標の設定が可能。
+		// ひとまず可読性を重視し、VGetを用いる
+		{
+			anotherVertex = VGet(mVertex.x, mInversionVertex.y, mVertex.z);
+
+			DrawRectangle3D(mInversionVertex, anotherVertex, mColor);
 		}
 	}
 }
