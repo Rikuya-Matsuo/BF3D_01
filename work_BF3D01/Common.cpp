@@ -15,7 +15,7 @@ void DrawRectangle3D(const VECTOR& pos1, const VECTOR& pos2, unsigned int color,
 
 	0			1
 	 +---------+
-	 |		   |
+	 |         |
 	 +---------+
 	2			3
 	*/
