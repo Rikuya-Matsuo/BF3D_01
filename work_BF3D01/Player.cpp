@@ -81,11 +81,24 @@ void Player::Update(float deltaTime)
 
 	Move();
 
+	// きれいごとは言ってられないんだよぉ！
+	if (mPosition.y < 0)
+	{
+		Cube hoge(VGet(0, 0, 0), VGet(0, 0, 0), true);
+		OnCollisionHit(hoge);
+	}
+
 	MV1SetPosition(mModelHandle, mPosition);
 	MV1SetPosition(mBalloonModel, VAdd(mPosition, mBalloonPositionOffset));
 
 	VECTOR pos = GetPosition();
 	printfDx("PlayerPos:%f, %f, %f", pos.x, pos.y, pos.z);
+}
+
+void Player::OnCollisionHit(const Cube & opponentCollision)
+{
+	SetVelocityY(0.0f);
+	SetPosition(VGet(mPosition.x, 0.0f, mPosition.z));
 }
 
 void Player::Move()

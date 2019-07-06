@@ -38,6 +38,9 @@ void GameSystem::Run()
 		// アクター描画
 		DrawActors();
 
+		// 地面・壁の描画
+		DrawGround();
+
 		// 裏画面の情報を表に描画
 		ScreenFlip();
 
@@ -115,12 +118,26 @@ void GameSystem::DrawActors()
 	}
 }
 
+void GameSystem::DrawGround()
+{
+	for (auto ground : mGround)
+	{
+		ground->Draw();
+	}
+}
+
 void GameSystem::ShutDown()
 {
 	while (!mActors.empty())
 	{
 		delete mActors.back();
 	}
+
+	while (!mGround.empty())
+	{
+		mGround.pop_back();
+	}
+	mGround.shrink_to_fit();
 
 	DxLib_End();
 }
@@ -142,4 +159,9 @@ void GameSystem::RemoveActor(Actor * actor)
 	auto target = std::find(mActors.begin(), mActors.end(), actor);
 
 	mActors.erase(target);
+}
+
+void GameSystem::AddGround(Cube * cube)
+{
+	mGround.emplace_back(cube);
 }

@@ -8,6 +8,7 @@ public:
 	~Player();
 
 	void Update(float deltaTime) override;
+	void OnCollisionHit(const Cube& opponentCollision) override;
 
 private:
 	// 制動率

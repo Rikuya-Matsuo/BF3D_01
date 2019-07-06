@@ -8,7 +8,7 @@ Actor::Actor(int modelHandle,State state, bool gravityFlag, float gravityRate, b
 	mGravityRate(gravityRate),
 	mDrawFlag(drawFlag),
 	mSpeed(0.0f),
-	mPosition(VGet(0.0f, 0.0f, 0.0f)),
+	mPosition(VGet(0.0f, -50.0f, 0.0f)),
 	mVelocity(VGet(0.0f, 0.0f, 0.0f))
 {
 	GameSystem::GetInstance().AddActor(this);
@@ -35,4 +35,8 @@ void Actor::Draw()
 	{
 		MV1DrawModel(mModelHandle);
 	}
+}
+
+void Actor::OnCollisionHit(const Cube & opponentCollision)
+{
 }

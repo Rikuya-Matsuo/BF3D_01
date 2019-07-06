@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "DxLib.h"
 #include "Common.h"
+#include "Actor.h"
 
 class Cube
 {
@@ -15,6 +16,7 @@ public:
 	void SetDrawFlag(bool value) { mDrawFlag = value; }
 	void SetDrawSurfaceFlag(bool value) { mDrawSurfaceFlag = value; }
 	void SetCollisionFlag(bool value) { mCollisionFlag = value; }
+	//void SetOwner(const Actor * owner) { mOwner = (Actor *)owner; }
 
 	void Move(VECTOR velocity);
 
@@ -36,5 +38,8 @@ protected:
 
 	// コリジョンを設けるかのフラグ
 	bool mCollisionFlag;
+
+	// コリジョンとして使われるときの持ち主
+	// Actor * mOwner;
 };
 

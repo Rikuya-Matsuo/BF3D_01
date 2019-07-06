@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Actor.h"
+#include "Cube.h"
 #include "SceneBase.h"
 #include <vector>
 
@@ -18,6 +19,8 @@ public:
 
 	void AddActor(Actor * actor);
 	void RemoveActor(Actor * actor);
+
+	void AddGround(Cube * cube);
 
 	int GetScreenWidth()const { return mScreenWidth; }
 	int GetScreenHeight()const { return mScreenHeight; }
@@ -43,8 +46,11 @@ private:
 
 	std::vector<Actor*> mActors;
 
+	std::vector<Cube*> mGround;
+
 	float CulculateDeltaTime();
 	void UpdateActors();
 	void DrawActors();
+	void DrawGround();
 	void ShutDown();
 };

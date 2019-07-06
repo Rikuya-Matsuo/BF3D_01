@@ -1,5 +1,8 @@
 ﻿#pragma once
 #include "DxLib.h"
+#include "Cube.h"
+
+class Cube;
 
 class Actor
 {
@@ -16,6 +19,8 @@ public:
 
 	virtual void Update(float deltaTime);
 	virtual void Draw();
+
+	virtual void OnCollisionHit(const Cube & opponentCollision);
 
 	/////////////////////////////////////////////////////
 	// ゲッター
