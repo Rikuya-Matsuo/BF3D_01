@@ -7,13 +7,14 @@ void Camera::SetNearFar(float in_near, float in_far)
 	SetCameraNearFar(mNear, mFar);
 }
 
-Camera::Camera():
+Camera::Camera(float in_near, float in_far):
 	mFollowActor(NULL),
 	mPosition(VGet(0.0f, 0.0f, 0.0f)),
-	mNear(0.1f),
-	mFar(1500.0f),
+	mNear(in_near),
+	mFar(in_far),
 	mFollowFlag(true)
 {
+	SetCameraNearFar(mNear, mFar);
 }
 
 

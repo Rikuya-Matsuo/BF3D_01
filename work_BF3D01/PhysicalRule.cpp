@@ -11,5 +11,12 @@ PhysicalRule::~PhysicalRule()
 
 void PhysicalRule::Fall(Actor & actor) const
 {
-	actor.AddVelocity(VGet(0, mGravity * actor.GetGravityRate(), 0));
+	if (actor.GetGravityFlag())
+	{
+		actor.AddVelocity(VGet(0, mGravity * GameSystem::GetInstance().GetDeltaTime() * actor.GetGravityRate(), 0));
+	}
+	else
+	{
+		printfDx("重力フラグが負であるため、落下を実行できません");
+	}
 }

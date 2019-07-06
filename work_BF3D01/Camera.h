@@ -5,7 +5,7 @@
 class Camera
 {
 public:
-	Camera();
+	Camera(float in_near, float in_far);
 	~Camera();
 
 	void Update();

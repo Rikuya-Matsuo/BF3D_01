@@ -5,8 +5,15 @@
 
 Player::Player(int modelHandle, State state, bool gravityFlag, float gravityRate, bool drawFlag):
 	Actor(modelHandle, state, gravityFlag, gravityRate, drawFlag),
-	mFlapForce(-20.0f)
+	mFlapForce(-20.0f),
+	brakeRate(2.0f),
+	//mBalloonModel(MV1LoadModel("Data/Model/Balloon/ballon.x")),
+	mBalloonPositionOffset(VGet(0.0f, 5.0f, 0.0f))
 {
+	SetSpeed(1.5f);
+	MV1SetRotationXYZ(mModelHandle, VGet(0.0f, -DX_PI_F / 2.0f, 0.0f));
+
+	MV1SetPosition(mBalloonModel, VAdd(mPosition, mBalloonPositionOffset));
 }
 
 Player::~Player()
@@ -15,8 +22,8 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
-	float verticalVelocity = 0.0f;
-	float horizontalVelocity = 0.0f;
+	// 左移動か右移動のいずれかの操作がされているか
+	char LRPressed = 0;
 
 	if (Input::GetInstance().GetKeyDown(KEY_INPUT_UP))
 	{
@@ -25,12 +32,36 @@ void Player::Update(float deltaTime)
 
 	if (Input::GetInstance().GetKeyPressed(KEY_INPUT_LEFT))
 	{
-		AddVelocityX(-mSpeed);
+		LRPressed++;
+		AddVelocityX(-mSpeed * GameSystem::GetInstance().GetDeltaTime());
 	}
 
 	if (Input::GetInstance().GetKeyPressed(KEY_INPUT_RIGHT))
 	{
-		AddVelocityX(mSpeed);
+		LRPressed++;
+		AddVelocityX(mSpeed * GameSystem::GetInstance().GetDeltaTime());
+	}
+
+	// LRPressedが偶数 == どちらも押されている or 両方押されている
+	if (!(LRPressed % 2))
+	{
+		const float velX = GetVelocity().x;
+		float brake = 0.0f;
+
+		if (velX <= brakeRate * GameSystem::GetInstance().GetDeltaTime() && velX >= -brakeRate * GameSystem::GetInstance().GetDeltaTime())
+		{
+			SetVelocityX(0.0f);
+		}
+		else if (velX > brakeRate * GameSystem::GetInstance().GetDeltaTime())
+		{
+			brake = -brakeRate * GameSystem::GetInstance().GetDeltaTime();
+		}
+		else if (velX < -brakeRate * GameSystem::GetInstance().GetDeltaTime())
+		{
+			brake = brakeRate * GameSystem::GetInstance().GetDeltaTime();
+		}
+		
+		AddVelocityX(brake);
 	}
 
 #ifdef _PHYSICAL_RULE
@@ -39,16 +70,26 @@ void Player::Update(float deltaTime)
 
 #endif // _PHYSICAL_RULE
 
+	if (GetVelocity().x > 0)
+	{
+		MV1SetRotationXYZ(mModelHandle, VGet(0.0f, -DX_PI_F / 2.0f, 0.0f));
+	}
+	else if (GetVelocity().x < 0)
+	{
+		MV1SetRotationXYZ(mModelHandle, VGet(0.0f, DX_PI_F / 2.0f, 0.0f));
+	}
+
 	Move();
 
 	MV1SetPosition(mModelHandle, mPosition);
+	MV1SetPosition(mBalloonModel, VAdd(mPosition, mBalloonPositionOffset));
 
-	VECTOR scale = MV1GetScale(mModelHandle);
-	printfDx("Scale:%f, %f, %f", scale.x, scale.y, scale.z);
+	VECTOR pos = GetPosition();
+	printfDx("PlayerPos:%f, %f, %f", pos.x, pos.y, pos.z);
 }
 
 void Player::Move()
 {
-	mVelocity = VScale(mVelocity, GameSystem::GetInstance().GetDeltaTime());
+	//mVelocity = VScale(mVelocity, GameSystem::GetInstance().GetDeltaTime());
 	mPosition = VAdd(mPosition, mVelocity);
 }

@@ -85,7 +85,10 @@ public:
 	void AddSpeed(float value) { mSpeed += value; }
 
 protected:
+	// 位置座標
 	VECTOR mPosition;
+
+	// このフレームで動く速度ベクトル
 	VECTOR mVelocity;
 
 	// モデルないしは画像ハンドル
