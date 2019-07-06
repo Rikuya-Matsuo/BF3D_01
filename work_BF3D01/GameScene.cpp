@@ -1,15 +1,20 @@
 ﻿#include "GameScene.h"
 #include "Input.h"
-
+#include "Player.h"
 
 GameScene::GameScene()
 {
+	// アクターへのポインタはゲームシステムクラスのベクターデータが自動で受け取ってくれる
+	Player * player = new Player(MV1LoadModel("Data/Model/Player/Boy.pmx"));
+
+	mCamera = new Camera;
+	mCamera->SetFollowActor(*player);
 }
 
 
 GameScene::~GameScene()
 {
-	
+	delete mCamera;
 }
 
 void GameScene::Update(float deltaTime)
@@ -21,5 +26,5 @@ void GameScene::Update(float deltaTime)
 
 void GameScene::Draw()
 {
-	DrawBox(100, 100, 300, 300, GetColor(255, 0, 0), TRUE);
+	
 }

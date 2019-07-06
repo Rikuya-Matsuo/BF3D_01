@@ -11,7 +11,7 @@ public:
 		Dead,
 	};
 
-	Actor(State state = State::Active, bool gravityFlag = false, float gravityRate = 1.0f, bool drawFlag = true);
+	Actor(int modelHandle, State state = State::Active, bool gravityFlag = false, float gravityRate = 1.0f, bool drawFlag = true);
 	virtual ~Actor();
 
 	virtual void Update(float deltaTime);
@@ -62,7 +62,10 @@ public:
 	void SetDrawFlag(bool value) { mDrawFlag = value; }
 
 	// 移動スピード
-	float SetSpeed(float value) { mSpeed = value; }
+	void SetSpeed(float value) { mSpeed = value; }
+
+	// モデル
+	void SetModelHandle(int handle) { mModelHandle = handle; }
 
 	/////////////////////////////////////////////////////
 	// アッダー(Adder)

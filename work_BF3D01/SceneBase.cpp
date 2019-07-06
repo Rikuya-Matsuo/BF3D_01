@@ -4,7 +4,8 @@
 
 
 SceneBase::SceneBase():
-	mGoNextSceneFlag(false)
+	mGoNextSceneFlag(false),
+	mNextScene(NULL)
 {
 }
 
@@ -17,15 +18,7 @@ void SceneBase::Draw()
 {
 }
 
-void SceneBase::GoNextScene(SceneBase * nextScene)
+void SceneBase::SetNextScene(SceneBase * nextScene)
 {
-	// 次シーン移行フラグが真でなければ発動しない
-	if (mGoNextSceneFlag)
-	{
-		// シーン切り替え
-		GameSystem::GetInstance().SetNowScene(nextScene);
-
-		// このシーンを削除（いわゆるクラスの自殺。物議を醸す一文？）
-		delete this;
-	}
+	mNextScene = nextScene;
 }

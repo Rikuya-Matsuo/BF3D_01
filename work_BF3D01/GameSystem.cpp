@@ -9,9 +9,6 @@ GameSystem::GameSystem():
 
 void GameSystem::Run()
 {
-	// 主にDxlib方面の初期化
-	Init();
-
 	// 最初のフレームでのmDeltaTimeを小さくするため、mPrevCountはループ開始直前に初期化
 	mPrevCount = GetNowCount();
 
@@ -29,6 +26,9 @@ void GameSystem::Run()
 		// アクター更新
 		UpdateActors();
 
+		// カメラ更新
+		mNowScene->GetCamera().Update();
+
 		// スクリーン初期化
 		ClearDrawScreen();
 
@@ -40,6 +40,23 @@ void GameSystem::Run()
 
 		// 裏画面の情報を表に描画
 		ScreenFlip();
+
+		// シーンの切り替え
+		if (mNowScene->GetGoNextSceneFlag())
+		{
+			SceneBase * nextScene = mNowScene->GetNextScenePointer();
+
+			delete mNowScene;
+
+			if (nextScene != NULL)
+			{
+				SetNowScene(nextScene);
+			}
+			else
+			{
+				mRunFlag = false;
+			}
+		}
 
 		// ゲーム終了判定
 		if (ProcessMessage() != 0 || Input::GetInstance().GetKeyDown(KEY_INPUT_ESCAPE))

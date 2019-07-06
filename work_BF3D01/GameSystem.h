@@ -12,6 +12,7 @@ public:
 		return instance;
 	}
 
+	void Init();
 	void SetScreenInfo(int screenWidth, int screenHeight, bool fullScreen);
 	void Run();
 
@@ -42,7 +43,6 @@ private:
 
 	std::vector<Actor*> mActors;
 
-	void Init();
 	float CulculateDeltaTime();
 	void UpdateActors();
 	void DrawActors();

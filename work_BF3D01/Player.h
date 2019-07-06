@@ -4,7 +4,7 @@
 class Player : public Actor
 {
 public:
-	Player(State state = State::Active, bool gravityFlag = false, float gravityRate = 0.5f, bool drawFlag = true);
+	Player(int modelHandle, State state = State::Active, bool gravityFlag = true, float gravityRate = 0.5f, bool drawFlag = true);
 	~Player();
 
 	void Update(float deltaTime) override;

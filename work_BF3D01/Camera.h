@@ -5,7 +5,7 @@
 class Camera
 {
 public:
-	Camera(const Actor& follow);
+	Camera();
 	~Camera();
 
 	void Update();
