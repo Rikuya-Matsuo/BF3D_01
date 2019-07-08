@@ -9,7 +9,7 @@ public:
 	~GameScene();
 
 	void Update(float deltaTime) override;
-	void Draw();
+	//void Draw();
 
 private:
 

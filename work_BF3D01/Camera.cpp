@@ -1,4 +1,4 @@
-#include "Camera.h"
+﻿#include "Camera.h"
 
 void Camera::SetNearFar(float in_near, float in_far)
 {

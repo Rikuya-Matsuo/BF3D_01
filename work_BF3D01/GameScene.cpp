@@ -4,7 +4,8 @@
 #include "Player.h"
 #include "Cube.h"
 
-GameScene::GameScene()
+GameScene::GameScene():
+	SceneBase(10.0f, 3700.0f)
 {
 	// アクターへのポインタはゲームシステムクラスのベクターデータが自動で受け取ってくれる（アクタークラスのコンストラクタ参照）
 	Player * player = new Player(MV1LoadModel("Data/Model/Player/Boy.pmx"));
@@ -16,14 +17,16 @@ GameScene::GameScene()
 		GameSystem::GetInstance().AddGround(ground);
 	}
 	
-	mCamera = new Camera(10.0f, 1500.0f);
-	mCamera->SetFollowActor(*player);
+	// カメラ追従設定
+	mCamera.SetFollowActor(player);
+
+	// スカイドーム設定
+	mSky.LoadModel("Data/Model/SkyDome/skydome_orca/sky_01.x");
 }
 
 
 GameScene::~GameScene()
 {
-	delete mCamera;
 }
 
 void GameScene::Update(float deltaTime)
@@ -32,8 +35,9 @@ void GameScene::Update(float deltaTime)
 	
 	printfDx("ゲーム画面\n");
 }
-
+/*
 void GameScene::Draw()
 {
 	
 }
+*/

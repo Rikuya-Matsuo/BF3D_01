@@ -1,10 +1,11 @@
 ﻿#pragma once
 #include "Camera.h"
+#include "Sky.h"
 
 class SceneBase
 {
 public:
-	SceneBase();
+	SceneBase(float camera_near, float camera_far);
 	virtual ~SceneBase();
 
 	virtual void Update(float deltaTime) = 0;
@@ -15,12 +16,14 @@ public:
 
 	bool GetGoNextSceneFlag() const { return mGoNextSceneFlag; }
 
-	Camera& GetCamera() { return *mCamera; }
+	Camera& GetCamera() { return mCamera; }
 
 protected:
 	bool mGoNextSceneFlag;
 
 	SceneBase * mNextScene;
 
-	Camera * mCamera;
+	Camera mCamera;
+
+	Sky mSky;
 };

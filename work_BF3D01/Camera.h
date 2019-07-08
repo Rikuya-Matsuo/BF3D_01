@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "DxLib.h"
 #include "Actor.h"
 
@@ -10,24 +10,24 @@ public:
 
 	void Update();
 
-	void SetFollowActor(const Actor& actor) { mFollowActor = (Actor *)(&actor); }
+	void SetFollowActor(const Actor* actor) { mFollowActor = (Actor *)actor; }
 	void SetPosition(const VECTOR& pos) { mPosition = pos; }
 	void SetNearFar(float in_near, float in_far);
 	void SetFollowFlag(bool value) { mFollowFlag = value; }
 
 private:
-	// ‚Â‚¢‚Ä‚¢‚­ƒAƒNƒ^[‚Ö‚Ìƒ|ƒCƒ“ƒ^
+	// ã¤ã„ã¦ã„ãã‚¢ã‚¯ã‚¿ãƒ¼ã¸ã®ãƒã‚¤ãƒ³ã‚¿
 	Actor * mFollowActor;
 
-	// ƒJƒƒ‰ˆÊ’u
+	// ã‚«ãƒ¡ãƒ©ä½ç½®
 	VECTOR mPosition;
 
-	// •`‰æË’ö
+	// æç”»å°„ç¨‹
 	float mNear;
 	float mFar;
 
-	// ƒAƒNƒ^[‚Ì’Ç]‚ğ‚·‚é‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO
-	// Šî–{“I‚É‚Ítrue‚¾‚ªƒCƒxƒ“ƒg‚É‚Ífalse‚É‚µ‚ÄƒJƒƒ‰‚ª©—R‚É“®‚¯‚é‚æ‚¤‚É‚·‚é
+	// ã‚¢ã‚¯ã‚¿ãƒ¼ã®è¿½å¾“ã‚’ã™ã‚‹ã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚°
+	// åŸºæœ¬çš„ã«ã¯trueã ãŒã‚¤ãƒ™ãƒ³ãƒˆæ™‚ã«ã¯falseã«ã—ã¦ã‚«ãƒ¡ãƒ©ãŒè‡ªç”±ã«å‹•ã‘ã‚‹ã‚ˆã†ã«ã™ã‚‹
 	bool mFollowFlag;
 };
 

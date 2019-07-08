@@ -139,6 +139,7 @@
     <ClCompile Include="PhysicalRule.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneBase.cpp" />
+    <ClCompile Include="Sky.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
@@ -151,6 +152,7 @@
     <ClInclude Include="PhysicalRule.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SceneBase.h" />
+    <ClInclude Include="Sky.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
