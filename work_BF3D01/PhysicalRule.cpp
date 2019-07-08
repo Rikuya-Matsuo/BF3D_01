@@ -1,7 +1,7 @@
 ﻿#include "PhysicalRule.h"
 
 PhysicalRule::PhysicalRule():
-	mGravity(9.8f)
+	mGravity(-9.8f)
 {
 }
 

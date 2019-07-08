@@ -12,11 +12,13 @@ public:
 
 private:
 	// 制動率
-	const float brakeRate;
+	const float mBrakeRate;
 
 	// 羽ばたくことで発生するプレイヤーが上昇する力
-	// 常に負の値をとるので、実際に上昇させるときは速度の値に加算するということに注意
 	const float mFlapForce;
+
+	// スピードの制限値
+	const float mSpeedLimit;
 
 	// バルーンのモデルハンドル
 	int mBalloonModel;
@@ -24,6 +26,9 @@ private:
 	// バルーンのプレイヤーに対する相対位置
 	VECTOR mBalloonPositionOffset;
 
+	// 着地フラグ
+
+	// 速度ベクトルを位置ベクトルに加算する関数
 	void Move();
 };
 

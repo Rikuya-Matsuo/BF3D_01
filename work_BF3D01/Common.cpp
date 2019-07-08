@@ -24,3 +24,17 @@ void DrawRectangle3D(const VECTOR& pos1, const VECTOR& pos2, unsigned int color,
 	DrawTriangle3D(vertex[0], vertex[1], vertex[2], color, fillFlag);
 	DrawTriangle3D(vertex[3], vertex[1], vertex[2], color, fillFlag);
 }
+
+float Clamp(float value, float min, float max)
+{
+	if (value < min)
+	{
+		value = min;
+	}
+	else if (value > max)
+	{
+		value = max;
+	}
+
+	return value;
+}

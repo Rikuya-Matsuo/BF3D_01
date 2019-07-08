@@ -5,15 +5,16 @@
 
 Player::Player(int modelHandle, State state, bool gravityFlag, float gravityRate, bool drawFlag):
 	Actor(modelHandle, state, gravityFlag, gravityRate, drawFlag),
-	mFlapForce(-20.0f),
-	brakeRate(2.0f),
+	mFlapForce(3.0f),
+	mBrakeRate(1.5f),
+	mSpeedLimit(10.0f),
 	//mBalloonModel(MV1LoadModel("Data/Model/Balloon/ballon.x")),
 	mBalloonPositionOffset(VGet(0.0f, 5.0f, 0.0f))
 {
-	SetSpeed(1.5f);
+	SetSpeed(1.8f);
 	MV1SetRotationXYZ(mModelHandle, VGet(0.0f, -DX_PI_F / 2.0f, 0.0f));
 
-	MV1SetPosition(mBalloonModel, VAdd(mPosition, mBalloonPositionOffset));
+	//MV1SetPosition(mBalloonModel, VAdd(mPosition, mBalloonPositionOffset));
 }
 
 Player::~Player()
@@ -42,23 +43,33 @@ void Player::Update(float deltaTime)
 		AddVelocityX(mSpeed * GameSystem::GetInstance().GetDeltaTime());
 	}
 
+	// X方向の速さの調整
+	float fixedVelX = Clamp(GetVelocity().x, -mSpeedLimit, mSpeedLimit);
+	SetVelocityX(fixedVelX);
+
+	// Y方向の上昇力の調整
+	if (GetVelocity().y > mFlapForce)
+	{
+		SetVelocityY(mFlapForce);
+	}
+
 	// LRPressedが偶数 == どちらも押されている or 両方押されている
 	if (!(LRPressed % 2))
 	{
 		const float velX = GetVelocity().x;
 		float brake = 0.0f;
 
-		if (velX <= brakeRate * GameSystem::GetInstance().GetDeltaTime() && velX >= -brakeRate * GameSystem::GetInstance().GetDeltaTime())
+		if (velX <= mBrakeRate * GameSystem::GetInstance().GetDeltaTime() && velX >= -mBrakeRate * GameSystem::GetInstance().GetDeltaTime())
 		{
 			SetVelocityX(0.0f);
 		}
-		else if (velX > brakeRate * GameSystem::GetInstance().GetDeltaTime())
+		else if (velX > mBrakeRate * GameSystem::GetInstance().GetDeltaTime())
 		{
-			brake = -brakeRate * GameSystem::GetInstance().GetDeltaTime();
+			brake = -mBrakeRate * GameSystem::GetInstance().GetDeltaTime();
 		}
-		else if (velX < -brakeRate * GameSystem::GetInstance().GetDeltaTime())
+		else if (velX < -mBrakeRate * GameSystem::GetInstance().GetDeltaTime())
 		{
-			brake = brakeRate * GameSystem::GetInstance().GetDeltaTime();
+			brake = mBrakeRate * GameSystem::GetInstance().GetDeltaTime();
 		}
 		
 		AddVelocityX(brake);
@@ -97,8 +108,11 @@ void Player::Update(float deltaTime)
 
 void Player::OnCollisionHit(const Cube & opponentCollision)
 {
-	SetVelocityY(0.0f);
-	SetPosition(VGet(mPosition.x, 0.0f, mPosition.z));
+	if (!Input::GetInstance().GetKeyDown(KEY_INPUT_UP))
+	{
+		SetVelocityY(0.0f);
+		SetPosition(VGet(mPosition.x, 0.0f, mPosition.z));
+	}
 }
 
 void Player::Move()
