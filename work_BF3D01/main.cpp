@@ -1,6 +1,4 @@
-﻿#define _DEBUG_BF3D
-
-#include"DxLib.h"
+﻿#include"DxLib.h"
 #include "GameSystem.h"
 #include "GameScene.h"
 

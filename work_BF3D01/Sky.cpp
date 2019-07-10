@@ -28,7 +28,7 @@ void Sky::LoadModel(const char * modelDirectory)
 
 	// 大きさの設定
 	float scale = 10.0f;
-	MV1SetScale(mModelHandle, VGet(scale, scale, scale));
+	MV1SetScale(mModelHandle, VGet(scale * 100.0f, scale, scale));
 }
 
 void Sky::Draw()

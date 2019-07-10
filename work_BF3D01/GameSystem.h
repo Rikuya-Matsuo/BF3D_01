@@ -1,4 +1,6 @@
 ﻿#pragma once
+#define _DEBUG_BF3D
+
 #include "Actor.h"
 #include "Cube.h"
 #include "SceneBase.h"

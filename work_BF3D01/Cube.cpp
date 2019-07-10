@@ -10,11 +10,44 @@ Cube::Cube(VECTOR vertex, VECTOR inversionVertex, bool collisionFlag, bool drawF
 	mDrawSurfaceFlag(true),
 	mColor(color)
 {
+	mSize = VSub(mInversionVertex, mVertex);
+	mSize.x = ABSOLUTE_VALUE(mSize.x);
+	mSize.y = ABSOLUTE_VALUE(mSize.y);
+	mSize.z = ABSOLUTE_VALUE(mSize.z);
 }
 
 
 Cube::~Cube()
 {
+	WaitTimer(0);
+}
+
+VECTOR Cube::GetSmallValueVertex() const
+{
+	VECTOR ret;
+
+	ret.x = (mVertex.x < mInversionVertex.x) ? mVertex.x : mInversionVertex.x;
+	ret.y = (mVertex.y < mInversionVertex.y) ? mVertex.y : mInversionVertex.y;
+	ret.z = (mVertex.z < mInversionVertex.z) ? mVertex.z : mInversionVertex.z;
+
+	return ret;
+}
+
+VECTOR Cube::GetLargeValueVertex() const
+{
+	VECTOR ret;
+
+	ret.x = (!(mVertex.x < mInversionVertex.x)) ? mVertex.x : mInversionVertex.x;
+	ret.y = (!(mVertex.y < mInversionVertex.y)) ? mVertex.y : mInversionVertex.y;
+	ret.z = (!(mVertex.z < mInversionVertex.z)) ? mVertex.z : mInversionVertex.z;
+
+	return ret;
+}
+
+void Cube::SetPosition(VECTOR vertex)
+{
+	mVertex = vertex;
+	mInversionVertex = VAdd(mVertex, mSize);
 }
 
 void Cube::SetVertexes(VECTOR vertex, VECTOR inversion)

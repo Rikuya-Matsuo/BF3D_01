@@ -8,4 +8,8 @@ Diamond::Diamond(int modelHandle, State state, bool gravityFlag, float gravityRa
 
 Diamond::~Diamond()
 {
+	if (mModelHandle > 0)
+	{
+		MV1DeleteModel(mModelHandle);
+	}
 }

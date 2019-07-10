@@ -7,7 +7,7 @@ Player::Player(int modelHandle, State state, bool gravityFlag, float gravityRate
 	Actor(modelHandle, state, gravityFlag, gravityRate, drawFlag),
 	mFlapForce(3.0f),
 	mBrakeRate(1.5f),
-	mSpeedLimit(10.0f),
+	mSpeedLimit(5.0f),
 	//mBalloonModel(MV1LoadModel("Data/Model/Balloon/ballon.x")),
 	mBalloonPositionOffset(VGet(0.0f, 5.0f, 0.0f))
 {
@@ -15,6 +15,8 @@ Player::Player(int modelHandle, State state, bool gravityFlag, float gravityRate
 	MV1SetRotationXYZ(mModelHandle, VGet(0.0f, -DX_PI_F / 2.0f, 0.0f));
 
 	//MV1SetPosition(mBalloonModel, VAdd(mPosition, mBalloonPositionOffset));
+
+	mCollider->SetPosition(VSub(mPosition, VGet(1, 0, 0)));
 }
 
 Player::~Player()
@@ -93,20 +95,28 @@ void Player::Update(float deltaTime)
 	Move();
 
 	// きれいごとは言ってられないんだよぉ！
+	// （要約：時間がないのでちゃんとした当たり判定は後程）
 	if (mPosition.y < 0)
 	{
-		Cube hoge(VGet(0, 0, 0), VGet(0, 0, 0), true);
+		if (!Input::GetInstance().GetKeyDown(KEY_INPUT_UP))
+		{
+			SetVelocityY(0.0f);
+			SetPosition(VGet(mPosition.x, 0.0f, mPosition.z));
+		}
+		/*
+		BoxCollider hoge(NULL, VGet(0, 0, 0), VGet(0, 0, 0));
 		OnCollisionHit(hoge);
+		*/
 	}
 
-	MV1SetPosition(mModelHandle, mPosition);
+	BaseOriginalUpdate();
 	MV1SetPosition(mBalloonModel, VAdd(mPosition, mBalloonPositionOffset));
 
 	VECTOR pos = GetPosition();
 	printfDx("PlayerPos:%f, %f, %f", pos.x, pos.y, pos.z);
 }
 
-void Player::OnCollisionHit(const Cube & opponentCollision)
+void Player::OnCollisionHit(const BoxCollider & opponentCollision)
 {
 	if (!Input::GetInstance().GetKeyDown(KEY_INPUT_UP))
 	{
@@ -120,3 +130,8 @@ void Player::Move()
 	//mVelocity = VScale(mVelocity, GameSystem::GetInstance().GetDeltaTime());
 	mPosition = VAdd(mPosition, mVelocity);
 }
+
+/*
+今日の教訓
+＊ソースコード内に日記を書いてはいけない。
+*/

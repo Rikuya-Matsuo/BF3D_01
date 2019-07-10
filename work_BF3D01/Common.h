@@ -1,5 +1,8 @@
 ﻿#pragma once
 #include "DxLib.h"
+
+#define ABSOLUTE_VALUE(x) (x > 0) ? x : -x
+
 /*
 class Common final
 {

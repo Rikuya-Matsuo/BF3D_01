@@ -8,7 +8,7 @@ public:
 	~Player();
 
 	void Update(float deltaTime) override;
-	void OnCollisionHit(const Cube& opponentCollision) override;
+	void OnCollisionHit(const BoxCollider& opponentCollision) override;
 
 private:
 	// 制動率
@@ -32,3 +32,7 @@ private:
 	void Move();
 };
 
+/*
+今日の教訓
+＊川上から大きな桃が流れてきても、衛生上拾うのは避けたほうがいい
+*/

@@ -1,8 +1,8 @@
 ﻿#pragma once
 #include "DxLib.h"
-#include "Cube.h"
+#include "BoxCollider.h"
 
-class Cube;
+class BoxCollider;
 
 class Actor
 {
@@ -20,7 +20,7 @@ public:
 	virtual void Update(float deltaTime);
 	virtual void Draw();
 
-	virtual void OnCollisionHit(const Cube & opponentCollision);
+	virtual void OnCollisionHit(const BoxCollider & opponentCollision);
 
 	/////////////////////////////////////////////////////
 	// ゲッター
@@ -73,7 +73,7 @@ public:
 	void SetModelHandle(int handle) { mModelHandle = handle; }
 
 	/////////////////////////////////////////////////////
-	// アッダー(Adder)
+	// アッダー(Adder)（造語）
 	// 元の値に足し引きしたいときに便利な関数として定義
 	/////////////////////////////////////////////////////
 	// 位置情報
@@ -96,6 +96,10 @@ protected:
 	// このフレームで動く速度ベクトル
 	VECTOR mVelocity;
 
+	// コライダー
+	// なぜか未定義とされるため、ポインタを使って動的確保する
+	BoxCollider * mCollider;
+
 	// モデルないしは画像ハンドル
 	int mModelHandle;
 
@@ -115,4 +119,8 @@ protected:
 	// 移動する速さ
 	// 単位は「ドット／秒」
 	float mSpeed;
+
+	void BaseOriginalUpdate();
+
+	void BaseOriginalDraw();
 };

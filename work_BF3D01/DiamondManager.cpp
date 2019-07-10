@@ -19,4 +19,9 @@ DiamondManager::~DiamondManager()
 {
 	// swap技法と呼ばれる手段で、vector内要素のデストラクタを作動させる
 	std::vector<Diamond *>().swap(mDiamonds);
+
+	if (mModelHandle > 0)
+	{
+		MV1DeleteModel(mModelHandle);
+	}
 }
