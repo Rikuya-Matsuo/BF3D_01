@@ -22,11 +22,15 @@ GameScene::GameScene():
 
 	// スカイドーム設定
 	mSky.LoadModel("Data/Model/SkyDome/skydome_orca/sky_01.x");
+
+	// ダイアモンド設置
+	mDiamondManager = new DiamondManager("Data/Model/Treasure/LuckyHammer/REPLICA_KODUCHI.pmx", 10);
 }
 
 
 GameScene::~GameScene()
 {
+	delete mDiamondManager;
 }
 
 void GameScene::Update(float deltaTime)

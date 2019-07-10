@@ -132,6 +132,8 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="Diamond.cpp" />
+    <ClCompile Include="DiamondManager.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GameSystem.cpp" />
     <ClCompile Include="Input.cpp" />
@@ -146,6 +148,8 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="Diamond.h" />
+    <ClInclude Include="DiamondManager.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GameSystem.h" />
     <ClInclude Include="Input.h" />

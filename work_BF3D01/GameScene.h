@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "DxLib.h"
 #include "SceneBase.h"
+#include "DiamondManager.h"
 
 class GameScene : public SceneBase
 {
@@ -12,5 +13,5 @@ public:
 	//void Draw();
 
 private:
-
+	DiamondManager * mDiamondManager;
 };
