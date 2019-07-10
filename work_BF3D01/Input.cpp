@@ -8,7 +8,7 @@ Input::Input():
 	{
 		mKey[0][i] = 0;
 		mKey[1][i] = 0;
-		mKeyState[i] = KeyStateEnum::Off;
+		mKeyState[i] = EnumKeyState::Off;
 	}
 	WaitTimer(0);
 }
@@ -28,7 +28,7 @@ void Input::Update()
 		// まず、まったく押されていないキーについては無駄な判定をしたくない
 		if (!mKey[mNowKeyNum][i] && !mKey[mPrevKeyNum][i])
 		{
-			mKeyState[i] = KeyStateEnum::Off;
+			mKeyState[i] = EnumKeyState::Off;
 			continue;
 		}
 		
@@ -38,18 +38,18 @@ void Input::Update()
 			// 前のフレームで押されていたか
 			if (mKey[mPrevKeyNum][i])
 			{
-				mKeyState[i] = KeyStateEnum::Pressed;
+				mKeyState[i] = EnumKeyState::Pressed;
 			}
 			else
 			{
-				mKeyState[i] = KeyStateEnum::PushDown;
+				mKeyState[i] = EnumKeyState::PushDown;
 			}
 		}
 		else
 		{
 			// まったく押されていないキーについては上で判定済み
 			// よって、このフレームで触れられていない場合、自動的に前フレームでは押下されていたことになる
-			mKeyState[i] = KeyStateEnum::PullUp;
+			mKeyState[i] = EnumKeyState::PullUp;
 		}
 	}
 	WaitTimer(0);

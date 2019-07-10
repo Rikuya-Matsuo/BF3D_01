@@ -24,6 +24,8 @@ public:
 
 	void AddGround(Cube * cube);
 
+	void AddCollider(BoxCollider * collider);
+
 	int GetScreenWidth()const { return mScreenWidth; }
 	int GetScreenHeight()const { return mScreenHeight; }
 	
@@ -50,8 +52,11 @@ private:
 
 	std::vector<Cube*> mGround;
 
+	std::vector<BoxCollider*> mColliders;
+
 	float CulculateDeltaTime();
 	void UpdateActors();
+	void CheckColliders();
 	void DrawActors();
 	void DrawGround();
 	void ShutDown();

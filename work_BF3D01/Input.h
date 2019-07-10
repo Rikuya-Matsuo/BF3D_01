@@ -2,13 +2,13 @@
 #include "DxLib.h"
 #define KEY_MASS 256
 
-enum KeyStateEnum
+enum EnumKeyState
 {
 	Off,
 	PushDown,
 	Pressed,
 	PullUp,
-	Invalid
+	Invalid_KeyState
 };
 
 class Input final
@@ -33,8 +33,8 @@ public:
 	void Update();
 
 	char GetInput(int keyCode) { return mKeyState[keyCode]; }
-	bool GetKeyDown(int keyCode) { return (mKeyState[keyCode] == KeyStateEnum::PushDown); }
-	bool GetKeyPressed(int keyCode) { return (mKeyState[keyCode] == KeyStateEnum::Pressed); }
-	bool GetKeyUp(int keyCode) { return (mKeyState[keyCode] == KeyStateEnum::PullUp); }
+	bool GetKeyDown(int keyCode) { return (mKeyState[keyCode] == EnumKeyState::PushDown); }
+	bool GetKeyPressed(int keyCode) { return (mKeyState[keyCode] == EnumKeyState::Pressed); }
+	bool GetKeyUp(int keyCode) { return (mKeyState[keyCode] == EnumKeyState::PullUp); }
 
 };

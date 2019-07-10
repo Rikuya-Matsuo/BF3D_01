@@ -4,6 +4,8 @@ Diamond::Diamond(int modelHandle, State state, bool gravityFlag, float gravityRa
 	Actor(modelHandle, state, gravityFlag, gravityRate, drawFlag)
 {
 	MV1SetRotationXYZ(mModelHandle, VGet(DX_PI_F / 2.0f, 0, 0));
+
+	mCollider->SetColliderTag(BoxCollider::ItemCollider);
 }
 
 Diamond::~Diamond()
@@ -11,5 +13,21 @@ Diamond::~Diamond()
 	if (mModelHandle > 0)
 	{
 		MV1DeleteModel(mModelHandle);
+	}
+}
+
+void Diamond::Update(float deltaTime)
+{
+	MV1SetPosition(mModelHandle, mPosition);
+
+	mCollider->SetVertexes(VSub(mPosition, VGet(2, 3, 0)), VAdd(mPosition, VGet(2, 5, 0)));
+}
+
+void Diamond::OnCollisionHit(const BoxCollider & opponentCollider)
+{
+	char opponentTag = opponentCollider.GetColliderTag();
+	if (opponentTag == BoxCollider::PlayerCollider)
+	{
+		SetState(Actor::Dead);
 	}
 }

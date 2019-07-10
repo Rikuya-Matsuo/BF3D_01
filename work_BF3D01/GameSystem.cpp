@@ -26,6 +26,9 @@ void GameSystem::Run()
 		// アクター更新
 		UpdateActors();
 
+		// 当たり判定
+		CheckColliders();
+
 		// カメラ更新
 		mNowScene->GetCamera().Update();
 
@@ -110,6 +113,22 @@ void GameSystem::UpdateActors()
 	}
 }
 
+void GameSystem::CheckColliders()
+{
+	for (unsigned int i = 0; i < mColliders.size() - 1; ++i)
+	{
+		if (mColliders[i]->GetOwnerPointer()->GetState() == Actor::State::Active)
+		for (unsigned int j = i + 1; j < mColliders.size(); ++j)
+		{
+			if (CheckCollision_Ver2D(*mColliders[i], *mColliders[j]))
+			{
+				mColliders[i]->GetOwnerPointer()->OnCollisionHit(*mColliders[j]);
+				mColliders[j]->GetOwnerPointer()->OnCollisionHit(*mColliders[i]);
+			}
+		}
+	}
+}
+
 void GameSystem::DrawActors()
 {
 	for (auto actor : mActors)
@@ -164,4 +183,9 @@ void GameSystem::RemoveActor(Actor * actor)
 void GameSystem::AddGround(Cube * cube)
 {
 	mGround.emplace_back(cube);
+}
+
+void GameSystem::AddCollider(BoxCollider * collider)
+{
+	mColliders.emplace_back(collider);
 }

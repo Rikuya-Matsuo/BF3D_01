@@ -29,6 +29,9 @@ public:
 	const VECTOR& GetPosition() const { return mPosition; }
 	const VECTOR& GetVelocity() const { return mVelocity; }
 
+	// アクター状態
+	State GetState() const { return mState; }
+
 	// 重力適用フラグ
 	bool GetGravityFlag()const { return mGravityFlag; }
 

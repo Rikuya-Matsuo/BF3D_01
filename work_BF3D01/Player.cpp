@@ -3,11 +3,12 @@
 #include "Input.h"
 #include "PhysicalRule.h"
 
-Player::Player(int modelHandle, State state, bool gravityFlag, float gravityRate, bool drawFlag):
+Player::Player(int modelHandle, State state, bool gravityFlag, float gravityRate, bool drawFlag) :
 	Actor(modelHandle, state, gravityFlag, gravityRate, drawFlag),
 	mFlapForce(3.0f),
 	mBrakeRate(1.5f),
 	mSpeedLimit(5.0f),
+	mItemCollect(0),
 	//mBalloonModel(MV1LoadModel("Data/Model/Balloon/ballon.x")),
 	mBalloonPositionOffset(VGet(0.0f, 5.0f, 0.0f))
 {
@@ -17,6 +18,7 @@ Player::Player(int modelHandle, State state, bool gravityFlag, float gravityRate
 	//MV1SetPosition(mBalloonModel, VAdd(mPosition, mBalloonPositionOffset));
 
 	mCollider->SetPosition(VSub(mPosition, VGet(1, 0, 0)));
+	mCollider->SetColliderTag(BoxCollider::PlayerCollider);
 }
 
 Player::~Player()
@@ -118,10 +120,20 @@ void Player::Update(float deltaTime)
 
 void Player::OnCollisionHit(const BoxCollider & opponentCollision)
 {
-	if (!Input::GetInstance().GetKeyDown(KEY_INPUT_UP))
+	char opponentTag = opponentCollision.GetColliderTag();
+
+	if (opponentTag == BoxCollider::GroundCollider)
 	{
-		SetVelocityY(0.0f);
-		SetPosition(VGet(mPosition.x, 0.0f, mPosition.z));
+		if (!Input::GetInstance().GetKeyDown(KEY_INPUT_UP))
+		{
+			SetVelocityY(0.0f);
+			SetPosition(VGet(mPosition.x, 0.0f, mPosition.z));
+		}
+	}
+
+	if (opponentTag == BoxCollider::ItemCollider)
+	{
+		mItemCollect++;
 	}
 }
 

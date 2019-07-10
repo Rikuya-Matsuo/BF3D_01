@@ -1,9 +1,12 @@
 #include "BoxCollider.h"
+#include "GameSystem.h"
 
-BoxCollider::BoxCollider(Actor * owner, VECTOR vertex, VECTOR inversionVertex):
+BoxCollider::BoxCollider(Actor * owner, char tag, VECTOR vertex, VECTOR inversionVertex):
 	Cube(vertex, inversionVertex, true, false),
-	mOwner(owner)
+	mOwner(owner),
+	mTag(tag)
 {
+	GameSystem::GetInstance().AddCollider(this);
 }
 
 BoxCollider::~BoxCollider()

@@ -30,6 +30,9 @@ private:
 
 	// 速度ベクトルを位置ベクトルに加算する関数
 	void Move();
+
+	// 集めたアイテムの数
+	int mItemCollect;
 };
 
 /*
