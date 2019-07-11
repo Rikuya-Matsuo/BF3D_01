@@ -9,6 +9,11 @@ public:
 
 	void SetColor(unsigned int color) { mColor = color; }
 
+	void Update(float deltaTime) override;
+	void Draw() override;
+
+	void OnCollisionHit(const BoxCollider& opponentCollision) override;
+
 private:
 	unsigned int mColor;
 
