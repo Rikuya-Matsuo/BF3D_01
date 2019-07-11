@@ -2,7 +2,8 @@
 
 
 
-Cannon::Cannon()
+Cannon::Cannon():
+	Actor(-1)
 {
 }
 
