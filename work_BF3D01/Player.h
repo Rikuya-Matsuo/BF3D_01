@@ -9,6 +9,9 @@ public:
 
 	void Update(float deltaTime) override;
 	void OnCollisionHit(const BoxCollider& opponentCollision) override;
+	void Draw() override;
+
+	int GetItemCollect() const { return mItemCollect; }
 
 private:
 	// 制動率
@@ -33,6 +36,21 @@ private:
 
 	// 集めたアイテムの数
 	int mItemCollect;
+
+	// アイテム取得エフェクトの再生フラグ
+	bool mItemEffectFlag;
+
+	// アイテム取得エフェクトのコマ数
+	const int mItemEffectFrameMass;
+
+	// アイテム取得エフェクトハンドル
+	int* mItemEffectHandleArray;
+
+	// 表示するアイテム取得エフェクトのコマ番号
+	int mItemEffectCounter;
+
+	// アイテム取得エフェクトの更新
+	void UpdateItemEffect();
 };
 
 /*

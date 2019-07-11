@@ -26,4 +26,6 @@ protected:
 	Camera mCamera;
 
 	Sky mSky;
+
+	void BaseOriginalDraw();
 };

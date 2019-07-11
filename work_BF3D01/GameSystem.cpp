@@ -87,6 +87,8 @@ void GameSystem::Init()
 	SetGraphMode(mScreenWidth, mScreenHeight, 16);
 
 	SetDrawScreen(DX_SCREEN_BACK);
+
+	SetFontSize(72);
 }
 
 float GameSystem::CulculateDeltaTime()
@@ -117,9 +119,18 @@ void GameSystem::CheckColliders()
 {
 	for (unsigned int i = 0; i < mColliders.size() - 1; ++i)
 	{
-		if (mColliders[i]->GetOwnerPointer()->GetState() == Actor::State::Active)
+		if (mColliders[i]->GetOwnerPointer()->GetState() != Actor::State::Active)
+		{
+			continue;
+		}
+
 		for (unsigned int j = i + 1; j < mColliders.size(); ++j)
 		{
+			if (mColliders[j]->GetOwnerPointer()->GetState() != Actor::State::Active)
+			{
+				continue;
+			}
+
 			if (CheckCollision_Ver2D(*mColliders[i], *mColliders[j]))
 			{
 				mColliders[i]->GetOwnerPointer()->OnCollisionHit(*mColliders[j]);

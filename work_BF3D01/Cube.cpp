@@ -1,6 +1,6 @@
 ﻿#include "Cube.h"
 
-
+#define USE_DRAWCUBE 0
 
 Cube::Cube(VECTOR vertex, VECTOR inversionVertex, bool collisionFlag, bool drawFlag, unsigned int color):
 	mVertex(vertex),
@@ -8,7 +8,8 @@ Cube::Cube(VECTOR vertex, VECTOR inversionVertex, bool collisionFlag, bool drawF
 	mCollisionFlag(collisionFlag),
 	mDrawFlag(drawFlag),
 	mDrawSurfaceFlag(true),
-	mColor(color)
+	mColor(color),
+	mUseTextureFlag(false)
 {
 	mSize = VSub(mInversionVertex, mVertex);
 	mSize.x = ABSOLUTE_VALUE(mSize.x);
@@ -56,6 +57,26 @@ void Cube::SetVertexes(VECTOR vertex, VECTOR inversion)
 	mInversionVertex = inversion;
 }
 
+void Cube::LoadTexture(const char * fileName)
+{
+	if (mTexture > 0)
+	{
+		DeleteGraph(mTexture);
+	}
+
+	mTexture = LoadGraph(fileName);
+	mUseTextureFlag = true;
+}
+
+void Cube::DeleteTexture()
+{
+	if (mTexture > 0)
+	{
+		DeleteGraph(mTexture);
+	}
+	mUseTextureFlag = false;
+}
+
 void Cube::Move(VECTOR velocity)
 {
 	mVertex = VAdd(mVertex, velocity);
@@ -69,7 +90,9 @@ void Cube::Draw() const
 	{
 		return;
 	}
-
+#if USE_DRAWCUBE
+	DrawCube3D(mVertex, mInversionVertex, mColor, GetColor(255, 255, 255), TRUE);
+#else
 	// 線で描画
 	if (!mDrawSurfaceFlag)
 	{
@@ -212,5 +235,12 @@ void Cube::Draw() const
 
 			DrawRectangle3D(mInversionVertex, anotherVertex, mColor);
 		}
+
+		// テクスチャ貼り付け
+		if (mUseTextureFlag)
+		{
+			DrawExtendGraphToZBuffer(mVertex.x, mVertex.y, mInversionVertex.x, mInversionVertex.y, mTexture, DX_ZWRITE_MASK);
+		}
 	}
+#endif
 }

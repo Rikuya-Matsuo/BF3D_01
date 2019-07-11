@@ -9,6 +9,9 @@ Player::Player(int modelHandle, State state, bool gravityFlag, float gravityRate
 	mBrakeRate(1.5f),
 	mSpeedLimit(5.0f),
 	mItemCollect(0),
+	mItemEffectFlag(false),
+	mItemEffectFrameMass(10),
+	mItemEffectCounter(0),
 	//mBalloonModel(MV1LoadModel("Data/Model/Balloon/ballon.x")),
 	mBalloonPositionOffset(VGet(0.0f, 5.0f, 0.0f))
 {
@@ -19,14 +22,24 @@ Player::Player(int modelHandle, State state, bool gravityFlag, float gravityRate
 
 	mCollider->SetPosition(VSub(mPosition, VGet(1, 0, 0)));
 	mCollider->SetColliderTag(BoxCollider::PlayerCollider);
+
+	mItemEffectHandleArray = new int[mItemEffectFrameMass];
+	int w, h;
+	int graph = LoadGraph("Data/Image/getCoin.png");
+	GetGraphSize(graph, &w, &h);
+	LoadDivGraph("Data/Image/getCoin.png", 10, 10, 1, w / 10, h / 1, mItemEffectHandleArray);
 }
 
 Player::~Player()
 {
+	delete[] mItemEffectHandleArray;
 }
 
 void Player::Update(float deltaTime)
 {
+	// アイテムエフェクトの更新
+	UpdateItemEffect();
+
 	// 左移動か右移動のいずれかの操作がされているか
 	char LRPressed = 0;
 
@@ -83,7 +96,7 @@ void Player::Update(float deltaTime)
 
 	PhysicalRule::GetInstance().Fall(*this);
 
-#endif // _PHYSICAL_RULE
+#endif _PHYSICAL_RULE
 
 	if (GetVelocity().x > 0)
 	{
@@ -134,6 +147,22 @@ void Player::OnCollisionHit(const BoxCollider & opponentCollision)
 	if (opponentTag == BoxCollider::ItemCollider)
 	{
 		mItemCollect++;
+
+		mItemEffectCounter = 0;
+		mItemEffectFlag = true;
+	}
+}
+
+void Player::Draw()
+{
+	BaseOriginalDraw();
+
+	if (mItemEffectFlag)
+	{
+		float x = mPosition.x;
+		float y = mPosition.y;
+		float z = mPosition.z - 5.0f;
+		DrawRotaGraph3D(x, y, z, 0.5, 0, mItemEffectHandleArray[mItemEffectCounter++], TRUE);
 	}
 }
 
@@ -141,6 +170,15 @@ void Player::Move()
 {
 	//mVelocity = VScale(mVelocity, GameSystem::GetInstance().GetDeltaTime());
 	mPosition = VAdd(mPosition, mVelocity);
+}
+
+void Player::UpdateItemEffect()
+{
+	if (mItemEffectFlag && mItemEffectCounter >= mItemEffectFrameMass)
+	{
+		mItemEffectFlag = false;
+		mItemEffectCounter = 0;
+	}
 }
 
 /*

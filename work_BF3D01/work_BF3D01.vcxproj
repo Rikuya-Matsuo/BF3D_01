@@ -133,6 +133,8 @@
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Cannon.cpp" />
+    <ClCompile Include="CannonManager.cpp" />
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Diamond.cpp" />
@@ -145,11 +147,14 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="Sky.cpp" />
+    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Cannon.h" />
+    <ClInclude Include="CannonManager.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Diamond.h" />
@@ -161,6 +166,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="Sky.h" />
+    <ClInclude Include="UI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -20,6 +20,8 @@ public:
 	void SetDrawFlag(bool value) { mDrawFlag = value; }
 	void SetDrawSurfaceFlag(bool value) { mDrawSurfaceFlag = value; }
 	void SetCollisionFlag(bool value) { mCollisionFlag = value; }
+	void LoadTexture(const char * fileName);
+	void DeleteTexture();
 
 	void Move(VECTOR velocity);
 
@@ -44,5 +46,11 @@ protected:
 
 	// コリジョンを設けるかのフラグ
 	bool mCollisionFlag;
+
+	// テクスチャハンドル
+	int mTexture;
+
+	// テクスチャを使うフラグ
+	bool mUseTextureFlag;
 };
 
