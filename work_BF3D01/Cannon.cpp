@@ -2,11 +2,11 @@
 
 
 
-Cannon::Cannon():
-	Actor(-1)
+Cannon::Cannon(int modelHandle, State state, bool gravityFlag, float gravityRate, bool drawFlag):
+	Actor(modelHandle, state, gravityFlag, gravityRate, drawFlag)
 {
-}
 
+}
 
 Cannon::~Cannon()
 {

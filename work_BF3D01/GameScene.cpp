@@ -2,6 +2,7 @@
 #include "GameSystem.h"
 #include "Input.h"
 #include "Cube.h"
+#include "CannonManager.h"
 #include <string>
 
 GameScene::GameScene():
@@ -28,6 +29,9 @@ GameScene::GameScene():
 
 	// ダイアモンド設置
 	mDiamondManager = new DiamondManager("Data/Model/Treasure/LuckyHammer/REPLICA_KODUCHI.pmx", mDiamondMass);
+
+	// 大砲マネージャー設置
+	new CannonManager("Data/Model/Cannon/Cannon/Cannon.pmx", 5);
 }
 
 
