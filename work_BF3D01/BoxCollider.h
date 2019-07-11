@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Cube.h"
 #include "Actor.h"
 
@@ -28,11 +28,11 @@ public:
 private:
 	Actor * mOwner;
 
-	// ƒRƒ‰ƒCƒ_[‚ªŠ‘®‚·‚éƒAƒNƒ^[‚Ì‘®«i‚±‚±‚Å‚Íƒ^ƒO‚ÆŒÄ‚Ôj
+	// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãŒæ‰€å±ã™ã‚‹ã‚¢ã‚¯ã‚¿ãƒ¼ã®å±æ€§ï¼ˆã“ã“ã§ã¯ã‚¿ã‚°ã¨å‘¼ã¶ï¼‰
 	char mTag;
 
 	friend bool CheckCollision_Ver2D(const BoxCollider& obj1, const BoxCollider& obj2);
 };
 
-// Z•ûŒü‚Ì‚±‚Æ‚ğl‚¦‚È‚¢“–‚½‚è”»’è
+// Zæ–¹å‘ã®ã“ã¨ã‚’è€ƒãˆãªã„å½“ãŸã‚Šåˆ¤å®š
 bool CheckCollision_Ver2D(const BoxCollider& obj1, const BoxCollider& obj2);

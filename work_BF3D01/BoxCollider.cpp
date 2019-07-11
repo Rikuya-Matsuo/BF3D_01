@@ -1,4 +1,4 @@
-#include "BoxCollider.h"
+﻿#include "BoxCollider.h"
 #include "GameSystem.h"
 
 BoxCollider::BoxCollider(Actor * owner, char tag, VECTOR vertex, VECTOR inversionVertex):

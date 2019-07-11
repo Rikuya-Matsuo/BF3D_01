@@ -1,4 +1,4 @@
-#include "DiamondManager.h"
+ï»¿#include "DiamondManager.h"
 
 DiamondManager::DiamondManager(const char * fileName, int diamondMass) :
 	mChildMass(diamondMass),
@@ -17,7 +17,7 @@ DiamondManager::DiamondManager(const char * fileName, int diamondMass) :
 
 DiamondManager::~DiamondManager()
 {
-	// swap‹Z–@‚ÆŒÄ‚Î‚ê‚éè’i‚ÅAvector“à—v‘f‚ÌƒfƒXƒgƒ‰ƒNƒ^‚ğì“®‚³‚¹‚é
+	// swapæŠ€æ³•ã¨å‘¼ã°ã‚Œã‚‹æ‰‹æ®µã§ã€vectorå†…è¦ç´ ã®ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã‚’ä½œå‹•ã•ã›ã‚‹
 	std::vector<Diamond *>().swap(mDiamonds);
 
 	if (mModelHandle > 0)
