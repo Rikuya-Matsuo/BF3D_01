@@ -14,7 +14,7 @@ CannonManager::CannonManager(const char * modelFileName, int cannonMass) :
 	}
 	for (i = 0; i < mCannonMass; ++i)
 	{
-		mCannons[i]->SetPosition(VGet((i + 1) * 350.0f, 75.0f, 0.0f));
+		mCannons[i]->SetPosition(VGet((i + 1) * 350.0f, 30.0f, 0.0f));
 	}
 
 	for (i = 0; i < mActiveBulletMassLimit; ++i)
@@ -35,6 +35,15 @@ CannonManager::~CannonManager()
 
 void CannonManager::Update(float deltaTime)
 {
+	mActiveBulletMass = 0;
+	for (int i = 0; i < mActiveBulletMassLimit; ++i)
+	{
+		if (mBullets[i]->GetState() == Actor::Active)
+		{
+			mActiveBulletMass++;
+		}
+	}
+
 	// アクティブな弾が規定数あるなら関数を抜ける
 	if (!(mActiveBulletMass < mActiveBulletMassLimit))
 	{
@@ -51,6 +60,7 @@ void CannonManager::Update(float deltaTime)
 
 		if (distance > compete)
 		{
+			leastDistance = hoge;
 			distance = compete;
 			bestCannonNum = i;
 		}
@@ -59,11 +69,15 @@ void CannonManager::Update(float deltaTime)
 	int bulletNum;
 	for (int i = 0; i < mActiveBulletMassLimit; ++i)
 	{
-		if (mBullets[i]->GetState() == Actor::Active)
+		if (mBullets[i]->GetState() == Actor::Dead)
 		{
 			bulletNum = i;
 			break;
 		}
 	}
-	mCannons[bestCannonNum]->Shoot(leastDistance, mBullets[bulletNum]);
+
+	if (CheckCameraViewClip(mCannons[bestCannonNum]->GetPosition()))
+	{
+		mCannons[bestCannonNum]->Shoot(leastDistance, mBullets[bulletNum]);
+	}
 }

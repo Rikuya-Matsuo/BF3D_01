@@ -37,6 +37,11 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
+	if (GetState() == Actor::Dead)
+	{
+		printfDx("ゲームオーバー");
+	}
+
 	// アイテムエフェクトの更新
 	UpdateItemEffect();
 
@@ -150,6 +155,11 @@ void Player::OnCollisionHit(const BoxCollider & opponentCollision)
 
 		mItemEffectCounter = 0;
 		mItemEffectFlag = true;
+	}
+
+	if (opponentTag == BoxCollider::EnemyBulletCollider)
+	{
+		SetState(Actor::Dead);
 	}
 }
 

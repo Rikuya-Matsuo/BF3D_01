@@ -20,6 +20,9 @@ void Cannon::Shoot(VECTOR direction, Bullet * shot)
 	// 弾の速度を設定
 	shot->SetVelocity(VScale(direction, shot->GetSpeed()));
 
+	// 弾の位置を設定
+	shot->SetPosition(mPosition);
+
 	// 弾をアクティブに
 	shot->SetState(Actor::Active);
 }

@@ -16,7 +16,5 @@ public:
 
 private:
 	unsigned int mColor;
-
-	const float mSpeed;
 };
 
