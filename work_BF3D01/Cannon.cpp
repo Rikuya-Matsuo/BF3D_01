@@ -17,6 +17,9 @@ void Cannon::Shoot(VECTOR direction, Bullet * shot)
 	// 方向ベクトルを正規化
 	direction = VNorm(direction);
 
-	// 次この辺から！
-	shot->SetVelocity(direction);
+	// 弾の速度を設定
+	shot->SetVelocity(VScale(direction, shot->GetSpeed()));
+
+	// 弾をアクティブに
+	shot->SetState(Actor::Active);
 }

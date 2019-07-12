@@ -1,4 +1,4 @@
-#include "Bullet.h"
+﻿#include "Bullet.h"
 
 Bullet::Bullet(int modelHandle, State state, bool gravityFlag, float gravityRate, bool drawFlag):
 	Actor(modelHandle, state, gravityFlag, gravityRate, drawFlag),
