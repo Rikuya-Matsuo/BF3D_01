@@ -3,7 +3,8 @@
 CannonManager::CannonManager(const char * modelFileName, int cannonMass) :
 	Actor(MV1LoadModel(modelFileName), State::Active, false, 0.0f, false),
 	mCannonMass(cannonMass),
-	mActiveBulletMass(0)
+	mActiveBulletMass(0),
+	mTarget(NULL)
 {
 	int i;
 
@@ -40,5 +41,29 @@ void CannonManager::Update(float deltaTime)
 		return;
 	}
 
-	
+	VECTOR leastDistance = VSub(mTarget->GetPosition(), mCannons[0]->GetPosition());
+	float distance = VSize(leastDistance);
+	int bestCannonNum = 0;
+	for (int i = 1; i < mCannonMass; ++i)
+	{
+		VECTOR hoge = VSub(mTarget->GetPosition(), mCannons[i]->GetPosition());
+		float compete = VSize(hoge);
+
+		if (distance > compete)
+		{
+			distance = compete;
+			bestCannonNum = i;
+		}
+	}
+
+	int bulletNum;
+	for (int i = 0; i < mActiveBulletMassLimit; ++i)
+	{
+		if (mBullets[i]->GetState() == Actor::Active)
+		{
+			bulletNum = i;
+			break;
+		}
+	}
+	mCannons[bestCannonNum]->Shoot(leastDistance, mBullets[bulletNum]);
 }

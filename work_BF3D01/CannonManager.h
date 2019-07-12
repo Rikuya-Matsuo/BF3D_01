@@ -15,7 +15,11 @@ public:
 
 	void Update(float deltaTime) override;
 
+	void SetTarget(Actor * target) { mTarget = target; }
+
 private:
+	Actor * mTarget;
+
 	const int mCannonMass;
 
 	std::vector<Cannon *> mCannons;

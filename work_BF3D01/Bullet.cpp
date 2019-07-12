@@ -19,6 +19,11 @@ void Bullet::Update(float deltaTime)
 	}
 
 	mPosition = VAdd(mPosition, mVelocity);
+
+	if (mPosition.y < 0 && mVelocity.y > 0)
+	{
+		mVelocity.y *= -1;
+	}
 }
 
 void Bullet::Draw()
