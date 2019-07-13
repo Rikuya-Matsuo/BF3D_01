@@ -28,13 +28,9 @@ void Bullet::Update(float deltaTime)
 	}
 #endif
 
-	if (!CheckCameraViewClip(mPosition))
+	if (CheckCameraViewClip(mPosition))
 	{
 		SetState(State::Dead);
-	}
-	else
-	{
-		SetState(State::Active);
 	}
 
 	if (GetState() != State::Active)
@@ -45,7 +41,7 @@ void Bullet::Update(float deltaTime)
 	mPosition = VAdd(mPosition, mVelocity);
 	mCollider->SetVertexes(VAdd(mPosition,mBetweenPosAndVertexes), VSub(mPosition, mBetweenPosAndVertexes));
 
-	if (mPosition.y < 0 && mVelocity.y < 0)
+	if (mPosition.y - mRadius < 0 && mVelocity.y < 0)
 	{
 		mVelocity.y *= -1;
 	}
@@ -53,6 +49,11 @@ void Bullet::Update(float deltaTime)
 
 void Bullet::Draw()
 {
+	if (mState != State::Active)
+	{
+		return;
+	}
+
 	//DrawPixel3D(mPosition, mColor);
 	DrawSphere3D(mPosition, mRadius, 256, mColor, GetColor(255, 255, 255), TRUE);
 

@@ -76,8 +76,8 @@ void CannonManager::Update(float deltaTime)
 		}
 	}
 
-	if (CheckCameraViewClip(mCannons[bestCannonNum]->GetPosition()))
+	if (!CheckCameraViewClip(mCannons[bestCannonNum]->GetPosition()))
 	{
-		//mCannons[bestCannonNum]->Shoot(leastDistance, mBullets[bulletNum]);
+		mCannons[bestCannonNum]->Shoot(leastDistance, mBullets[bulletNum]);
 	}
 }

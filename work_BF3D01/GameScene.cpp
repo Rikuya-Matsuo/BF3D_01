@@ -38,8 +38,8 @@ GameScene::GameScene():
 	mDiamondManager = new DiamondManager("Data/Model/Treasure/LuckyHammer/REPLICA_KODUCHI.pmx", mDiamondMass);
 
 	// 大砲マネージャー設置
-	CannonManager* canoMane = new CannonManager("Data/Model/Cannon/Cannon/Cannon.pmx", 5);
-	canoMane->SetTarget(mPlayer);
+	CannonManager* cannonManager = new CannonManager("Data/Model/Cannon/Cannon/Cannon.pmx", 5);
+	cannonManager->SetTarget(mPlayer);
 }
 
 
