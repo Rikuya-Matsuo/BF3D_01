@@ -29,4 +29,8 @@ private:
 	std::vector<Bullet *> mBullets;
 
 	int mActiveBulletMass;
+
+	const float mShootInterval;
+
+	float mShootTimer;
 };

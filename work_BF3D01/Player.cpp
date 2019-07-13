@@ -56,13 +56,13 @@ void Player::Update(float deltaTime)
 	if (Input::GetInstance().GetKeyPressed(KEY_INPUT_LEFT))
 	{
 		LRPressed++;
-		AddVelocityX(-mSpeed * GameSystem::GetInstance().GetDeltaTime());
+		AddVelocityX(-mSpeed * deltaTime);
 	}
 
 	if (Input::GetInstance().GetKeyPressed(KEY_INPUT_RIGHT))
 	{
 		LRPressed++;
-		AddVelocityX(mSpeed * GameSystem::GetInstance().GetDeltaTime());
+		AddVelocityX(mSpeed * deltaTime);
 	}
 
 	// X方向の速さの調整
@@ -81,17 +81,17 @@ void Player::Update(float deltaTime)
 		const float velX = GetVelocity().x;
 		float brake = 0.0f;
 
-		if (velX <= mBrakeRate * GameSystem::GetInstance().GetDeltaTime() && velX >= -mBrakeRate * GameSystem::GetInstance().GetDeltaTime())
+		if (velX <= mBrakeRate * deltaTime && velX >= -mBrakeRate * deltaTime)
 		{
 			SetVelocityX(0.0f);
 		}
-		else if (velX > mBrakeRate * GameSystem::GetInstance().GetDeltaTime())
+		else if (velX > mBrakeRate * deltaTime)
 		{
-			brake = -mBrakeRate * GameSystem::GetInstance().GetDeltaTime();
+			brake = -mBrakeRate * deltaTime;
 		}
-		else if (velX < -mBrakeRate * GameSystem::GetInstance().GetDeltaTime())
+		else if (velX < -mBrakeRate * deltaTime)
 		{
-			brake = mBrakeRate * GameSystem::GetInstance().GetDeltaTime();
+			brake = mBrakeRate * deltaTime;
 		}
 		
 		AddVelocityX(brake);

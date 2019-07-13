@@ -4,7 +4,9 @@ CannonManager::CannonManager(const char * modelFileName, int cannonMass) :
 	Actor(MV1LoadModel(modelFileName), State::Active, false, 0.0f, false),
 	mCannonMass(cannonMass),
 	mActiveBulletMass(0),
-	mTarget(NULL)
+	mTarget(NULL),
+	mShootInterval(1.5f),
+	mShootTimer(0.0f)
 {
 	int i;
 
@@ -35,6 +37,13 @@ CannonManager::~CannonManager()
 
 void CannonManager::Update(float deltaTime)
 {
+	// 発射インターバルが終了していなければ関数を抜ける
+	mShootTimer += deltaTime;
+	if (mShootTimer <= mShootInterval)
+	{
+		return;
+	}
+
 	mActiveBulletMass = 0;
 	for (int i = 0; i < mActiveBulletMassLimit; ++i)
 	{
@@ -79,5 +88,8 @@ void CannonManager::Update(float deltaTime)
 	if (!CheckCameraViewClip(mCannons[bestCannonNum]->GetPosition()))
 	{
 		mCannons[bestCannonNum]->Shoot(leastDistance, mBullets[bulletNum]);
+		
+		// 発射後の発射タイマーリセット
+		mShootTimer = 0.0f;
 	}
 }
