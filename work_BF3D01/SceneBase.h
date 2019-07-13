@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Camera.h"
 #include "Sky.h"
+#include "Light.h"
 
 class SceneBase
 {
@@ -24,6 +25,8 @@ protected:
 	SceneBase * mNextScene;
 
 	Camera mCamera;
+
+	Light mLight;
 
 	Sky mSky;
 

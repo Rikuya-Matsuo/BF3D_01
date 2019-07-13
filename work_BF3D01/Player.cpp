@@ -5,7 +5,7 @@
 
 Player::Player(int modelHandle, State state, bool gravityFlag, float gravityRate, bool drawFlag) :
 	Actor(modelHandle, state, gravityFlag, gravityRate, drawFlag),
-	mFlapForce(3.0f),
+	mFlapForce(1.5f),
 	mBrakeRate(1.5f),
 	mSpeedLimit(5.0f),
 	mItemCollect(0),

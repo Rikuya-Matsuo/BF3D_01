@@ -15,6 +15,8 @@ public:
 	void OnCollisionHit(const BoxCollider& opponentCollision) override;
 
 private:
+	const VECTOR mBetweenPosAndVertexes;
 	unsigned int mColor;
+	const float mRadius;
 };
 

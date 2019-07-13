@@ -28,6 +28,7 @@ void Camera::Update()
 	if (mFollowFlag)
 	{
 		VECTOR pos = mFollowActor->GetPosition();
+		pos.y += 5.0f;
 		pos.z -= 95.0f;
 
 		mPosition = pos;

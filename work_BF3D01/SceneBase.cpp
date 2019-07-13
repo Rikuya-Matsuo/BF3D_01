@@ -5,6 +5,7 @@
 
 SceneBase::SceneBase(float camera_near, float camera_far):
 	mCamera(camera_near, camera_far),
+	mLight(),
 	mGoNextSceneFlag(false),
 	mNextScene(NULL)
 {

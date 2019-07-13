@@ -27,6 +27,13 @@ GameScene::GameScene():
 	// スカイドーム設定
 	mSky.LoadModel("Data/Model/SkyDome/skydome_orca/sky_01.x");
 
+	// ライト設定
+	mLight.SetDirection(VSub(mPlayer->GetPosition(), VGet(-5.0f, 10.0f, 0)));
+	COLOR_F white = GetColorF(1.0f, 1.0f, 1.0f, 1.0f);
+	mLight.SetSpcColor(white);
+	mLight.SetAmbColor(white);
+	mLight.SetGlobalAmbientLight(white);
+
 	// ダイアモンド設置
 	mDiamondManager = new DiamondManager("Data/Model/Treasure/LuckyHammer/REPLICA_KODUCHI.pmx", mDiamondMass);
 

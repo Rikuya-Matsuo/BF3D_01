@@ -15,6 +15,8 @@ public:
 	void SetNearFar(float in_near, float in_far);
 	void SetFollowFlag(bool value) { mFollowFlag = value; }
 
+	const VECTOR& GetPosition() const { return mPosition; }
+
 private:
 	// ついていくアクターへのポインタ
 	Actor * mFollowActor;
