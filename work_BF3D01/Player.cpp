@@ -7,7 +7,7 @@ Player::Player(int modelHandle, State state, bool gravityFlag, float gravityRate
 	Actor(modelHandle, state, gravityFlag, gravityRate, drawFlag),
 	mFlapForce(1.5f),
 	mBrakeRate(1.5f),
-	mSpeedLimit(5.0f),
+	mSpeedLimit(3.0f),
 	mItemCollect(0),
 	mItemEffectFlag(false),
 	mItemEffectFrameMass(10),
@@ -15,7 +15,7 @@ Player::Player(int modelHandle, State state, bool gravityFlag, float gravityRate
 	//mBalloonModel(MV1LoadModel("Data/Model/Balloon/ballon.x")),
 	mBalloonPositionOffset(VGet(0.0f, 5.0f, 0.0f))
 {
-	SetSpeed(1.8f);
+	SetSpeed(0.7f);
 	MV1SetRotationXYZ(mModelHandle, VGet(0.0f, -DX_PI_F / 2.0f, 0.0f));
 
 	//MV1SetPosition(mBalloonModel, VAdd(mPosition, mBalloonPositionOffset));
