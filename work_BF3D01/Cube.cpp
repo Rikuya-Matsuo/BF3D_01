@@ -11,10 +11,7 @@ Cube::Cube(const VECTOR& vertex, const VECTOR& inversionVertex, bool collisionFl
 	mColor(color),
 	mUseTextureFlag(false)
 {
-	mSize = VSub(mInversionVertex, mVertex);
-	mSize.x = ABSOLUTE_VALUE(mSize.x);
-	mSize.y = ABSOLUTE_VALUE(mSize.y);
-	mSize.z = ABSOLUTE_VALUE(mSize.z);
+	CalculateSize();
 }
 
 
@@ -55,6 +52,7 @@ void Cube::SetVertexes(const VECTOR& vertex, const VECTOR& inversion)
 {
 	mVertex = vertex;
 	mInversionVertex = inversion;
+	CalculateSize();
 }
 
 void Cube::LoadTexture(const char * fileName)
@@ -243,4 +241,12 @@ void Cube::Draw() const
 		}
 	}
 #endif
+}
+
+void Cube::CalculateSize()
+{
+	mSize = VSub(mInversionVertex, mVertex);
+	mSize.x = ABSOLUTE_VALUE(mSize.x);
+	mSize.y = ABSOLUTE_VALUE(mSize.y);
+	mSize.z = ABSOLUTE_VALUE(mSize.z);
 }

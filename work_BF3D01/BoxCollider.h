@@ -32,7 +32,12 @@ private:
 	char mTag;
 
 	friend bool CheckCollision_Ver2D(const BoxCollider& obj1, const BoxCollider& obj2);
+	friend bool CheckCollisionAndPoint_Ver2D(const VECTOR& point, const BoxCollider& collider);
 };
 
 // Z方向のことを考えない当たり判定
 bool CheckCollision_Ver2D(const BoxCollider& obj1, const BoxCollider& obj2);
+
+// コリジョン内に指定された点があるか
+// ただし、Z方向のことは考えない
+bool CheckCollisionAndPoint_Ver2D(const VECTOR& point, const BoxCollider& collider);

@@ -2,6 +2,7 @@
 #include "DxLib.h"
 
 #define ABSOLUTE_VALUE(x) (x > 0) ? x : -x
+#define AVERAGE_OF_2VALUE(a, b) (a + b) / 2
 
 /*
 class Common final

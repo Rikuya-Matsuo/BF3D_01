@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Actor.h"
+#include "Common.h"
 
 class Player : public Actor
 {
@@ -31,9 +32,6 @@ private:
 
 	// 着地フラグ
 
-	// 速度ベクトルを位置ベクトルに加算する関数
-	void Move();
-
 	// 集めたアイテムの数
 	int mItemCollect;
 
@@ -49,8 +47,19 @@ private:
 	// 表示するアイテム取得エフェクトのコマ番号
 	int mItemEffectCounter;
 
+	// 速度ベクトルを位置ベクトルに加算する関数
+	void Move();
+
 	// アイテム取得エフェクトの更新
 	void UpdateItemEffect();
+
+	// 地面との当たり判定関数
+	// 処理が肥大化したため作成する
+	void OnHitGround(const BoxCollider& opponentCollision);
+
+	//// 当たったGroundのBoxColliderが床か壁か天井かを認識する
+	//// OnHitGround内でのみ使用
+	//void OnHitGround_RecognizeCollider(const BoxCollider& opponentCollision);
 };
 
 /*

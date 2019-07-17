@@ -36,3 +36,16 @@ bool CheckCollision_Ver2D(const BoxCollider & obj1, const BoxCollider & obj2)
 
 	return ret;
 }
+
+bool CheckCollisionAndPoint_Ver2D(const VECTOR & point, const BoxCollider & collider)
+{
+	bool ret = false;
+
+	VECTOR smallValueEdge = collider.GetSmallValueVertex();
+	VECTOR largeValueEdge = collider.GetLargeValueVertex();
+
+	ret = (point.x > smallValueEdge.x && point.x < largeValueEdge.x &&
+		point.y > smallValueEdge.y && point.y < largeValueEdge.y);
+
+	return ret;
+}

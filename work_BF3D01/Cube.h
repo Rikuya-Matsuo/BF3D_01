@@ -16,6 +16,8 @@ public:
 
 	bool GetCollisionFlag() const { return mCollisionFlag; }
 
+	const VECTOR& GetSize() const { return mSize; }
+
 	void SetPosition(const VECTOR& vertex);
 	void SetVertexes(const VECTOR& vertex, const VECTOR& inversion);
 	void SetColor(unsigned int value) { mColor = value; }
@@ -54,5 +56,8 @@ protected:
 
 	// テクスチャを使うフラグ
 	bool mUseTextureFlag;
+
+private:
+	void CalculateSize();
 };
 
