@@ -5,17 +5,19 @@
 class Cube
 {
 public:
-	Cube(VECTOR vertex, VECTOR inversionVertex, bool collisionFlag, bool drawFlag = true, unsigned int color = 0xffffffff);
+	Cube(const VECTOR& vertex, const VECTOR& inversionVertex, bool collisionFlag, bool drawFlag = true, unsigned int color = 0xffffffff);
 	virtual ~Cube();
 
-	// 二つの頂点の中でも値の小さい（大きい）要素を集めた頂点を返す
+	// 二つの頂点の中でも値の小さい要素を集めた頂点を返す
 	VECTOR GetSmallValueVertex() const;
+
+	// 二つの頂点の中でも値の大きい要素を集めた頂点を返す
 	VECTOR GetLargeValueVertex() const;
 
 	bool GetCollisionFlag() const { return mCollisionFlag; }
 
-	void SetPosition(VECTOR vertex);
-	void SetVertexes(VECTOR vertex, VECTOR inversion);
+	void SetPosition(const VECTOR& vertex);
+	void SetVertexes(const VECTOR& vertex, const VECTOR& inversion);
 	void SetColor(unsigned int value) { mColor = value; }
 	void SetDrawFlag(bool value) { mDrawFlag = value; }
 	void SetDrawSurfaceFlag(bool value) { mDrawSurfaceFlag = value; }
@@ -23,7 +25,7 @@ public:
 	void LoadTexture(const char * fileName);
 	void DeleteTexture();
 
-	void Move(VECTOR velocity);
+	void Move(const VECTOR& velocity);
 
 	void Draw() const;
 

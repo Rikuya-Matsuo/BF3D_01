@@ -2,7 +2,7 @@
 
 #define USE_DRAWCUBE 0
 
-Cube::Cube(VECTOR vertex, VECTOR inversionVertex, bool collisionFlag, bool drawFlag, unsigned int color):
+Cube::Cube(const VECTOR& vertex, const VECTOR& inversionVertex, bool collisionFlag, bool drawFlag, unsigned int color):
 	mVertex(vertex),
 	mInversionVertex(inversionVertex),
 	mCollisionFlag(collisionFlag),
@@ -45,13 +45,13 @@ VECTOR Cube::GetLargeValueVertex() const
 	return ret;
 }
 
-void Cube::SetPosition(VECTOR vertex)
+void Cube::SetPosition(const VECTOR& vertex)
 {
 	mVertex = vertex;
 	mInversionVertex = VAdd(mVertex, mSize);
 }
 
-void Cube::SetVertexes(VECTOR vertex, VECTOR inversion)
+void Cube::SetVertexes(const VECTOR& vertex, const VECTOR& inversion)
 {
 	mVertex = vertex;
 	mInversionVertex = inversion;
@@ -77,7 +77,7 @@ void Cube::DeleteTexture()
 	mUseTextureFlag = false;
 }
 
-void Cube::Move(VECTOR velocity)
+void Cube::Move(const VECTOR& velocity)
 {
 	mVertex = VAdd(mVertex, velocity);
 	mInversionVertex = VAdd(mInversionVertex, velocity);

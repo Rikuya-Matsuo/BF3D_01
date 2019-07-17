@@ -3,6 +3,7 @@
 
 #include "Actor.h"
 #include "Cube.h"
+#include "Ground.h"
 #include "SceneBase.h"
 #include <vector>
 
@@ -22,7 +23,7 @@ public:
 	void AddActor(Actor * actor);
 	void RemoveActor(Actor * actor);
 
-	void AddGround(Cube * cube);
+	//void AddGround(Ground * ground);
 
 	void AddCollider(BoxCollider * collider);
 
@@ -50,7 +51,7 @@ private:
 
 	std::vector<Actor*> mActors;
 
-	std::vector<Cube*> mGround;
+	//std::vector<Cube*> mGround;
 
 	std::vector<BoxCollider*> mColliders;
 
@@ -58,6 +59,6 @@ private:
 	void UpdateActors();
 	void CheckColliders();
 	void DrawActors();
-	void DrawGround();
+	//void DrawGround();
 	void ShutDown();
 };

@@ -40,9 +40,11 @@ void GameSystem::Run()
 
 		// アクター描画
 		DrawActors();
-
+		
+		/*
 		// 地面・壁の描画
 		DrawGround();
+		*/
 
 		// 裏画面の情報を表に描画
 		ScreenFlip();
@@ -148,6 +150,7 @@ void GameSystem::DrawActors()
 	}
 }
 
+/*
 void GameSystem::DrawGround()
 {
 	for (auto ground : mGround)
@@ -155,6 +158,7 @@ void GameSystem::DrawGround()
 		ground->Draw();
 	}
 }
+*/
 
 void GameSystem::ShutDown()
 {
@@ -163,14 +167,14 @@ void GameSystem::ShutDown()
 		delete mActors.back();
 	}
 	mActors.shrink_to_fit();
-
+	/*
 	while (!mGround.empty())
 	{
 		delete mGround.back();
 		mGround.pop_back();
 	}
 	mGround.shrink_to_fit();
-
+	*/
 	DxLib_End();
 }
 
@@ -193,10 +197,12 @@ void GameSystem::RemoveActor(Actor * actor)
 	mActors.erase(target);
 }
 
-void GameSystem::AddGround(Cube * cube)
+/*
+void GameSystem::AddGround(Ground * ground)
 {
-	mGround.emplace_back(cube);
+	mGround.emplace_back(ground);
 }
+*/
 
 void GameSystem::AddCollider(BoxCollider * collider)
 {

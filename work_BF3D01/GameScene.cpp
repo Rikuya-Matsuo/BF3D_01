@@ -2,6 +2,7 @@
 #include "GameSystem.h"
 #include "Input.h"
 #include "Cube.h"
+#include "Ground.h"
 #include "CannonManager.h"
 #include <string>
 
@@ -16,9 +17,8 @@ GameScene::GameScene():
 
 	for (int i = 0; i < 10; ++i)
 	{
-		Cube * ground = new Cube(VGet(i * 200.0f, 0, 0), VGet((i + 1) * 200.0f, -1000.0f, -50), true, true, GetColor(0, 255, 0));
+		Ground * ground = new Ground(VGet(i * 200.0f, 0, 0), VGet((i + 1) * 200.0f, -1000.0f, -50), GetColor(0, 255, 0));
 		ground->LoadTexture("Data/Image/groundTexture00.jpg");
-		GameSystem::GetInstance().AddGround(ground);
 	}
 	
 	// カメラ追従設定
