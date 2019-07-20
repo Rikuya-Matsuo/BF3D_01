@@ -13,7 +13,99 @@ BoxCollider::~BoxCollider()
 {
 }
 
-bool CheckCollision_Ver2D(const BoxCollider & obj1, const BoxCollider & obj2)
+void BoxCollider::Update()
+{
+	// いちいち添え字を書くのが面倒なのでポインタで指す
+	VECTOR * forRewrite;
+
+	for (char x = 0; x < Invalid_CornerX; ++x)
+	{
+		EnumCornerX cornerX = (EnumCornerX)x;
+		for (char y = 0; y < Invalid_CornerY; ++y)
+		{
+			EnumCornerY cornerY = (EnumCornerY)y;
+			for (char z = 0; z < Invalid_CornerZ; ++z)
+			{
+				EnumCornerZ cornerZ = (EnumCornerZ)z;
+
+				forRewrite = &mCornerPosition[cornerX][cornerY][cornerZ];
+
+				forRewrite->x = GetCornerPositionX(cornerX);
+				forRewrite->y = GetCornerPositionY(cornerY);
+				forRewrite->z = GetCornerPositionZ(cornerZ);
+			}
+		}
+	}
+}
+
+float BoxCollider::GetCornerPositionX(EnumCornerX cornerX)
+{
+	float ret = 0.0f;
+	if (cornerX == EnumCornerX::RightCorner)
+	{
+		ret = GetLargeValueVertex().x;
+	}
+	else if (cornerX == EnumCornerX::LeftCorner)
+	{
+		ret = GetSmallValueVertex().x;
+	}
+
+	return ret;
+
+	/*
+	// 取得する
+	mCornerPositionXArray[EnumCornerX::LeftCorner] = GetSmallValueVertex().x;
+	mCornerPositionXArray[EnumCornerX::RightCorner] = GetLargeValueVertex().x;
+
+	return mCornerPositionXArray[cornerX];
+	*/
+}
+
+float BoxCollider::GetCornerPositionY(EnumCornerY cornerY)
+{
+	float ret = 0.0f;
+	if (cornerY == EnumCornerY::UpCorner)
+	{
+		ret = GetLargeValueVertex().y;
+	}
+	else if (ret == EnumCornerY::DownCorner)
+	{
+		ret = GetSmallValueVertex().y;
+	}
+	
+	return ret;
+	/*
+	// 取得する
+	mCornerPositionYArray[EnumCornerY::DownCorner] = GetSmallValueVertex().y;
+	mCornerPositionYArray[EnumCornerY::UpCorner] = GetLargeValueVertex().y;
+
+	return mCornerPositionYArray[cornerY];
+	*/
+}
+
+float BoxCollider::GetCornerPositionZ(EnumCornerZ cornerZ)
+{
+	float ret = 0.0f;
+	if (cornerZ == EnumCornerZ::FarCorner)
+	{
+		ret = GetLargeValueVertex().z;
+	}
+	else if (cornerZ == EnumCornerZ::NearCorner)
+	{
+		ret = GetSmallValueVertex().z;
+	}
+
+	return ret;
+	/*
+	// 取得する
+	mCornerPositionZArray[EnumCornerZ::NearCorner] = GetSmallValueVertex().z;
+	mCornerPositionZArray[EnumCornerZ::FarCorner] = GetLargeValueVertex().z;
+
+	return mCornerPositionZArray[cornerZ];
+	*/
+}
+
+bool CheckCollision_2DVersion(const BoxCollider & obj1, const BoxCollider & obj2)
 {
 	bool ret = false;
 
@@ -37,7 +129,7 @@ bool CheckCollision_Ver2D(const BoxCollider & obj1, const BoxCollider & obj2)
 	return ret;
 }
 
-bool CheckCollisionAndPoint_Ver2D(const VECTOR & point, const BoxCollider & collider)
+bool CheckCollisionAndPoint_2DVersion(const VECTOR & point, const BoxCollider & collider)
 {
 	bool ret = false;
 

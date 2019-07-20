@@ -222,13 +222,13 @@ void Player::OnHitGround(const BoxCollider & opponentCollision)
 	// 四隅それぞれの、相手コリジョンと当たっているかのフラグ
 	// ビットフラグ使ってみたかったんじゃぁ
 	// 一番最後のビットが、最後の角番号のフラグとなるよう、上から格納する。（語彙力・・・( ;∀;)）
-	// 今回の場合、下から四番目のビットが0番の角のフラグで、一番下が4番の角のフラグ。
+	// 今回の場合、下から四番目のビットが0番の角のフラグで、一番下が3番の角のフラグ。
 	//bool cornerHitFlag[cornerMass];
 	unsigned char cornerHitFlags = 0;
 	for (int i = 0; i < cornerMass; ++i)
 	{
-		// cornerHitFlag[i] = CheckCollisionAndPoint_Ver2D(cornerPos[i], opponentCollision);
-		if (CheckCollisionAndPoint_Ver2D(cornerPos[i], opponentCollision))
+		// cornerHitFlag[i] = CheckCollisionAndPoint_2DVersion(cornerPos[i], opponentCollision);
+		if (CheckCollisionAndPoint_2DVersion(cornerPos[i], opponentCollision))
 		{
 			unsigned char mask = 0b00000001 << ((cornerMass - 1) - i);
 			cornerHitFlags |= mask;

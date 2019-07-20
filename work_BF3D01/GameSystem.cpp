@@ -26,6 +26,9 @@ void GameSystem::Run()
 		// アクター更新
 		UpdateActors();
 
+		// コリジョン更新
+		UpdateColliders();
+
 		// 当たり判定
 		CheckColliders();
 
@@ -117,6 +120,14 @@ void GameSystem::UpdateActors()
 	}
 }
 
+void GameSystem::UpdateColliders()
+{
+	for (auto collider : mColliders)
+	{
+		collider->Update();
+	}
+}
+
 void GameSystem::CheckColliders()
 {
 	for (unsigned int i = 0; i < mColliders.size() - 1; ++i)
@@ -133,7 +144,7 @@ void GameSystem::CheckColliders()
 				continue;
 			}
 
-			if (CheckCollision_Ver2D(*mColliders[i], *mColliders[j]))
+			if (CheckCollision_2DVersion(*mColliders[i], *mColliders[j]))
 			{
 				mColliders[i]->GetOwnerPointer()->OnCollisionHit(*mColliders[j]);
 				mColliders[j]->GetOwnerPointer()->OnCollisionHit(*mColliders[i]);

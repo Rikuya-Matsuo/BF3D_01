@@ -57,6 +57,7 @@ private:
 
 	float CulculateDeltaTime();
 	void UpdateActors();
+	void UpdateColliders();
 	void CheckColliders();
 	void DrawActors();
 	//void DrawGround();
