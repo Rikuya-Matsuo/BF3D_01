@@ -105,6 +105,17 @@ float BoxCollider::GetCornerPositionZ(EnumCornerZ cornerZ)
 	*/
 }
 
+void BoxCollider::GetCornerPositionArrayNear(VECTOR * destination, size_t size)
+{
+	for (int i = 0; i < size; ++i)
+	{
+		EnumCornerX cornerX = (!i || i == 3) ? RightCorner : LeftCorner;
+		EnumCornerY cornerY = (i <= 1) ? UpCorner : DownCorner;
+
+		destination[i] = mCornerPosition[cornerX][cornerY][NearCorner];
+	}
+}
+
 bool CheckCollision_2DVersion(const BoxCollider & obj1, const BoxCollider & obj2)
 {
 	bool ret = false;

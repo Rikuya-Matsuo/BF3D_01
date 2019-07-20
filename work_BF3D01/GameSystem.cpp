@@ -178,14 +178,7 @@ void GameSystem::ShutDown()
 		delete mActors.back();
 	}
 	mActors.shrink_to_fit();
-	/*
-	while (!mGround.empty())
-	{
-		delete mGround.back();
-		mGround.pop_back();
-	}
-	mGround.shrink_to_fit();
-	*/
+
 	DxLib_End();
 }
 

@@ -33,11 +33,11 @@ public:
 		Invalid_CornerY
 	};
 
-	// Z:手前->NearCorner	奥->FarCorner
+	// Z:奥->FarCorner	手前->NearCorner
 	enum EnumCornerZ
 	{
-		NearCorner,
 		FarCorner,
+		NearCorner,
 		Invalid_CornerZ
 	};
 
@@ -58,7 +58,10 @@ public:
 	float GetCornerPositionY(EnumCornerY cornerY);
 	float GetCornerPositionZ(EnumCornerZ cornerZ);
 
-	void GetCornerPositionArrayNear(VECTOR * destination, size_t size) {}
+	// 角の座標の配列の代入
+	// 二次元グラフの象限と同じ数え方（厄介な方法をとってしまったなぁ）
+	// 右上->0 左上->1 左下->2 右下->3
+	void GetCornerPositionArrayNear(VECTOR * destination, size_t size = 4);
 
 private:
 	Actor * mOwner;

@@ -23,8 +23,6 @@ public:
 	void AddActor(Actor * actor);
 	void RemoveActor(Actor * actor);
 
-	//void AddGround(Ground * ground);
-
 	void AddCollider(BoxCollider * collider);
 
 	int GetScreenWidth()const { return mScreenWidth; }
@@ -51,8 +49,6 @@ private:
 
 	std::vector<Actor*> mActors;
 
-	//std::vector<Cube*> mGround;
-
 	std::vector<BoxCollider*> mColliders;
 
 	float CulculateDeltaTime();
@@ -60,6 +56,5 @@ private:
 	void UpdateColliders();
 	void CheckColliders();
 	void DrawActors();
-	//void DrawGround();
 	void ShutDown();
 };
