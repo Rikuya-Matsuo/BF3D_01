@@ -114,21 +114,6 @@ void Player::Update(float deltaTime)
 
 	Move();
 
-	//// きれいごとは言ってられないんだよぉ！
-	//// （要約：時間がないのでちゃんとした当たり判定は後程）
-	//if (mPosition.y < 0)
-	//{
-	//	if (!Input::GetInstance().GetKeyDown(KEY_INPUT_UP))
-	//	{
-	//		SetVelocityY(0.0f);
-	//		SetPosition(VGet(mPosition.x, 0.0f, mPosition.z));
-	//	}
-	//	/*
-	//	BoxCollider hoge(NULL, VGet(0, 0, 0), VGet(0, 0, 0));
-	//	OnCollisionHit(hoge);
-	//	*/
-	//}
-
 	BaseOriginalUpdate();
 	MV1SetPosition(mBalloonModel, VAdd(mPosition, mBalloonPositionOffset));
 
@@ -417,8 +402,3 @@ void Player::OnHitGround(const BoxCollider & opponentCollision)
 	}
 	*/
 }
-
-/*
-今日の教訓
-＊ソースコード内に日記を書いてはいけない。
-*/

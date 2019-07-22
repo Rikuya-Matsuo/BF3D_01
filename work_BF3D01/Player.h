@@ -61,8 +61,3 @@ private:
 	//// OnHitGround内でのみ使用
 	//void OnHitGround_RecognizeCollider(const BoxCollider& opponentCollision);
 };
-
-/*
-今日の教訓
-＊川上から大きな桃が流れてきても、衛生上拾うのは避けたほうがいい
-*/
