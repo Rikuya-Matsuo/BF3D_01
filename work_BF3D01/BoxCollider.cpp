@@ -120,19 +120,31 @@ bool CheckCollision_2DVersion(const BoxCollider & obj1, const BoxCollider & obj2
 {
 	bool ret = false;
 
-	VECTOR obj1VertexS, obj1VertexL;
-	VECTOR obj2VertexS, obj2VertexL;
+	VECTOR smallObjVertexS, smallObjVertexL;
+	VECTOR bigObjVertexS, bigObjVertexL;
 
-	obj1VertexS = obj1.GetSmallValueVertex();
-	obj1VertexL = obj1.GetLargeValueVertex();
+	// どちらのコリジョンの方が大きいかの判定
+	if (VSize(obj1.GetSize()) < VSize(obj2.GetSize()))
+	{
+		smallObjVertexS = obj1.GetSmallValueVertex();
+		smallObjVertexL = obj1.GetLargeValueVertex();
 
-	obj2VertexS = obj2.GetSmallValueVertex();
-	obj2VertexL = obj2.GetLargeValueVertex();
+		bigObjVertexS = obj2.GetSmallValueVertex();
+		bigObjVertexL = obj2.GetLargeValueVertex();
+	}
+	else
+	{
+		smallObjVertexS = obj2.GetSmallValueVertex();
+		smallObjVertexL = obj2.GetLargeValueVertex();
 
-	if (((obj1VertexS.x > obj2VertexS.x && obj1VertexS.x < obj2VertexL.x) ||
-		(obj1VertexL.x > obj2VertexS.x && obj1VertexL.x < obj2VertexL.x)) &&
-		((obj1VertexS.y > obj2VertexS.y && obj1VertexS.y < obj2VertexL.y) ||
-		(obj1VertexL.y > obj2VertexS.y && obj1VertexL.y < obj2VertexL.y)))
+		bigObjVertexS = obj1.GetSmallValueVertex();
+		bigObjVertexL = obj1.GetLargeValueVertex();
+	}	
+
+	if (((smallObjVertexS.x > bigObjVertexS.x && smallObjVertexS.x < bigObjVertexL.x) ||
+		(smallObjVertexL.x > bigObjVertexS.x && smallObjVertexL.x < bigObjVertexL.x)) &&
+		((smallObjVertexS.y > bigObjVertexS.y && smallObjVertexS.y < bigObjVertexL.y) ||
+		(smallObjVertexL.y > bigObjVertexS.y && smallObjVertexL.y < bigObjVertexL.y)))
 	{
 		ret = true;
 	}
