@@ -50,7 +50,7 @@ void Bullet::Update(float deltaTime)
 
 void Bullet::Draw()
 {
-	if (mState != State::Active)
+	if (mState == State::Dead)
 	{
 		return;
 	}

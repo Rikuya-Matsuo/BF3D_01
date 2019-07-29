@@ -38,9 +38,15 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
-	if (GetState() == Actor::Dead)
+	// アクティブでないならこの関数を実行しない
+	if (mState != Actor::Active)
 	{
-		printfDx("ゲームオーバー");
+		// デッドのとき
+		if (mState == Actor::Dead)
+		{
+			printfDx("ゲームオーバー");
+		}
+		return;
 	}
 
 	// アイテムエフェクトの更新

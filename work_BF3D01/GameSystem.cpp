@@ -3,7 +3,8 @@
 
 GameSystem::GameSystem():
 	mRunFlag(true),
-	mNowScene(nullptr)
+	mNowScene(nullptr),
+	mPauseFlag(false)
 {
 }
 
@@ -19,6 +20,14 @@ void GameSystem::Run()
 
 		// フレーム間秒数の算出
 		CulculateDeltaTime();
+
+#ifdef _DEBUG_BF3D
+		// ポーズの判定および実行
+		if (Input::GetInstance().GetKeyDown(KEY_INPUT_TAB))
+		{
+			TogglePauseState();
+		}
+#endif
 
 		// シーン更新
 		mNowScene->Update(mDeltaTime);
@@ -110,6 +119,32 @@ float GameSystem::CulculateDeltaTime()
 	mPrevCount = mNowCount;
 
 	return mDeltaTime;
+}
+
+void GameSystem::TogglePauseState()
+{
+	// ポーズフラグの切り替え
+	mPauseFlag = !mPauseFlag;
+
+	// アクター状態切り替え
+	// ポーズ状態になったとき
+	if (mPauseFlag)
+	{
+		// アクター状態をポーズにセット
+		for (auto actor : mActors)
+		{
+			actor->SetState(Actor::Paused);
+		}
+	}
+	// ポーズ解除状態になったとき
+	else
+	{
+		// アクター状態をアクティブにセット
+		for (auto actor : mActors)
+		{
+			actor->SetState(Actor::Active);
+		}
+	}
 }
 
 void GameSystem::UpdateActors()

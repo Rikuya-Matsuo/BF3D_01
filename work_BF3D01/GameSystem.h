@@ -45,6 +45,8 @@ private:
 	int mPrevCount;
 	float mDeltaTime;
 
+	bool mPauseFlag;
+
 	SceneBase * mNowScene;
 
 	std::vector<Actor*> mActors;
@@ -52,6 +54,7 @@ private:
 	std::vector<BoxCollider*> mColliders;
 
 	float CulculateDeltaTime();
+	void TogglePauseState();
 	void UpdateActors();
 	void UpdateColliders();
 	void CheckColliders();
