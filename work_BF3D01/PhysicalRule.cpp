@@ -14,6 +14,11 @@ void PhysicalRule::Fall(Actor & actor) const
 	if (actor.GetGravityFlag())
 	{
 		actor.AddVelocity(VGet(0, mGravity * GameSystem::GetInstance().GetDeltaTime() * actor.GetGravityRate(), 0));
+
+		if (actor.GetVelocity().y > actor.GetFallSpeedLimit())
+		{
+			actor.SetVelocityY(actor.GetFallSpeedLimit());
+		}
 	}
 	else
 	{

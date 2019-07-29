@@ -16,6 +16,7 @@ Player::Player(int modelHandle, State state, bool gravityFlag, float gravityRate
 	mBalloonPositionOffset(VGet(0.0f, 5.0f, 0.0f))
 {
 	SetSpeed(0.7f);
+	mFallSpeedLimit = 10.0f;
 	MV1SetRotationXYZ(mModelHandle, VGet(0.0f, -DX_PI_F / 2.0f, 0.0f));
 
 	//MV1SetPosition(mBalloonModel, VAdd(mPosition, mBalloonPositionOffset));

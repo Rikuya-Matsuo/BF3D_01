@@ -44,6 +44,9 @@ public:
 	// 移動スピード
 	float GetSpeed()const { return mSpeed; }
 
+	// 落下速度上限値
+	float GetFallSpeedLimit()const { return mFallSpeedLimit; }
+
 	/////////////////////////////////////////////////////
 	// セッター
 	/////////////////////////////////////////////////////
@@ -118,6 +121,9 @@ protected:
 	// 重力の影響を何倍にするか。
 	// これによって落下速度を上げたり下げたりできる。
 	float mGravityRate;
+
+	// 落下速度の上限
+	float mFallSpeedLimit;
 
 	// 移動する速さ
 	// 単位は「ドット／秒」

@@ -1,5 +1,6 @@
 ﻿#include "Actor.h"
 #include "GameSystem.h"
+#include <cfloat>
 
 Actor::Actor(int modelHandle,State state, bool gravityFlag, float gravityRate, bool drawFlag):
 	mModelHandle(modelHandle),
@@ -8,6 +9,7 @@ Actor::Actor(int modelHandle,State state, bool gravityFlag, float gravityRate, b
 	mGravityRate(gravityRate),
 	mDrawFlag(drawFlag),
 	mSpeed(0.0f),
+	mFallSpeedLimit(FLT_MAX),
 	mPosition(VGet(0.0f, 0.0f, 0.0f)),
 	mVelocity(VGet(0.0f, 0.0f, 0.0f))
 {
