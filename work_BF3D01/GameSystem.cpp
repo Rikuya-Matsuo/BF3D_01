@@ -6,6 +6,8 @@ GameSystem::GameSystem():
 	mNowScene(nullptr),
 	mPauseFlag(false)
 {
+	mActors.reserve(30);
+	mColliders.reserve(30);
 }
 
 void GameSystem::Run()

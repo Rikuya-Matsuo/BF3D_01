@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Actor.h"
 #include "Common.h"
+#include <unordered_map>
 
 class Player : public Actor
 {
@@ -32,6 +33,19 @@ private:
 
 	// 着地フラグ
 
+	// プレイヤーにだけつけるもう一つのコライダー
+	// スレスレで弾を避けたという判定に使う
+	BoxCollider * mTriggerCollider;
+
+	// 1フレーム内における接触したコライダーと、それとプレイヤーとの接触判定回数を関連付けたマップデータ
+	std::unordered_map<BoxCollider*, char> mNumberOfHit;
+
+	// 前フレームで接触した回数を弾コリジョン毎に記録
+	std::unordered_map<BoxCollider*, char> mPrevNumberOfHitBullet;
+
+	// 弾との当たり判定を行った回数（問題ありなのでまだ定義しない）
+	// char mNumOfCheckCollisionAgainstBullet;
+
 	// 集めたアイテムの数
 	int mItemCollect;
 
@@ -52,6 +66,9 @@ private:
 
 	// アイテム取得エフェクトの更新
 	void UpdateItemEffect();
+
+	// 接触判定回数のリセット
+	void ResetNumberOfHit();
 
 	// 地面との当たり判定関数
 	// 処理が肥大化したため作成する

@@ -24,6 +24,11 @@ Player::Player(int modelHandle, State state, bool gravityFlag, float gravityRate
 	mCollider->SetPosition(VSub(mPosition, VGet(1, 0, 0)));
 	mCollider->SetColliderTag(BoxCollider::PlayerCollider);
 
+	mTriggerCollider = new BoxCollider(this, BoxCollider::PlayerCollider, mCollider->GetLargeValueVertex(), mCollider->GetSmallValueVertex());
+
+	mNumberOfHit.reserve(5);
+	mPrevNumberOfHitBullet.reserve(2);
+
 	mItemEffectHandleArray = new int[mItemEffectFrameMass];
 	int w, h;
 	int graph = LoadGraph("Data/Image/getCoin.png");
@@ -38,6 +43,9 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
+	// ヒットしたコライダーの接触判定関数のリセット
+	ResetNumberOfHit();
+
 	// アクティブでないならこの関数を実行しない
 	if (mState != Actor::Active)
 	{
@@ -82,7 +90,7 @@ void Player::Update(float deltaTime)
 		SetVelocityY(mFlapForce);
 	}
 
-	// LRPressedが偶数 == どちらも押されている or 両方押されている
+	// LRPressedが偶数 -> どちらも押されている or 両方押されている
 	if (!(LRPressed % 2))
 	{
 		const float velX = GetVelocity().x;
@@ -122,6 +130,7 @@ void Player::Update(float deltaTime)
 	Move();
 
 	BaseOriginalUpdate();
+	mTriggerCollider->SetPosition(VSub(mPosition, VGet(1, 0, 0)));
 	MV1SetPosition(mBalloonModel, VAdd(mPosition, mBalloonPositionOffset));
 
 	VECTOR pos = GetPosition();
@@ -134,22 +143,42 @@ void Player::OnCollisionHit(const BoxCollider & opponentCollision)
 
 	char opponentTag = opponentCollision.GetColliderTag();
 
+	// そのコライダーとの接触判定回数を記録
+	// ただし、自身は除く
+	char NumOfHit;
+	if (opponentTag != BoxCollider::PlayerCollider)
+	{
+		NumOfHit = ++mNumberOfHit[&(BoxCollider)opponentCollision];
+	}
+
 	if (opponentTag == BoxCollider::GroundCollider)
 	{
-		OnHitGround(opponentCollision);
+		// 内側のコライダーに当たっている場合
+		if (NumOfHit == 2)
+		{
+			OnHitGround(opponentCollision);
+		}
 	}
 
 	else if (opponentTag == BoxCollider::ItemCollider)
 	{
-		mItemCollect++;
+		// 内側のコライダーに当たっている場合
+		if (NumOfHit == 2)
+		{
+			mItemCollect++;
 
-		mItemEffectCounter = 0;
-		mItemEffectFlag = true;
+			mItemEffectCounter = 0;
+			mItemEffectFlag = true;
+		}
 	}
 
 	else if (opponentTag == BoxCollider::EnemyBulletCollider)
 	{
-		SetState(Actor::Dead);
+		// 内側のコライダーに当たっている場合
+		if (NumOfHit == 2)
+		{
+			SetState(Actor::Dead);
+		}
 	}
 }
 
@@ -179,6 +208,22 @@ void Player::UpdateItemEffect()
 		mItemEffectFlag = false;
 		mItemEffectCounter = 0;
 	}
+}
+
+void Player::ResetNumberOfHit()
+{
+	for (auto iter : mNumberOfHit)
+	{
+		// コライダーのタグが弾のものならば
+		if (iter.first->GetColliderTag() == BoxCollider::EnemyBulletCollider)
+		{
+			// 弾のコライダーの接触判定回数を記録
+			mPrevNumberOfHitBullet[iter.first] = iter.second;
+		}
+	}
+
+	// データが蓄積しないようにリフレッシュ
+	mNumberOfHit.clear();
 }
 
 void Player::OnHitGround(const BoxCollider & opponentCollision)
