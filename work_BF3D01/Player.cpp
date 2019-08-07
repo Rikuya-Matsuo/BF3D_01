@@ -7,8 +7,11 @@ Player::Player(int modelHandle, State state, bool gravityFlag, float gravityRate
 	Actor(modelHandle, state, gravityFlag, gravityRate, drawFlag),
 	mFlapForce(1.5f),
 	mBrakeRate(1.5f),
+	mAvoidBonusScore(100),
+	mItemScore(100),
 	mSpeedLimit(3.0f),
 	mItemCollect(0),
+	mScore(0),
 	mItemEffectFlag(false),
 	mItemEffectFrameMass(10),
 	mItemEffectCounter(0),
@@ -43,6 +46,9 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
+	// 「スレスレ回避ボーナス」の判定
+	CheckAvoidBonus();
+
 	// ヒットしたコライダーの接触判定関数のリセット
 	ResetNumberOfHit();
 
@@ -166,6 +172,7 @@ void Player::OnCollisionHit(const BoxCollider & opponentCollision)
 		if (NumOfHit == 2)
 		{
 			mItemCollect++;
+			mScore += mItemScore;
 
 			mItemEffectCounter = 0;
 			mItemEffectFlag = true;
@@ -210,8 +217,31 @@ void Player::UpdateItemEffect()
 	}
 }
 
+void Player::CheckAvoidBonus()
+{
+	for (auto loopIter : mPrevNumberOfHitBullet)
+	{
+		// 最新のフレーム内に接触したコライダーの中から、ループのイテレータが指す弾のコライダーを検索
+		std::unordered_map<BoxCollider*, char>::iterator iter = mNumberOfHit.find(loopIter.first);
+
+		// 最新の一つ前のフレームでトリガーだけ接触していて、最新フレームでヒットしていなかった場合
+		if (iter == mNumberOfHit.end() && loopIter.second == 1)
+		{
+			// スレスレ回避ボーナスが発生
+			mScore += mAvoidBonusScore;
+		}
+	}
+}
+
 void Player::ResetNumberOfHit()
 {
+	// 前フレームの記録を一旦０にリセット
+	for (auto iter : mPrevNumberOfHitBullet)
+	{
+		iter.second = 0;
+	}
+
+	// 記録
 	for (auto iter : mNumberOfHit)
 	{
 		// コライダーのタグが弾のものならば

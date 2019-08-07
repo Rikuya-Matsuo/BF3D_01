@@ -25,6 +25,12 @@ private:
 	// スピードの制限値
 	const float mSpeedLimit;
 
+	// スレスレ回避ボーナスのスコア増分
+	const int mAvoidBonusScore;
+
+	// アイテム取得によるスコア増分
+	const int mItemScore;
+
 	// バルーンのモデルハンドル
 	int mBalloonModel;
 
@@ -43,8 +49,8 @@ private:
 	// 前フレームで接触した回数を弾コリジョン毎に記録
 	std::unordered_map<BoxCollider*, char> mPrevNumberOfHitBullet;
 
-	// 弾との当たり判定を行った回数（問題ありなのでまだ定義しない）
-	// char mNumOfCheckCollisionAgainstBullet;
+	// スコア
+	int mScore;
 
 	// 集めたアイテムの数
 	int mItemCollect;
@@ -66,6 +72,9 @@ private:
 
 	// アイテム取得エフェクトの更新
 	void UpdateItemEffect();
+
+	// スレスレ回避ボーナスのチェック関数
+	void CheckAvoidBonus();
 
 	// 接触判定回数のリセット
 	void ResetNumberOfHit();
