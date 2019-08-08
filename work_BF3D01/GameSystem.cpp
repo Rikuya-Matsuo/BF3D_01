@@ -1,6 +1,17 @@
 ﻿#include "GameSystem.h"
 #include "Input.h"
 
+void GameSystem::BreakPoint()
+{
+#ifdef _DEBUG_BF3D
+	if (Input::GetInstance().GetKeyDown(KEY_INPUT_SPACE))
+	{
+		// ここにブレークポイント
+		WaitTimer(0);
+	}
+#endif // _DEBUG_BF3D
+}
+
 GameSystem::GameSystem():
 	mRunFlag(true),
 	mNowScene(nullptr),

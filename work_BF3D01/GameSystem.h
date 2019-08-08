@@ -32,6 +32,8 @@ public:
 
 	void SetNowScene(SceneBase * scene) { mNowScene = scene; }
 
+	void BreakPoint();
+
 private:
 	GameSystem();
 	

@@ -37,6 +37,12 @@ CannonManager::~CannonManager()
 
 void CannonManager::Update(float deltaTime)
 {
+	// アクター状態がアクティブでなければ関数を抜ける
+	if (mState != Actor::Active)
+	{
+		return;
+	}
+
 	// 発射インターバルが終了していなければ関数を抜ける
 	mShootTimer += deltaTime;
 	if (mShootTimer <= mShootInterval)
@@ -59,18 +65,18 @@ void CannonManager::Update(float deltaTime)
 		return;
 	}
 
-	VECTOR leastDistance = VSub(mTarget->GetPosition(), mCannons[0]->GetPosition());
-	float distance = VSize(leastDistance);
+	VECTOR leastVector = VSub(mTarget->GetPosition(), mCannons[0]->GetPosition());
+	float leastDistance = VSize(leastVector);
 	int bestCannonNum = 0;
 	for (int i = 1; i < mCannonMass; ++i)
 	{
-		VECTOR hoge = VSub(mTarget->GetPosition(), mCannons[i]->GetPosition());
-		float compete = VSize(hoge);
+		VECTOR competeVector = VSub(mTarget->GetPosition(), mCannons[i]->GetPosition());
+		float competeDistance = VSize(competeVector);
 
-		if (distance > compete)
+		if (leastDistance > competeDistance)
 		{
-			leastDistance = hoge;
-			distance = compete;
+			leastVector = competeVector;
+			leastDistance = competeDistance;
 			bestCannonNum = i;
 		}
 	}
@@ -87,7 +93,7 @@ void CannonManager::Update(float deltaTime)
 
 	if (!CheckCameraViewClip(mCannons[bestCannonNum]->GetPosition()))
 	{
-		mCannons[bestCannonNum]->Shoot(leastDistance, mBullets[bulletNum]);
+		mCannons[bestCannonNum]->Shoot(leastVector, mBullets[bulletNum]);
 		
 		// 発射後の発射タイマーリセット
 		mShootTimer = 0.0f;

@@ -54,6 +54,8 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
+	GameSystem::GetInstance().BreakPoint();
+
 	// 「スレスレ回避ボーナス」の判定
 	CheckAvoidBonus();
 
