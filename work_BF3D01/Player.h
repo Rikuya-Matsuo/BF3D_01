@@ -43,6 +43,9 @@ private:
 	// スレスレで弾を避けたという判定に使う
 	BoxCollider * mTriggerCollider;
 
+	// 内側のコライダーから頂点をどのくらいずらすか
+	VECTOR mTriggerColliderVertexOffset;
+
 	// 1フレーム内における接触したコライダーと、それとプレイヤーとの接触判定回数を関連付けたマップデータ
 	std::unordered_map<BoxCollider*, char> mNumberOfHit;
 

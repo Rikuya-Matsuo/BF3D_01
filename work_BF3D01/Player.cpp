@@ -10,6 +10,7 @@ Player::Player(int modelHandle, State state, bool gravityFlag, float gravityRate
 	mAvoidBonusScore(100),
 	mItemScore(100),
 	mSpeedLimit(3.0f),
+	mTriggerColliderVertexOffset(VGet(10, 10, 0)),
 	mItemCollect(0),
 	mScore(0),
 	mItemEffectFlag(false),
@@ -27,7 +28,14 @@ Player::Player(int modelHandle, State state, bool gravityFlag, float gravityRate
 	mCollider->SetPosition(VSub(mPosition, VGet(1, 0, 0)));
 	mCollider->SetColliderTag(BoxCollider::PlayerCollider);
 
-	mTriggerCollider = new BoxCollider(this, BoxCollider::PlayerCollider, mCollider->GetLargeValueVertex(), mCollider->GetSmallValueVertex());
+	VECTOR largeVertex = VAdd(mCollider->GetLargeValueVertex(), mTriggerColliderVertexOffset);
+	VECTOR smallVertex = VSub(mCollider->GetSmallValueVertex(), mTriggerColliderVertexOffset);
+	mTriggerCollider = new BoxCollider(this, BoxCollider::PlayerCollider, largeVertex, smallVertex);
+
+#ifdef _DEBUG_BF3D
+	mTriggerCollider->SetDrawFlag(true);
+	mTriggerCollider->SetDrawSurfaceFlag(false);
+#endif
 
 	mNumberOfHit.reserve(5);
 	mPrevNumberOfHitBullet.reserve(2);
@@ -136,11 +144,18 @@ void Player::Update(float deltaTime)
 	Move();
 
 	BaseOriginalUpdate();
-	mTriggerCollider->SetPosition(VSub(mPosition, VGet(1, 0, 0)));
+	
 	MV1SetPosition(mBalloonModel, VAdd(mPosition, mBalloonPositionOffset));
+
+	// トリガーコライダー位置の更新
+	VECTOR largeVertex = VAdd(mCollider->GetLargeValueVertex(), mTriggerColliderVertexOffset);
+	VECTOR smallVertex = VSub(mCollider->GetSmallValueVertex(), mTriggerColliderVertexOffset);
+	mTriggerCollider->SetVertexes(largeVertex, smallVertex);
 
 	VECTOR pos = GetPosition();
 	printfDx("PlayerPos:%f, %f, %f", pos.x, pos.y, pos.z);
+
+	printfDx("Score:%5d", mScore);
 }
 
 void Player::OnCollisionHit(const BoxCollider & opponentCollision)
@@ -192,6 +207,8 @@ void Player::OnCollisionHit(const BoxCollider & opponentCollision)
 void Player::Draw()
 {
 	BaseOriginalDraw();
+
+	mTriggerCollider->Draw();
 
 	if (mItemEffectFlag)
 	{
