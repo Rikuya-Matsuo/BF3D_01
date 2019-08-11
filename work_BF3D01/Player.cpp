@@ -171,7 +171,7 @@ void Player::OnCollisionHit(const BoxCollider & opponentCollision)
 	char NumOfHit;
 	if (opponentTag != BoxCollider::PlayerCollider)
 	{
-		NumOfHit = ++mNumberOfHit[&(BoxCollider)opponentCollision];
+		NumOfHit = ++mNumberOfHit[(BoxCollider*)&opponentCollision];
 	}
 
 	if (opponentTag == BoxCollider::GroundCollider)
@@ -255,9 +255,13 @@ void Player::CheckAvoidBonus()
 void Player::ResetNumberOfHit()
 {
 	// 前フレームの記録を一旦０にリセット
-	for (auto iter : mPrevNumberOfHitBullet)
+	/*
+	教訓：イテレータの内容を書き換えたいならば下の書き方でfor文を回さなければならない。
+		　for (auto itet : map)の書き方だと、値渡しのような扱いになるようで、アロー演算子が使えない。
+	*/
+	for (auto iter = mPrevNumberOfHitBullet.begin(); iter != mPrevNumberOfHitBullet.end(); ++iter)
 	{
-		iter.second = 0;
+		iter->second = 0;
 	}
 
 	// 記録
