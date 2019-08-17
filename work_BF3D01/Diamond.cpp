@@ -28,6 +28,12 @@ void Diamond::OnCollisionHit(const BoxCollider & opponentCollider)
 	char opponentTag = opponentCollider.GetColliderTag();
 	if (opponentTag == BoxCollider::PlayerCollider)
 	{
-		SetState(Actor::Dead);
+		// 当たったコライダーがプレイヤーの本体ならば消える。
+		// ポインタを使って同一のものかどうかを判定している。
+		Actor * player = opponentCollider.GetOwnerPointer();
+		if (&opponentCollider == &(player->GetCollider()))
+		{
+			SetState(Actor::Dead);
+		}
 	}
 }

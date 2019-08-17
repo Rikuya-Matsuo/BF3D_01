@@ -186,7 +186,9 @@ void Player::OnCollisionHit(const BoxCollider & opponentCollision)
 	else if (opponentTag == BoxCollider::ItemCollider)
 	{
 		// 内側のコライダーに当たっている場合
-		if (NumOfHit == 2)
+		// 他のタグ判定の時と違う理由は、アイテムは内側のコライダーに接触した時にDEAD状態になるため、
+		// 二回目であるトリガー接触時には判定が行われなくなる。
+		if (CheckCollision_2DVersion(opponentCollision, *mCollider))
 		{
 			mItemCollect++;
 			mScore += mItemScore;

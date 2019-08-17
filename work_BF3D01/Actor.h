@@ -47,6 +47,9 @@ public:
 	// 落下速度上限値
 	float GetFallSpeedLimit()const { return mFallSpeedLimit; }
 
+	// コライダーのポインタ
+	const BoxCollider& GetCollider()const { return *mCollider; }
+
 	/////////////////////////////////////////////////////
 	// セッター
 	/////////////////////////////////////////////////////
