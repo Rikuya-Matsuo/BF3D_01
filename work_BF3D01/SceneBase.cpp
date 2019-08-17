@@ -23,6 +23,11 @@ void SceneBase::Draw()
 
 void SceneBase::SetNextScene(SceneBase * nextScene)
 {
+	if (mNextScene != NULL)
+	{
+		delete mNextScene;
+	}
+
 	mNextScene = nextScene;
 }
 

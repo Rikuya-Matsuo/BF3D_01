@@ -54,6 +54,7 @@ void GameScene::Update(float deltaTime)
 	
 	printfDx("ゲーム画面\n");
 }
+
 void GameScene::Draw()
 {
 	BaseOriginalDraw();

@@ -9,7 +9,7 @@ void GameSystem::BreakPoint()
 		// ここにブレークポイント
 		WaitTimer(0);
 	}
-#endif // _DEBUG_BF3D
+#endif
 }
 
 GameSystem::GameSystem():
@@ -66,11 +66,6 @@ void GameSystem::Run()
 		// アクター描画
 		DrawActors();
 		
-		/*
-		// 地面・壁の描画
-		DrawGround();
-		*/
-
 		// 裏画面の情報を表に描画
 		ScreenFlip();
 
@@ -210,16 +205,6 @@ void GameSystem::DrawActors()
 	}
 }
 
-/*
-void GameSystem::DrawGround()
-{
-	for (auto ground : mGround)
-	{
-		ground->Draw();
-	}
-}
-*/
-
 void GameSystem::ShutDown()
 {
 	while (!mActors.empty())
@@ -249,13 +234,6 @@ void GameSystem::RemoveActor(Actor * actor)
 
 	mActors.erase(target);
 }
-
-/*
-void GameSystem::AddGround(Ground * ground)
-{
-	mGround.emplace_back(ground);
-}
-*/
 
 void GameSystem::AddCollider(BoxCollider * collider)
 {
