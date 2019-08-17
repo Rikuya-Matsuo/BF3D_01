@@ -5,6 +5,7 @@
 Actor::Actor(int modelHandle,State state, bool gravityFlag, float gravityRate, bool drawFlag):
 	mModelHandle(modelHandle),
 	mState(state),
+	mStateAfterEndPause(State::Active),
 	mGravityFlag(gravityFlag),
 	mGravityRate(gravityRate),
 	mDrawFlag(drawFlag),

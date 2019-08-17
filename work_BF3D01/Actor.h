@@ -22,6 +22,8 @@ public:
 
 	virtual void OnCollisionHit(const BoxCollider & opponentCollision);
 
+	void RecordState() { mStateAfterEndPause = mState; }
+
 	/////////////////////////////////////////////////////
 	// ゲッター
 	/////////////////////////////////////////////////////
@@ -31,6 +33,9 @@ public:
 
 	// アクター状態
 	State GetState() const { return mState; }
+
+	// ポーズ解除後アクター状態
+	State GetStateAfterEndPause() { return mStateAfterEndPause; }
 
 	// 重力適用フラグ
 	bool GetGravityFlag()const { return mGravityFlag; }
@@ -106,7 +111,7 @@ protected:
 	VECTOR mVelocity;
 
 	// コライダー
-	// なぜか未定義とされるため、ポインタを使って動的確保する
+	// 相互に相手の情報をメンバ変数に持つので、ポインタで持っておく
 	BoxCollider * mCollider;
 
 	// モデルないしは画像ハンドル
@@ -114,6 +119,9 @@ protected:
 
 	// 状態
 	State mState;
+
+	// ポーズ解除後にどのアクター状態に戻すか
+	State mStateAfterEndPause;
 
 	// 描画するかどうかのフラグ
 	bool mDrawFlag;

@@ -146,6 +146,7 @@ void GameSystem::TogglePauseState()
 		// アクター状態をポーズにセット
 		for (auto actor : mActors)
 		{
+			actor->RecordState();
 			actor->SetState(Actor::Paused);
 		}
 	}
@@ -155,7 +156,7 @@ void GameSystem::TogglePauseState()
 		// アクター状態をアクティブにセット
 		for (auto actor : mActors)
 		{
-			actor->SetState(Actor::Active);
+			actor->SetState(actor->GetStateAfterEndPause());
 		}
 	}
 }
