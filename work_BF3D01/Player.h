@@ -15,6 +15,8 @@ public:
 
 	int GetItemCollect() const { return mItemCollect; }
 
+	int GetScore() const { return mScore; }
+
 private:
 	// 制動率
 	const float mBrakeRate;

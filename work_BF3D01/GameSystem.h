@@ -16,6 +16,8 @@ public:
 		return instance;
 	}
 
+	~GameSystem();
+
 	void Init();
 	void SetScreenInfo(int screenWidth, int screenHeight, bool fullScreen);
 	void Run();
@@ -34,6 +36,10 @@ public:
 
 	void BreakPoint();
 
+	int GetFontHandleForScore() { return mFontHandleForScore; }
+
+	int GetFontHandleForGoal() { return mFontHandleForGoal; }
+
 private:
 	GameSystem();
 	
@@ -48,6 +54,10 @@ private:
 	float mDeltaTime;
 
 	bool mPauseFlag;
+
+	int mFontHandleForScore;
+
+	int mFontHandleForGoal;
 
 	SceneBase * mNowScene;
 

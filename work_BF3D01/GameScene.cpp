@@ -59,6 +59,13 @@ void GameScene::Draw()
 {
 	BaseOriginalDraw();
 
+	{
+		int fontHandle = GameSystem::GetInstance().GetFontHandleForScore();
+		
+		mScoreString = "Score : " + std::to_string(mPlayer->GetScore());
+		DrawStringToHandle(10, 10, mScoreString.c_str(), GetColor(255, 255, 255), fontHandle, GetColor(128, 0, 128));
+	}
+
 	if (mPlayer->GetPosition().x >= mGoalLine)
 	{
 		std::string message = (mPlayer->GetItemCollect() >= mDiamondMass) ? "ゴール！" : "まだアイテムが残ってるよ！";
@@ -66,11 +73,13 @@ void GameScene::Draw()
 		int x, y;
 		int w, h;
 		int lineCount = 1;
+		int fontHandle = GameSystem::GetInstance().GetFontHandleForGoal();
+
 		GetDrawFormatStringSize(&w, &h, &lineCount, message.c_str());
 
 		x = ((int)GameSystem::GetInstance().GetScreenWidth() - w) / 2;
 		y = ((int)GameSystem::GetInstance().GetScreenHeight() - h) / 2;
 
-		DrawFormatString(x, y, GetColor(255, 0, 0), message.c_str());
+		DrawFormatStringToHandle(x, y, GetColor(255, 0, 0), fontHandle, message.c_str());
 	}
 }

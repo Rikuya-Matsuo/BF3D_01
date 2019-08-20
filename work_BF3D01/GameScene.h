@@ -3,6 +3,7 @@
 #include "SceneBase.h"
 #include "Player.h"
 #include "DiamondManager.h"
+#include <string>
 
 class GameScene : public SceneBase
 {
@@ -21,4 +22,6 @@ private:
 	const float mGoalLine;
 
 	const int mDiamondMass;
+
+	std::string mScoreString;
 };

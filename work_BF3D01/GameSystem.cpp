@@ -21,6 +21,11 @@ GameSystem::GameSystem():
 	mColliders.reserve(30);
 }
 
+GameSystem::~GameSystem()
+{
+	DeleteFontToHandle(mFontHandleForScore);
+}
+
 void GameSystem::Run()
 {
 	// 最初のフレームでのmDeltaTimeを小さくするため、mPrevCountはループ開始直前に初期化
@@ -110,7 +115,11 @@ void GameSystem::Init()
 
 	SetDrawScreen(DX_SCREEN_BACK);
 
-	SetFontSize(72);
+	mFontHandleForScore = CreateFontToHandle("System 標準", 32, 3, DX_FONTTYPE_EDGE);
+
+	mFontHandleForGoal = CreateFontToHandle("System 標準", 72, 9, DX_FONTTYPE_EDGE);
+
+	SetFontSize(GetFontSizeToHandle(mFontHandleForGoal));
 }
 
 float GameSystem::CulculateDeltaTime()
