@@ -53,6 +53,20 @@ void GameScene::Update(float deltaTime)
 	clsDx();
 	
 	printfDx("ゲーム画面\n");
+
+#ifdef _DEBUG_BF3D
+	if (Input::GetInstance().GetKeyDown(KEY_INPUT_R))
+	{
+		if (mNextScene != NULL)
+		{
+			delete mNextScene;
+		}
+
+		mNextScene = new GameScene;
+
+		mGoNextSceneFlag = true;
+	}
+#endif // _DEBUG_BF3D
 }
 
 void GameScene::Draw()

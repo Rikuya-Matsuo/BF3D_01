@@ -20,7 +20,6 @@ Camera::Camera(float in_near, float in_far):
 
 Camera::~Camera()
 {
-	delete mFollowActor;
 }
 
 void Camera::Update()

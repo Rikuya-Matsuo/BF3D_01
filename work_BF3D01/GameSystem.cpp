@@ -14,7 +14,7 @@ void GameSystem::BreakPoint()
 
 GameSystem::GameSystem():
 	mRunFlag(true),
-	mNowScene(nullptr),
+	mNowScene(NULL),
 	mPauseFlag(false)
 {
 	mActors.reserve(30);
@@ -24,6 +24,7 @@ GameSystem::GameSystem():
 GameSystem::~GameSystem()
 {
 	DeleteFontToHandle(mFontHandleForScore);
+	DeleteFontToHandle(mFontHandleForGoal);
 }
 
 void GameSystem::Run()
@@ -79,6 +80,7 @@ void GameSystem::Run()
 		{
 			SceneBase * nextScene = mNowScene->GetNextScenePointer();
 
+			DeleteActors();
 			delete mNowScene;
 
 			if (nextScene != NULL)
@@ -211,6 +213,14 @@ void GameSystem::DrawActors()
 	for (auto actor : mActors)
 	{
 		actor->Draw();
+	}
+}
+
+void GameSystem::DeleteActors()
+{
+	while (!mActors.empty())
+	{
+		delete mActors.back();
 	}
 }
 

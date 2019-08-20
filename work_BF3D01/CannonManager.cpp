@@ -33,6 +33,8 @@ CannonManager::CannonManager(const char * modelFileName, int cannonMass) :
 
 CannonManager::~CannonManager()
 {
+	mCannons.clear();
+	mBullets.clear();
 }
 
 void CannonManager::Update(float deltaTime)

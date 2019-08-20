@@ -71,5 +71,6 @@ private:
 	void UpdateColliders();
 	void CheckColliders();
 	void DrawActors();
+	void DeleteActors();
 	void ShutDown();
 };

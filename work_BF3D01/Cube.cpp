@@ -17,7 +17,6 @@ Cube::Cube(const VECTOR& vertex, const VECTOR& inversionVertex, bool collisionFl
 
 Cube::~Cube()
 {
-	WaitTimer(0);
 }
 
 VECTOR Cube::GetSmallValueVertex() const

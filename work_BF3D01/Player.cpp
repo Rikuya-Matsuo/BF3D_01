@@ -50,6 +50,7 @@ Player::Player(int modelHandle, State state, bool gravityFlag, float gravityRate
 Player::~Player()
 {
 	delete[] mItemEffectHandleArray;
+	delete mTriggerCollider;
 }
 
 void Player::Update(float deltaTime)
