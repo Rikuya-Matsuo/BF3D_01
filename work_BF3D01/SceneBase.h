@@ -3,6 +3,8 @@
 #include "Sky.h"
 #include "Light.h"
 
+class Camera;
+
 class SceneBase
 {
 public:
@@ -17,14 +19,14 @@ public:
 
 	bool GetGoNextSceneFlag() const { return mGoNextSceneFlag; }
 
-	Camera& GetCamera() { return mCamera; }
+	Camera& GetCamera() { return *mCamera; }
 
 protected:
 	bool mGoNextSceneFlag;
 
 	SceneBase * mNextScene;
 
-	Camera mCamera;
+	Camera * mCamera;
 
 	Light mLight;
 

@@ -101,3 +101,11 @@ void CannonManager::Update(float deltaTime)
 		mShootTimer = 0.0f;
 	}
 }
+
+void CannonManager::SetScenePointerForChildren(SceneBase * scene)
+{
+	for (auto child : mCannons)
+	{
+		child->SetScenePointer(scene);
+	}
+}

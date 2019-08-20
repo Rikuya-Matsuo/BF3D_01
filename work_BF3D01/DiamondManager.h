@@ -7,7 +7,7 @@ class Diamond;
 class DiamondManager
 {
 public:
-	DiamondManager(const char * fileName, int diamondMass);
+	DiamondManager(const char * fileName, int diamondMass, SceneBase * scene);
 	~DiamondManager();
 
 private:

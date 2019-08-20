@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "DxLib.h"
+#include "SceneBase.h"
 #include "Actor.h"
 #include "Bullet.h"
 #include "Cannon.h"
@@ -16,6 +17,8 @@ public:
 	void Update(float deltaTime) override;
 
 	void SetTarget(Actor * target) { mTarget = target; }
+
+	void SetScenePointerForChildren(SceneBase * scene);
 
 private:
 	Actor * mTarget;

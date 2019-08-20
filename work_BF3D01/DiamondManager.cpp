@@ -1,6 +1,6 @@
 ﻿#include "DiamondManager.h"
 
-DiamondManager::DiamondManager(const char * fileName, int diamondMass) :
+DiamondManager::DiamondManager(const char * fileName, int diamondMass, SceneBase * scene) :
 	mChildMass(diamondMass),
 	mModelHandle(MV1LoadModel(fileName))
 {
@@ -12,6 +12,7 @@ DiamondManager::DiamondManager(const char * fileName, int diamondMass) :
 	for (int i = 0; i < mChildMass; ++i)
 	{
 		mDiamonds[i]->SetPosition(VGet(200.0f * (i + 1), 50.0f, 0.0f));
+		mDiamonds[i]->SetScenePointer(scene);
 	}
 }
 

@@ -1,8 +1,10 @@
 ﻿#pragma once
 #include "DxLib.h"
+#include "SceneBase.h"
 #include "BoxCollider.h"
 
 class BoxCollider;
+class SceneBase;
 
 class Actor
 {
@@ -86,6 +88,9 @@ public:
 	// モデル
 	void SetModelHandle(int handle) { mModelHandle = handle; }
 
+	// 所属シーンポインタ
+	void SetScenePointer(SceneBase* scene) { mScenePointer = scene; }
+
 	/////////////////////////////////////////////////////
 	// アッダー(Adder)（造語）
 	// 元の値に足し引きしたいときに便利な関数として定義
@@ -104,6 +109,9 @@ public:
 	void AddSpeed(float value) { mSpeed += value; }
 
 protected:
+	// 所属するシーン
+	SceneBase * mScenePointer;
+
 	// 位置座標
 	VECTOR mPosition;
 

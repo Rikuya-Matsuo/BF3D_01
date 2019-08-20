@@ -3,6 +3,7 @@
 #include <cfloat>
 
 Actor::Actor(int modelHandle,State state, bool gravityFlag, float gravityRate, bool drawFlag):
+	mScenePointer(NULL),
 	mModelHandle(modelHandle),
 	mState(state),
 	mStateAfterEndPause(State::Active),

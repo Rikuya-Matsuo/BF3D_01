@@ -11,6 +11,7 @@ BoxCollider::BoxCollider(Actor * owner, char tag, VECTOR vertex, VECTOR inversio
 
 BoxCollider::~BoxCollider()
 {
+	GameSystem::GetInstance().RemoveCollider(this);
 }
 
 void BoxCollider::Update()

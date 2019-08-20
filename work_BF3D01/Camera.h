@@ -2,6 +2,9 @@
 #include "DxLib.h"
 #include "Actor.h"
 
+class Actor;
+class SceneBase;
+
 class Camera
 {
 public:

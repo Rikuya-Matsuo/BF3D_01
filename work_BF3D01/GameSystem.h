@@ -26,6 +26,7 @@ public:
 	void RemoveActor(Actor * actor);
 
 	void AddCollider(BoxCollider * collider);
+	void RemoveCollider(BoxCollider * collider);
 
 	int GetScreenWidth()const { return mScreenWidth; }
 	int GetScreenHeight()const { return mScreenHeight; }
@@ -71,6 +72,6 @@ private:
 	void UpdateColliders();
 	void CheckColliders();
 	void DrawActors();
-	void DeleteActors();
+	void DeleteNowSceneActors();
 	void ShutDown();
 };

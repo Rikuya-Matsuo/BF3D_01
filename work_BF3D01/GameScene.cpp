@@ -14,15 +14,17 @@ GameScene::GameScene():
 	// アクターへのポインタはゲームシステムクラスのベクターデータが自動で受け取ってくれる（アクタークラスのコンストラクタ参照）
 	mPlayer = new Player(MV1LoadModel("Data/Model/Player/Boy.pmx"));
 	mPlayer->SetPosition(VGet(0, 100, 0));
+	mPlayer->SetScenePointer(this);
 
 	for (int i = 0; i < 10; ++i)
 	{
 		Ground * ground = new Ground(VGet(i * 200.0f, 0, 0), VGet((i + 1) * 200.0f, -1000.0f, -50), GetColor(0, 255, 0));
 		ground->LoadTexture("Data/Image/groundTexture00.jpg");
+		ground->SetScenePointer(this);
 	}
 	
 	// カメラ追従設定
-	mCamera.SetFollowActor(mPlayer);
+	mCamera->SetFollowActor(mPlayer);
 
 	// スカイドーム設定
 	mSky.LoadModel("Data/Model/SkyDome/skydome_orca/sky_01.x");
@@ -35,11 +37,12 @@ GameScene::GameScene():
 	mLight.SetGlobalAmbientLight(white);
 
 	// ダイアモンド設置
-	mDiamondManager = new DiamondManager("Data/Model/Treasure/LuckyHammer/REPLICA_KODUCHI.pmx", mDiamondMass);
+	mDiamondManager = new DiamondManager("Data/Model/Treasure/LuckyHammer/REPLICA_KODUCHI.pmx", mDiamondMass, this);
 
 	// 大砲マネージャー設置
 	CannonManager* cannonManager = new CannonManager("Data/Model/Cannon/Cannon/Cannon.pmx", 5);
 	cannonManager->SetTarget(mPlayer);
+	cannonManager->SetScenePointer(this);
 }
 
 
@@ -57,13 +60,6 @@ void GameScene::Update(float deltaTime)
 #ifdef _DEBUG_BF3D
 	if (Input::GetInstance().GetKeyDown(KEY_INPUT_R))
 	{
-		if (mNextScene != NULL)
-		{
-			delete mNextScene;
-		}
-
-		mNextScene = new GameScene;
-
 		mGoNextSceneFlag = true;
 	}
 #endif // _DEBUG_BF3D

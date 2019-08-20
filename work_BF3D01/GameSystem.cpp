@@ -17,8 +17,8 @@ GameSystem::GameSystem():
 	mNowScene(NULL),
 	mPauseFlag(false)
 {
-	mActors.reserve(30);
-	mColliders.reserve(30);
+	mActors.reserve(60);
+	mColliders.reserve(60);
 }
 
 GameSystem::~GameSystem()
@@ -80,7 +80,7 @@ void GameSystem::Run()
 		{
 			SceneBase * nextScene = mNowScene->GetNextScenePointer();
 
-			DeleteActors();
+			DeleteNowSceneActors();
 			delete mNowScene;
 
 			if (nextScene != NULL)
@@ -185,14 +185,20 @@ void GameSystem::UpdateColliders()
 
 void GameSystem::CheckColliders()
 {
-	for (unsigned int i = 0; i < mColliders.size() - 1; ++i)
+	// なぜかここでだけfor文の動きが違うため、登録コライダーがない場合はここで関数を抜ける
+	if (mColliders.empty())
+	{
+		return;
+	}
+
+	for (int i = 0; i < (mColliders.size() - 1); ++i)
 	{
 		if (mColliders[i]->GetOwnerPointer()->GetState() != Actor::State::Active)
 		{
 			continue;
 		}
 
-		for (unsigned int j = i + 1; j < mColliders.size(); ++j)
+		for (int j = i + 1; j < mColliders.size(); ++j)
 		{
 			if (mColliders[j]->GetOwnerPointer()->GetState() != Actor::State::Active)
 			{
@@ -216,7 +222,7 @@ void GameSystem::DrawActors()
 	}
 }
 
-void GameSystem::DeleteActors()
+void GameSystem::DeleteNowSceneActors()
 {
 	while (!mActors.empty())
 	{
@@ -250,6 +256,10 @@ void GameSystem::AddActor(Actor * actor)
 void GameSystem::RemoveActor(Actor * actor)
 {
 	auto target = std::find(mActors.begin(), mActors.end(), actor);
+	if (target == mActors.end())
+	{
+		return;
+	}
 
 	mActors.erase(target);
 }
@@ -257,4 +267,15 @@ void GameSystem::RemoveActor(Actor * actor)
 void GameSystem::AddCollider(BoxCollider * collider)
 {
 	mColliders.emplace_back(collider);
+}
+
+void GameSystem::RemoveCollider(BoxCollider * collider)
+{
+	auto target = std::find(mColliders.begin(), mColliders.end(), collider);
+	if (target == mColliders.end())
+	{
+		return;
+	}
+
+	mColliders.erase(target);
 }
