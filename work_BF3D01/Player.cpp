@@ -66,11 +66,16 @@ void Player::Update(float deltaTime)
 	// アクティブでないならこの関数を実行しない
 	if (mState != Actor::Active)
 	{
+#ifdef _DEBUG_BF3D
+
 		// デッドのとき
 		if (mState == Actor::Dead)
 		{
-			printfDx("ゲームオーバー");
+			printfDx("ゲームオーバー\n");
 		}
+		
+#endif // _DEBUG_BF3D
+
 		return;
 	}
 
@@ -155,10 +160,14 @@ void Player::Update(float deltaTime)
 	VECTOR smallVertex = VSub(mCollider->GetSmallValueVertex(), mTriggerColliderVertexOffset);
 	mTriggerCollider->SetVertexes(largeVertex, smallVertex);
 
-	VECTOR pos = GetPosition();
-	printfDx("PlayerPos:%f, %f, %f", pos.x, pos.y, pos.z);
+#ifdef _DEBUG_BF3D
 
-	printfDx("Score:%5d", mScore);
+	VECTOR pos = GetPosition();
+	printfDx("PlayerPos:%f, %f, %f\n", pos.x, pos.y, pos.z);
+
+	printfDx("Score:%5d\n", mScore);
+
+#endif // _DEBUG_BF3D
 }
 
 void Player::OnCollisionHit(const BoxCollider & opponentCollision)

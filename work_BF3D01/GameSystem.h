@@ -33,6 +33,10 @@ public:
 	
 	float GetDeltaTime()const { return mDeltaTime; }
 
+	bool GetPauseFlag()const { return mPauseFlag; }
+
+	void RequestPause() { mPauseRequestFlag = true; }
+
 	void SetNowScene(SceneBase * scene) { mNowScene = scene; }
 
 	void BreakPoint();
@@ -56,6 +60,8 @@ private:
 
 	bool mPauseFlag;
 
+	bool mPauseRequestFlag;
+
 	int mFontHandleForScore;
 
 	int mFontHandleForGoal;
@@ -72,6 +78,7 @@ private:
 	void UpdateColliders();
 	void CheckColliders();
 	void DrawActors();
+	void RespondPauseRequest();
 	void DeleteNowSceneActors();
 	void ShutDown();
 };

@@ -20,8 +20,12 @@ void PhysicalRule::Fall(Actor & actor) const
 			actor.SetVelocityY(actor.GetFallSpeedLimit());
 		}
 	}
+#ifdef _DEBUG_BF3D
+
 	else
 	{
-		printfDx("重力フラグが負であるため、落下を実行できません");
+		printfDx("重力フラグが負であるため、落下を実行できません\n");
 	}
+
+#endif // _DEBUG_BF3D
 }

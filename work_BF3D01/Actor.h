@@ -57,6 +57,9 @@ public:
 	// コライダーのポインタ
 	const BoxCollider& GetCollider()const { return *mCollider; }
 
+	// 所属シーンのポインタ
+	SceneBase* GetScenePointer()const { return mScenePointer; }
+
 	/////////////////////////////////////////////////////
 	// セッター
 	/////////////////////////////////////////////////////

@@ -34,6 +34,16 @@ void GameSystem::Run()
 
 	while (mRunFlag)
 	{
+#ifdef _DEBUG_BF3D
+		if (mPauseFlag)
+		{
+			printfDx("ポーズ中\n");
+		}
+#endif // _DEBUG_BF3D
+
+		// ポーズ要請フラグの更新
+		mPauseRequestFlag = false;
+
 		// 入力情報の更新
 		Input::GetInstance().Update();
 
@@ -42,7 +52,7 @@ void GameSystem::Run()
 
 #ifdef _DEBUG_BF3D
 		// ポーズの判定および実行
-		if (Input::GetInstance().GetKeyDown(KEY_INPUT_TAB))
+		if (Input::GetInstance().GetKeyDown(KEY_INPUT_TAB) || (!mPauseFlag && GetWindowActiveFlag() == FALSE))
 		{
 			TogglePauseState();
 		}
@@ -74,6 +84,9 @@ void GameSystem::Run()
 		
 		// 裏画面の情報を表に描画
 		ScreenFlip();
+
+		// ポーズ要請への応答
+		RespondPauseRequest();
 
 		// シーンの切り替え
 		if (mNowScene->GetGoNextSceneFlag())
@@ -116,6 +129,8 @@ void GameSystem::Init()
 	SetGraphMode(mScreenWidth, mScreenHeight, 16);
 
 	SetDrawScreen(DX_SCREEN_BACK);
+
+	SetAlwaysRunFlag(TRUE);
 
 	mFontHandleForScore = CreateFontToHandle("System 標準", 32, 3, DX_FONTTYPE_EDGE);
 
@@ -167,6 +182,25 @@ void GameSystem::TogglePauseState()
 	}
 }
 
+void GameSystem::RespondPauseRequest()
+{
+	if (mPauseRequestFlag)
+	{
+		if (!mPauseFlag)
+		{
+			TogglePauseState();
+		}
+		else
+		{
+			for (auto actor : mActors)
+			{
+				actor->RecordState();
+				actor->SetState(Actor::Paused);
+			}
+		}
+	}
+}
+
 void GameSystem::UpdateActors()
 {
 	for (auto actor : mActors)
@@ -191,14 +225,14 @@ void GameSystem::CheckColliders()
 		return;
 	}
 
-	for (int i = 0; i < (mColliders.size() - 1); ++i)
+	for (unsigned int i = 0; i < (mColliders.size() - 1); ++i)
 	{
 		if (mColliders[i]->GetOwnerPointer()->GetState() != Actor::State::Active)
 		{
 			continue;
 		}
 
-		for (int j = i + 1; j < mColliders.size(); ++j)
+		for (unsigned int j = i + 1; j < mColliders.size(); ++j)
 		{
 			if (mColliders[j]->GetOwnerPointer()->GetState() != Actor::State::Active)
 			{
@@ -224,9 +258,18 @@ void GameSystem::DrawActors()
 
 void GameSystem::DeleteNowSceneActors()
 {
-	while (!mActors.empty())
+	unsigned int i = 0;
+
+	while (i < mActors.size())
 	{
-		delete mActors.back();
+		if (mActors[i]->GetScenePointer() == mNowScene)
+		{
+			delete mActors[i];
+		}
+		else
+		{
+			++i;
+		}
 	}
 }
 
