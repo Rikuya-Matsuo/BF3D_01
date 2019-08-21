@@ -9,7 +9,9 @@
 GameScene::GameScene():
 	SceneBase(10.0f, 3700.0f),
 	mGoalLine(2000.0f),
-	mDiamondMass(10)
+	mDiamondMass(10),
+	mTimeLimit(60.0f),
+	mTimer(mTimeLimit)
 {
 	// アクターへのポインタはゲームシステムクラスのベクターデータが自動で受け取ってくれる（アクタークラスのコンストラクタ参照）
 	mPlayer = new Player(MV1LoadModel("Data/Model/Player/Boy.pmx"));
@@ -53,8 +55,18 @@ GameScene::~GameScene()
 
 void GameScene::Update(float deltaTime)
 {
-	clsDx();
-	
+	if (!GameSystem::GetInstance().GetPauseFlag())
+	{
+		mTimer -= deltaTime;
+
+		if (mTimer < 0.0f)
+		{
+			//SetNextScene()
+
+			mGoNextSceneFlag = true;
+		}
+	}
+
 #ifdef _DEBUG_BF3D
 	printfDx("ゲーム画面\n");
 
@@ -78,6 +90,16 @@ void GameScene::Draw()
 		
 		mScoreString = "Score : " + std::to_string(mPlayer->GetScore());
 		DrawStringToHandle(10, 10, mScoreString.c_str(), GetColor(255, 255, 255), fontHandle, GetColor(128, 0, 128));
+
+		int x;
+		int w;
+		int intTimer = (int)mTimer;
+		std::string timerString = std::to_string(intTimer);
+		w = GetDrawStringWidthToHandle(timerString.c_str(), strlen(timerString.c_str()), fontHandle);
+
+		x = (GameSystem::GetInstance().GetScreenWidth() - w) / 2;
+
+		DrawStringToHandle(x, 0, timerString.c_str(), GetColor(255, 255, 255), fontHandle, GetColor(128, 0, 128));
 	}
 
 	if (mPlayer->GetPosition().x >= mGoalLine)

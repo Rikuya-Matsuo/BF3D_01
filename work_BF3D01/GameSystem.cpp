@@ -35,6 +35,9 @@ void GameSystem::Run()
 	while (mRunFlag)
 	{
 #ifdef _DEBUG_BF3D
+		// ログのクリア
+		clsDx();
+
 		if (mPauseFlag)
 		{
 			printfDx("ポーズ中\n");

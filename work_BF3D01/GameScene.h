@@ -23,5 +23,9 @@ private:
 
 	const int mDiamondMass;
 
+	const float mTimeLimit;
+
+	float mTimer;
+
 	std::string mScoreString;
 };
