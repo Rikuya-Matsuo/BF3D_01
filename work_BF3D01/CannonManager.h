@@ -18,7 +18,7 @@ public:
 
 	void SetTarget(Actor * target) { mTarget = target; }
 
-	void SetScenePointerForChildren(SceneBase * scene);
+	void SetScenePointer(SceneBase * scene) override;
 
 private:
 	Actor * mTarget;

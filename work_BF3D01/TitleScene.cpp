@@ -1,12 +1,10 @@
 ﻿#include "TitleScene.h"
 
-
-
 TitleScene::TitleScene():
 	SceneBase(10.0f, 3700.0f)
 {
+	mCamera->SetFollowFlag(false);
 }
-
 
 TitleScene::~TitleScene()
 {
@@ -14,7 +12,12 @@ TitleScene::~TitleScene()
 
 void TitleScene::Update(float deltaTime)
 {
+	if (Input::GetInstance().GetKeyDown(KEY_INPUT_RETURN))
+	{
+		SetNextScene(new GameScene);
 
+		mGoNextSceneFlag = true;
+	}
 }
 
 void TitleScene::Draw()

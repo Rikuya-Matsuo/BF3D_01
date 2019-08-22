@@ -61,7 +61,7 @@ void GameScene::Update(float deltaTime)
 
 		if (mTimer < 0.0f)
 		{
-			//SetNextScene()
+			SetNextScene(new TitleScene);
 
 			mGoNextSceneFlag = true;
 		}

@@ -102,10 +102,17 @@ void CannonManager::Update(float deltaTime)
 	}
 }
 
-void CannonManager::SetScenePointerForChildren(SceneBase * scene)
+void CannonManager::SetScenePointer(SceneBase * scene)
 {
-	for (auto child : mCannons)
+	Actor::SetScenePointer(scene);
+
+	for (auto cannon : mCannons)
 	{
-		child->SetScenePointer(scene);
+		cannon->SetScenePointer(scene);
+	}
+
+	for (auto bullet : mBullets)
+	{
+		bullet->SetScenePointer(scene);
 	}
 }

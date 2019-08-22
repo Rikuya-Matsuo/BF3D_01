@@ -31,7 +31,7 @@ void Camera::Update()
 		pos.z -= 95.0f;
 
 		mPosition = pos;
+		
+		SetCameraPositionAndTarget_UpVecY(mPosition, mFollowActor->GetPosition());
 	}
-
-	SetCameraPositionAndTarget_UpVecY(mPosition, mFollowActor->GetPosition());
 }

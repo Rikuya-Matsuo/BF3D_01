@@ -3,6 +3,7 @@
 #include "SceneBase.h"
 #include "Player.h"
 #include "DiamondManager.h"
+#include "TitleScene.h"
 #include <string>
 
 class GameScene : public SceneBase

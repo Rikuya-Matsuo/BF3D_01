@@ -92,7 +92,8 @@ public:
 	void SetModelHandle(int handle) { mModelHandle = handle; }
 
 	// 所属シーンポインタ
-	void SetScenePointer(SceneBase* scene) { mScenePointer = scene; }
+	// 大砲マネージャークラスのために仮想関数として定義
+	virtual void SetScenePointer(SceneBase* scene) { mScenePointer = scene; }
 
 	/////////////////////////////////////////////////////
 	// アッダー(Adder)（造語）

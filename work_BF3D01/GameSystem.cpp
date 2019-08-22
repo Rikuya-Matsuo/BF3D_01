@@ -55,10 +55,12 @@ void GameSystem::Run()
 
 #ifdef _DEBUG_BF3D
 		// ポーズの判定および実行
-		if (Input::GetInstance().GetKeyDown(KEY_INPUT_TAB) || (!mPauseFlag && GetWindowActiveFlag() == FALSE))
+		if (Input::GetInstance().GetKeyDown(KEY_INPUT_TAB))
 		{
 			TogglePauseState();
 		}
+
+		BreakPoint();
 #endif
 
 		// シーン更新
@@ -133,8 +135,6 @@ void GameSystem::Init()
 
 	SetDrawScreen(DX_SCREEN_BACK);
 
-	SetAlwaysRunFlag(TRUE);
-
 	mFontHandleForScore = CreateFontToHandle("System 標準", 32, 3, DX_FONTTYPE_EDGE);
 
 	mFontHandleForGoal = CreateFontToHandle("System 標準", 72, 9, DX_FONTTYPE_EDGE);
@@ -151,6 +151,13 @@ float GameSystem::CulculateDeltaTime()
 	// mDeltaTimeにおいては単位を「ミリ秒」から「秒」に変換
 	mDeltaTime = (float)(mNowCount - mPrevCount);
 	mDeltaTime /= 1000.0f;
+
+	// mDeltaTimeが大きすぎる場合は値を1/60秒に調節
+	// 計算値で書くのが望ましいが、1/60秒の値を覚えるためにマジックナンバーで書きます
+	if (mDeltaTime > 0.0166f)
+	{
+		mDeltaTime = 0.0166f;
+	}
 
 	// このフレームにおけるカウントの記録
 	mPrevCount = mNowCount;
@@ -208,7 +215,10 @@ void GameSystem::UpdateActors()
 {
 	for (auto actor : mActors)
 	{
-		actor->Update(mDeltaTime);
+		if (actor->GetScenePointer() == mNowScene)
+		{
+			actor->Update(mDeltaTime);
+		}
 	}
 }
 
@@ -216,7 +226,11 @@ void GameSystem::UpdateColliders()
 {
 	for (auto collider : mColliders)
 	{
-		collider->Update();
+		Actor * owner = collider->GetOwnerPointer();
+		if (owner->GetScenePointer() == mNowScene)
+		{
+			collider->Update();
+		}
 	}
 }
 
@@ -230,14 +244,20 @@ void GameSystem::CheckColliders()
 
 	for (unsigned int i = 0; i < (mColliders.size() - 1); ++i)
 	{
-		if (mColliders[i]->GetOwnerPointer()->GetState() != Actor::State::Active)
+		Actor * OwnerOfI = mColliders[i]->GetOwnerPointer();
+		bool IsIActorNotActive			= (OwnerOfI->GetState() != Actor::State::Active);
+		bool IsIActorNotInCurrentScene	= (OwnerOfI->GetScenePointer() != mNowScene);
+		if (IsIActorNotActive || IsIActorNotInCurrentScene)
 		{
 			continue;
 		}
 
 		for (unsigned int j = i + 1; j < mColliders.size(); ++j)
 		{
-			if (mColliders[j]->GetOwnerPointer()->GetState() != Actor::State::Active)
+			Actor * OwnerOfJ = mColliders[j]->GetOwnerPointer();
+			bool IsJActorNotActive		= (OwnerOfJ->GetState() != Actor::State::Active);
+			bool IsJActorNotInCurrentScene = (OwnerOfJ->GetScenePointer() != mNowScene);
+			if (IsJActorNotActive || IsJActorNotInCurrentScene)
 			{
 				continue;
 			}
