@@ -154,9 +154,9 @@ float GameSystem::CulculateDeltaTime()
 
 	// mDeltaTimeが大きすぎる場合は値を1/60秒に調節
 	// 計算値で書くのが望ましいが、1/60秒の値を覚えるためにマジックナンバーで書きます
-	if (mDeltaTime > 0.0166f)
+	if (mDeltaTime > 0.0167f)
 	{
-		mDeltaTime = 0.0166f;
+		mDeltaTime = 0.0167f;
 	}
 
 	// このフレームにおけるカウントの記録
