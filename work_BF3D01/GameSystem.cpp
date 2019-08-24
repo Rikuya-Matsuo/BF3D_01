@@ -302,7 +302,16 @@ void GameSystem::ShutDown()
 	{
 		delete mActors.back();
 	}
-	mActors.shrink_to_fit();
+	mActors.clear();
+
+	if (mNowScene != NULL)
+	{
+		delete mNowScene;
+		mNowScene = NULL;
+	}
+
+	std::vector<BoxCollider*>().swap(mColliders);
+	std::vector<Actor*>().swap(mActors);
 
 	DxLib_End();
 }

@@ -33,8 +33,8 @@ CannonManager::CannonManager(const char * modelFileName, int cannonMass) :
 
 CannonManager::~CannonManager()
 {
-	mCannons.clear();
-	mBullets.clear();
+	std::vector<Cannon*>().swap(mCannons);
+	std::vector<Bullet*>().swap(mBullets);
 }
 
 void CannonManager::Update(float deltaTime)

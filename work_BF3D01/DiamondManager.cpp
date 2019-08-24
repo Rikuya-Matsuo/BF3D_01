@@ -22,4 +22,6 @@ DiamondManager::~DiamondManager()
 	{
 		MV1DeleteModel(mModelHandle);
 	}
+
+	std::vector<Diamond*>().swap(mDiamonds);
 }
