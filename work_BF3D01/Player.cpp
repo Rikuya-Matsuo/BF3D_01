@@ -16,14 +16,16 @@ Player::Player(int modelHandle, State state, bool gravityFlag, float gravityRate
 	mItemEffectFlag(false),
 	mItemEffectFrameMass(10),
 	mItemEffectCounter(0),
-	//mBalloonModel(MV1LoadModel("Data/Model/Balloon/ballon.x")),
-	mBalloonPositionOffset(VGet(0.0f, 5.0f, 0.0f))
+	mBalloonModel(MV1LoadModel("Data/Model/Balloon/balloon.mv1")),
+	mBalloonPositionOffset(VGet(0.0f, 20.0f, 0.0f))
 {
 	SetSpeed(0.7f);
 	mFallSpeedLimit = 10.0f;
 	MV1SetRotationXYZ(mModelHandle, VGet(0.0f, -DX_PI_F / 2.0f, 0.0f));
 
-	//MV1SetPosition(mBalloonModel, VAdd(mPosition, mBalloonPositionOffset));
+	MV1SetPosition(mBalloonModel, VAdd(mPosition, mBalloonPositionOffset));
+	float scaleVal = 0.3f;
+	MV1SetScale(mBalloonModel, VGet(scaleVal, scaleVal, scaleVal));
 
 	mCollider->SetPosition(VSub(mPosition, VGet(1, 0, 0)));
 	mCollider->SetColliderTag(BoxCollider::PlayerCollider);
@@ -45,10 +47,21 @@ Player::Player(int modelHandle, State state, bool gravityFlag, float gravityRate
 	int graph = LoadGraph("Data/Image/getCoin.png");
 	GetGraphSize(graph, &w, &h);
 	LoadDivGraph("Data/Image/getCoin.png", 10, 10, 1, w / 10, h / 1, mItemEffectHandleArray);
+	DeleteGraph(graph);
 }
 
 Player::~Player()
 {
+	if (mBalloonModel > 0)
+	{
+		MV1DeleteModel(mBalloonModel);
+	}
+
+	for (int i = 0; i < 10; ++i)
+	{
+		MV1DeleteModel(mItemEffectHandleArray[i]);
+	}
+
 	delete[] mItemEffectHandleArray;
 	delete mTriggerCollider;
 }
@@ -222,6 +235,11 @@ void Player::Draw()
 {
 	BaseOriginalDraw();
 
+	if (mState == State::Active)
+	{
+		MV1DrawModel(mBalloonModel);
+	}
+
 	mTriggerCollider->Draw();
 
 	if (mItemEffectFlag)
@@ -235,7 +253,6 @@ void Player::Draw()
 
 void Player::Move()
 {
-	//mVelocity = VScale(mVelocity, GameSystem::GetInstance().GetDeltaTime());
 	mPosition = VAdd(mPosition, mVelocity);
 }
 
