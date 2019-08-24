@@ -93,7 +93,7 @@ public:
 
 	// 所属シーンポインタ
 	// 大砲マネージャークラスのために仮想関数として定義
-	virtual void SetScenePointer(SceneBase* scene) { mScenePointer = scene; }
+	virtual void SetScenePointer(SceneBase* scene);
 
 	/////////////////////////////////////////////////////
 	// アッダー(Adder)（造語）

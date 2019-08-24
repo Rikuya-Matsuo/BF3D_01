@@ -47,6 +47,11 @@ void Actor::Draw()
 	BaseOriginalDraw();
 }
 
+void Actor::SetScenePointer(SceneBase * scene)
+{
+	mScenePointer = scene;
+}
+
 void Actor::OnCollisionHit(const BoxCollider & opponentCollision)
 {
 }

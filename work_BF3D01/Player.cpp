@@ -15,17 +15,13 @@ Player::Player(int modelHandle, State state, bool gravityFlag, float gravityRate
 	mScore(0),
 	mItemEffectFlag(false),
 	mItemEffectFrameMass(10),
-	mItemEffectCounter(0),
-	mBalloonModel(MV1LoadModel("Data/Model/Balloon/balloon.mv1")),
-	mBalloonPositionOffset(VGet(0.0f, 20.0f, 0.0f))
+	mItemEffectCounter(0)
 {
+	mBalloon = new Balloon(MV1LoadModel("Data/Model/Balloon/balloon.mv1"), this);
+
 	SetSpeed(0.7f);
 	mFallSpeedLimit = 10.0f;
 	MV1SetRotationXYZ(mModelHandle, VGet(0.0f, -DX_PI_F / 2.0f, 0.0f));
-
-	MV1SetPosition(mBalloonModel, VAdd(mPosition, mBalloonPositionOffset));
-	float scaleVal = 0.3f;
-	MV1SetScale(mBalloonModel, VGet(scaleVal, scaleVal, scaleVal));
 
 	mCollider->SetPosition(VSub(mPosition, VGet(1, 0, 0)));
 	mCollider->SetColliderTag(BoxCollider::PlayerCollider);
@@ -52,11 +48,6 @@ Player::Player(int modelHandle, State state, bool gravityFlag, float gravityRate
 
 Player::~Player()
 {
-	if (mBalloonModel > 0)
-	{
-		MV1DeleteModel(mBalloonModel);
-	}
-
 	for (int i = 0; i < 10; ++i)
 	{
 		MV1DeleteModel(mItemEffectHandleArray[i]);
@@ -166,12 +157,17 @@ void Player::Update(float deltaTime)
 
 	BaseOriginalUpdate();
 	
-	MV1SetPosition(mBalloonModel, VAdd(mPosition, mBalloonPositionOffset));
-
 	// トリガーコライダー位置の更新
 	VECTOR largeVertex = VAdd(mCollider->GetLargeValueVertex(), mTriggerColliderVertexOffset);
 	VECTOR smallVertex = VSub(mCollider->GetSmallValueVertex(), mTriggerColliderVertexOffset);
 	mTriggerCollider->SetVertexes(largeVertex, smallVertex);
+
+	// 頭部座標の更新
+	float collisionUp = mCollider->GetLargeValueVertex().y;
+	float collisionDown = mCollider->GetSmallValueVertex().y;
+	float collisionHeight = collisionUp - collisionDown;
+	mHeadPosition = mPosition;
+	mHeadPosition.y += collisionHeight;
 
 #ifdef _DEBUG_BF3D
 
@@ -235,11 +231,6 @@ void Player::Draw()
 {
 	BaseOriginalDraw();
 
-	if (mState == State::Active)
-	{
-		MV1DrawModel(mBalloonModel);
-	}
-
 	mTriggerCollider->Draw();
 
 	if (mItemEffectFlag)
@@ -249,6 +240,13 @@ void Player::Draw()
 		float z = mPosition.z - 5.0f;
 		DrawRotaGraph3D(x, y, z, 0.5, 0, mItemEffectHandleArray[mItemEffectCounter++], TRUE);
 	}
+}
+
+void Player::SetScenePointer(SceneBase * scene)
+{
+	mScenePointer = scene;
+
+	mBalloon->SetScenePointer(scene);
 }
 
 void Player::Move()

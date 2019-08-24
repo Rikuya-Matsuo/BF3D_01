@@ -1,7 +1,10 @@
 ﻿#pragma once
 #include "Actor.h"
+#include "Balloon.h"
 #include "Common.h"
 #include <unordered_map>
+
+class Balloon;
 
 class Player : public Actor
 {
@@ -12,12 +15,18 @@ public:
 	void Update(float deltaTime) override;
 	void OnCollisionHit(const BoxCollider& opponentCollision) override;
 	void Draw() override;
+	void SetScenePointer(SceneBase * scene) override;
 
 	int GetItemCollect() const { return mItemCollect; }
 
 	int GetScore() const { return mScore; }
 
+	const VECTOR& GetHeadPosition() const { return mHeadPosition; }
+
 private:
+	// バルーンクラス
+	Balloon * mBalloon;
+
 	// 制動率
 	const float mBrakeRate;
 
@@ -33,11 +42,8 @@ private:
 	// アイテム取得によるスコア増分
 	const int mItemScore;
 
-	// バルーンのモデルハンドル
-	int mBalloonModel;
-
-	// バルーンのプレイヤーに対する相対位置
-	VECTOR mBalloonPositionOffset;
+	// 頭の位置
+	VECTOR mHeadPosition;
 
 	// 着地フラグ
 
