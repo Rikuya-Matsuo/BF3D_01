@@ -21,7 +21,7 @@ GameScene::GameScene():
 	for (int i = 0; i < 10; ++i)
 	{
 		Ground * ground = new Ground(VGet(i * 200.0f, 0, 0), VGet((i + 1) * 200.0f, -1000.0f, -50), GetColor(0, 255, 0));
-		ground->LoadTexture("Data/Image/groundTexture00.jpg");
+		ground->LoadTexture("Data/Image/groundTexture01.jpg");
 		ground->SetScenePointer(this);
 	}
 	

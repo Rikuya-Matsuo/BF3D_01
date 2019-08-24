@@ -55,7 +55,12 @@ void Bullet::Draw()
 		return;
 	}
 
-	//DrawPixel3D(mPosition, mColor);
+	MATERIALPARAM mtr;
+	mtr.Diffuse = mtr.Specular = mtr.Ambient = GetColorF(0, 0, 0, 0);
+	mtr.Emissive = GetColorF(0.85f, 0.5f, 0.0f, 1.0f);
+	mtr.Power = 20.0f;
+	SetMaterialParam(mtr);
+
 	DrawSphere3D(mPosition, mRadius, 256, mColor, GetColor(255, 255, 255), TRUE);
 
 	mCollider->Draw();

@@ -14,6 +14,7 @@ SceneBase::SceneBase(float camera_near, float camera_far):
 
 SceneBase::~SceneBase()
 {
+	delete mCamera;
 }
 
 void SceneBase::Draw()
