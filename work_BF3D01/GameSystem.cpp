@@ -100,6 +100,7 @@ void GameSystem::Run()
 
 			DeleteNowSceneActors();
 			delete mNowScene;
+			mNowScene = NULL;
 
 			if (nextScene != NULL)
 			{

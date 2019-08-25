@@ -20,7 +20,7 @@ private:
 	Player * mOwner;
 
 	// 前フレームにおける座標
-	VECTOR mPrevPosition;
+	VECTOR mNextPosition;
 
 	// プレイヤーに対する相対位置
 	const float mHeight;

@@ -10,6 +10,7 @@ public:
 	enum EnumColliderTag
 	{
 		PlayerCollider,
+		BalloonCollider,
 		EnemyBulletCollider,
 		ItemCollider,
 		GroundCollider,
@@ -50,7 +51,7 @@ public:
 
 	char GetColliderTag() const { return mTag; }
 
-	void SetColliderTag(char value) { mTag = value; }
+	void SetColliderTag(BoxCollider::EnumColliderTag value) { mTag = value; }
 
 	const VECTOR& GetCornerPosition(EnumCornerX cornerX, EnumCornerY cornerY, EnumCornerZ cornerZ) { return mCornerPosition[cornerX][cornerY][cornerZ]; }
 

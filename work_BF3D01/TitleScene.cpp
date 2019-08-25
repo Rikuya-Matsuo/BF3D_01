@@ -27,7 +27,7 @@ void TitleScene::Draw()
 	int lineCount;
 	int fontHandle = GameSystem::GetInstance().GetFontHandleForGoal();
 
-	const char * title = "いい感じのタイトル";
+	const char * title = "ミスターバルーン";
 	GetDrawStringSizeToHandle(&w, &h, &lineCount, title, strlen(title), fontHandle);
 
 	x = (GameSystem::GetInstance().GetScreenWidth() - w) / 2;

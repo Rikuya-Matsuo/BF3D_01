@@ -32,7 +32,11 @@ Actor::~Actor()
 		MV1DeleteModel(mModelHandle);
 	}
 
-	delete mCollider;
+	if (mCollider != NULL)
+	{
+		delete mCollider;
+		mCollider = NULL;
+	}
 
 	GameSystem::GetInstance().RemoveActor(this);
 }
@@ -60,7 +64,7 @@ void Actor::BaseOriginalUpdate()
 {
 	MV1SetPosition(mModelHandle, mPosition);
 
-	mCollider->SetPosition(VSub(mPosition, VGet(1, 0, 0)));
+	//mCollider->SetPosition(VSub(mPosition, VGet(1, 0, 0)));
 }
 
 void Actor::BaseOriginalDraw()

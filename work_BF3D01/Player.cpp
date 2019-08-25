@@ -20,7 +20,7 @@ Player::Player(int modelHandle, State state, bool gravityFlag, float gravityRate
 	mBalloon = new Balloon(MV1LoadModel("Data/Model/Balloon/balloon.mv1"), this);
 
 	SetSpeed(0.7f);
-	mFallSpeedLimit = 10.0f;
+	mFallSpeedLimit = 2.0f;
 	MV1SetRotationXYZ(mModelHandle, VGet(0.0f, -DX_PI_F / 2.0f, 0.0f));
 
 	mCollider->SetPosition(VSub(mPosition, VGet(1, 0, 0)));
@@ -54,7 +54,12 @@ Player::~Player()
 	}
 
 	delete[] mItemEffectHandleArray;
+	mItemEffectHandleArray = NULL;
 	delete mTriggerCollider;
+	mTriggerCollider = NULL;
+
+	std::unordered_map<BoxCollider*, char>().swap(mNumberOfHit);
+	std::unordered_map<BoxCollider*, char>().swap(mPrevNumberOfHitBullet);
 }
 
 void Player::Update(float deltaTime)
@@ -156,6 +161,9 @@ void Player::Update(float deltaTime)
 	Move();
 
 	BaseOriginalUpdate();
+
+	// コライダーの位置の更新
+	mCollider->SetPosition(VSub(mPosition, VGet(1.0f, 0.0f, 0.0f)));
 	
 	// トリガーコライダー位置の更新
 	VECTOR largeVertex = VAdd(mCollider->GetLargeValueVertex(), mTriggerColliderVertexOffset);

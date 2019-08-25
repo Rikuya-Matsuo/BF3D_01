@@ -51,6 +51,7 @@ GameScene::GameScene():
 GameScene::~GameScene()
 {
 	delete mDiamondManager;
+	mDiamondManager = NULL;
 }
 
 void GameScene::Update(float deltaTime)

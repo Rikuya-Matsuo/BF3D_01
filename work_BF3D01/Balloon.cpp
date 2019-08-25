@@ -8,12 +8,16 @@ Balloon::Balloon(int modelHandle, Player * owner) :
 	float scale = 0.3f;
 	MV1SetScale(mModelHandle, VGet(scale, scale, scale));
 
-	float width = 1.0f;
-	float height = 1.5f;
-	VECTOR vertex = VAdd(mPosition, VGet(-width, 0, 0));
-	VECTOR invVertex = VAdd(mPosition, VGet(width, height, 0));
+	float downX = -4.5f;
+	float downY = -5.0f;
+	float upX = 4.5f;
+	float upY = 7.0f;
+
+	VECTOR vertex = VAdd(mPosition, VGet(downX, downY, 0));
+	VECTOR invVertex = VAdd(mPosition, VGet(upX, upY, 0));
 
 	mCollider->SetVertexes(vertex, invVertex);
+	mCollider->SetColliderTag(BoxCollider::BalloonCollider);
 }
 
 Balloon::~Balloon()
@@ -22,14 +26,21 @@ Balloon::~Balloon()
 
 void Balloon::Update(float deltaTime)
 {
-	// 位置フレーム遅れてプレイヤーを追う
-	mPosition = mPrevPosition;
+	VECTOR prevPos = mPosition;
+
+	// 1フレーム遅れてプレイヤーを追う
+	mPosition = mNextPosition;
 
 	// プレイヤーの座標を取得
-	mPrevPosition = mOwner->GetPosition();
-	mPrevPosition.y += mHeight;
+	mNextPosition = mOwner->GetPosition();
+
+	// 高さを調整
+	mNextPosition.y += mHeight;
 
 	BaseOriginalUpdate();
+
+	mVelocity = VSub(mPosition, prevPos);
+	mCollider->Move(mVelocity);
 }
 
 void Balloon::Draw()

@@ -1,11 +1,11 @@
 ﻿#include "Cannon.h"
 
-
-
 Cannon::Cannon(int modelHandle, State state, bool gravityFlag, float gravityRate, bool drawFlag):
 	Actor(modelHandle, state, gravityFlag, gravityRate, drawFlag)
 {
+	VECTOR zero = VGet(0.0f, 0.0f, 0.0f);
 
+	mCollider->SetVertexes(zero, zero);
 }
 
 Cannon::~Cannon()

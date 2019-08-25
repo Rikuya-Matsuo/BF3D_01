@@ -24,7 +24,7 @@ void Sky::LoadModel(const char * modelDirectory)
 	mModelHandle = MV1LoadModel(modelDirectory);
 	mModelDirectory = (char *)modelDirectory;
 
-	MV1SetPosition(mModelHandle, VGet(0.0f, -300.0f, 0.0f));
+	MV1SetPosition(mModelHandle, VGet(0.0f, -1000.0f, 0.0f));
 
 	// 大きさの設定
 	float scale = 10.0f;
