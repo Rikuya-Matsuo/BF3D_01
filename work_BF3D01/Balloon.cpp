@@ -9,7 +9,7 @@ Balloon::Balloon(int modelHandle, Player * owner) :
 	MV1SetScale(mModelHandle, VGet(scale, scale, scale));
 
 	float downX = -4.5f;
-	float downY = -5.0f;
+	float downY = -4.8f;
 	float upX = 4.5f;
 	float upY = 7.0f;
 
@@ -26,6 +26,11 @@ Balloon::~Balloon()
 
 void Balloon::Update(float deltaTime)
 {
+	if (mState != State::Active)
+	{
+		return;
+	}
+
 	VECTOR prevPos = mPosition;
 
 	// 1フレーム遅れてプレイヤーを追う
@@ -41,6 +46,10 @@ void Balloon::Update(float deltaTime)
 
 	mVelocity = VSub(mPosition, prevPos);
 	mCollider->Move(mVelocity);
+
+	// 紐をつける位置を更新
+	mBottomPosition = mPosition;
+	mBottomPosition.y = mCollider->GetSmallValueVertex().y;
 }
 
 void Balloon::Draw()
@@ -49,7 +58,7 @@ void Balloon::Draw()
 
 	if (mState != State::Dead)
 	{
-		DrawLine3D(mPosition, mOwner->GetHeadPosition(), GetColor(255, 255, 255));
+		DrawLine3D(mBottomPosition, mOwner->GetHeadPosition(), GetColor(255, 255, 255));
 	}
 }
 

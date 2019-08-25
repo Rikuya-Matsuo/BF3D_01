@@ -19,8 +19,11 @@ private:
 	// 所有者
 	Player * mOwner;
 
-	// 前フレームにおける座標
+	// 次フレームにおける座標
 	VECTOR mNextPosition;
+
+	// 紐をつける場所
+	VECTOR mBottomPosition;
 
 	// プレイヤーに対する相対位置
 	const float mHeight;

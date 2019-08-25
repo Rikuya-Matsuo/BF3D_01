@@ -11,7 +11,9 @@ GameScene::GameScene():
 	mGoalLine(2000.0f),
 	mDiamondMass(10),
 	mTimeLimit(60.0f),
-	mTimer(mTimeLimit)
+	mTimer(mTimeLimit),
+	mGameOverGraph(LoadGraph("Data/Image/gameover.png")),
+	mGoalGraph(LoadGraph("Data/Image/goal01.png"))
 {
 	// アクターへのポインタはゲームシステムクラスのベクターデータが自動で受け取ってくれる（アクタークラスのコンストラクタ参照）
 	mPlayer = new Player(MV1LoadModel("Data/Model/Player/Boy.pmx"));
@@ -52,6 +54,11 @@ GameScene::~GameScene()
 {
 	delete mDiamondManager;
 	mDiamondManager = NULL;
+
+	if (mGameOverGraph > 0)
+	{
+		DeleteGraph(mGameOverGraph);
+	}
 }
 
 void GameScene::Update(float deltaTime)
@@ -96,7 +103,7 @@ void GameScene::Draw()
 		int w;
 		int intTimer = (int)mTimer;
 		std::string timerString = std::to_string(intTimer);
-		w = GetDrawStringWidthToHandle(timerString.c_str(), strlen(timerString.c_str()), fontHandle);
+		w = GetDrawStringWidthToHandle(timerString.c_str(), (int)strlen(timerString.c_str()), fontHandle);
 
 		x = (GameSystem::GetInstance().GetScreenWidth() - w) / 2;
 
@@ -105,18 +112,47 @@ void GameScene::Draw()
 
 	if (mPlayer->GetPosition().x >= mGoalLine)
 	{
-		std::string message = (mPlayer->GetItemCollect() >= mDiamondMass) ? "ゴール！" : "まだアイテムが残ってるよ！";
+		bool allItemCollected = (mPlayer->GetItemCollect() >= mDiamondMass);
+#ifdef _DEBUG_BF3D
+		if (Input::GetInstance().GetKeyPressed(KEY_INPUT_LSHIFT))
+		{
+			allItemCollected = true;
+		}
+#endif
 
-		int x, y;
-		int w, h;
-		int lineCount = 1;
-		int fontHandle = GameSystem::GetInstance().GetFontHandleForGoal();
+		if (allItemCollected)
+		{
+			float extendRate = 1.0f;
+			float x1, y1;
+			float x2, y2;
+			float w, h;
+			GetGraphSizeF(mGoalGraph, &w, &h);
+			w *= extendRate;
+			h *= extendRate;
 
-		GetDrawFormatStringSize(&w, &h, &lineCount, message.c_str());
+			float centerX = (GameSystem::GetInstance().GetScreenWidth()) / 2.0f;
+			float centerY = (GameSystem::GetInstance().GetScreenHeight()) / 2.0f;
+			x1 = centerX - w / 2.0f;
+			y1 = centerY - h / 2.0f;
+			x2 = centerX + w / 2.0f;
+			y2 = centerY + h / 2.0f;
 
-		x = ((int)GameSystem::GetInstance().GetScreenWidth() - w) / 2;
-		y = ((int)GameSystem::GetInstance().GetScreenHeight() - h) / 2;
+			DrawExtendGraphF(x1, y1, x2, y2, mGoalGraph, TRUE);
+		}
+		else
+		{
+			float x, y;
+			int w, h;
+			int lineCount = 1;
+			int fontHandle = GameSystem::GetInstance().GetFontHandleForGoal();
+			
+			const char * message = "まだお宝が残ってるよ！";
+			GetDrawFormatStringSize(&w, &h, &lineCount, message);
 
-		DrawFormatStringToHandle(x, y, GetColor(255, 0, 0), fontHandle, message.c_str());
+			x = (GameSystem::GetInstance().GetScreenWidth() - w) / 2.0f;
+			y = (GameSystem::GetInstance().GetScreenHeight() - h) / 2.0f;
+
+			DrawFormatStringF(x, y, GetColor(255, 0, 0), message);
+		}
 	}
 }

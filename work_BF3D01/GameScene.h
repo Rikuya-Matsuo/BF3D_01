@@ -28,5 +28,9 @@ private:
 
 	float mTimer;
 
+	int mGameOverGraph;
+
+	int mGoalGraph;
+
 	std::string mScoreString;
 };
