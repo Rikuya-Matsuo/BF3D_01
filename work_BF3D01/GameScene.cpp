@@ -12,11 +12,13 @@ GameScene::GameScene():
 	mDiamondMass(10),
 	mTimeLimit(60.0f),
 	mTimer(mTimeLimit),
-	mGameOverGraph(LoadGraph("Data/Image/gameover01.png")),
 	mGoalGraph(LoadGraph("Data/Image/goal01.png")),
 	mGameOverGraphY((float)GameSystem::GetInstance().GetScreenHeight()),
-	mGameOverGraphYSpeed(1000.0f)
+	mGameOverGraphYSpeed(5.0f)
 {
+	// ゲームオーバー表示のロード
+	GTitanic::LoadGraph(mGameOverGraph, "Data/Image/gameover01.png");
+
 	// アクターへのポインタはゲームシステムクラスのベクターデータが自動で受け取ってくれる（アクタークラスのコンストラクタ参照）
 	mPlayer = new Player(MV1LoadModel("Data/Model/Player/Boy.pmx"));
 	mPlayer->SetPosition(VGet(0, 100, 0));
@@ -57,9 +59,9 @@ GameScene::~GameScene()
 	delete mDiamondManager;
 	mDiamondManager = NULL;
 
-	if (mGameOverGraph > 0)
+	if (mGameOverGraph.handle > 0)
 	{
-		DeleteGraph(mGameOverGraph);
+		DeleteGraph(mGameOverGraph.handle);
 	}
 
 	if (mGoalGraph > 0)
@@ -186,25 +188,20 @@ void GameScene::Draw()
 	// プレイヤーが死亡していたら
 	if (mPlayer->GetState() == Actor::Dead)
 	{
-		float x;
-		float w, h;
-		//float extendRate = 0.5f;
-		GetGraphSizeF(mGameOverGraph, &w, &h);
+		float scrCntX, scrCntY;
+		GetCameraScreenCenter(&scrCntX, &scrCntY);
 
-		float centerX = GameSystem::GetInstance().GetScreenWidth() / 2.0f;
-		/*
-		VECTOR scrPos;
-		scrPos.x = x;
-		scrPos.y = mGameOverGraphY;
-		scrPos.z = -55.0f;
-		*/
+		float centerX = scrCntX;
 
-		SetDrawScreen(GameSystem::GetInstance().GetUIScreenHandle());
-		mCamera->Init();
-		DrawExtendGraph(centerX - w / 2.0f, mGameOverGraphY, centerX + w / 2.0f, mGameOverGraphY + h, mGameOverGraph, TRUE);
-		SetDrawScreen(DX_SCREEN_BACK);
-		mCamera->Init();
-		//DrawGraphF(x, mGameOverGraphY, mGameOverGraph, TRUE);
-		//DrawGraph3D(scrPos.x, scrPos.y, scrPos.z, mGameOverGraph, TRUE);
+		VECTOR pos = VGet(centerX - mGameOverGraph.w / 2, mGameOverGraphY, 0.5f);
+		VECTOR wldPos = ConvScreenPosToWorldPos(pos);
+#ifdef _DEBUG_BF3D
+		VECTOR p = mPlayer->GetPosition();
+		printfDx("%f, %f, %f\n", p.x, p.y, p.z);
+		printfDx("%f, %f, %f\n", wldPos.x, wldPos.y, wldPos.z);
+#endif
+		GTitanic::SetPosition(mGameOverGraph, wldPos);
+
+		GTitanic::DrawGraph3D(mGameOverGraph);
 	}
 }

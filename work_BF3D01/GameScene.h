@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include "DxLib.h"
+#include "GTitanic.h"
+#include "Graph.h"
 #include "SceneBase.h"
 #include "Player.h"
 #include "DiamondManager.h"
@@ -28,7 +30,7 @@ private:
 
 	float mTimer;
 
-	int mGameOverGraph;
+	GraphF mGameOverGraph;
 
 	int mGoalGraph;
 
