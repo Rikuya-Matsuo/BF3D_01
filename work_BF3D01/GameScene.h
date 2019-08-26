@@ -32,5 +32,9 @@ private:
 
 	int mGoalGraph;
 
+	float mGameOverGraphY;
+
+	const float mGameOverGraphYSpeed;
+
 	std::string mScoreString;
 };

@@ -45,6 +45,8 @@ public:
 
 	int GetFontHandleForGoal() { return mFontHandleForGoal; }
 
+	int GetUIScreenHandle() { return mUIScreenHandle; }
+
 private:
 	GameSystem();
 	
@@ -71,6 +73,8 @@ private:
 	std::vector<Actor*> mActors;
 
 	std::vector<BoxCollider*> mColliders;
+
+	int mUIScreenHandle;
 
 	float CulculateDeltaTime();
 	void TogglePauseState();

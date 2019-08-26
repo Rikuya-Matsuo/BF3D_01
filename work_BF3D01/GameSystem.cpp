@@ -90,6 +90,9 @@ void GameSystem::Run()
 		// 裏画面の情報を表に描画
 		ScreenFlip();
 
+		// UIの描画
+		//DrawGraph(0, 0, mUIScreenHandle, TRUE);
+
 		// ポーズ要請への応答
 		RespondPauseRequest();
 
@@ -141,6 +144,8 @@ void GameSystem::Init()
 	mFontHandleForGoal = CreateFontToHandle("System 標準", 72, 9, DX_FONTTYPE_EDGE);
 
 	SetFontSize(GetFontSizeToHandle(mFontHandleForGoal));
+
+	mUIScreenHandle = MakeScreen(mScreenWidth, mScreenHeight, TRUE);
 }
 
 float GameSystem::CulculateDeltaTime()

@@ -1,4 +1,5 @@
 ﻿#include "Camera.h"
+#include "GameSystem.h"
 
 void Camera::SetNearFar(float in_near, float in_far)
 {
@@ -22,6 +23,12 @@ Camera::~Camera()
 {
 }
 
+void Camera::Init()
+{
+	SetCameraNearFar(mNear, mFar);
+	SetCameraPositionAndTarget_UpVecY(mPosition, GetCameraTarget());
+}
+
 void Camera::Update()
 {
 	if (mFollowFlag)
@@ -31,7 +38,7 @@ void Camera::Update()
 		pos.z -= 95.0f;
 
 		mPosition = pos;
-		
+
 		SetCameraPositionAndTarget_UpVecY(mPosition, mFollowActor->GetPosition());
 	}
 }

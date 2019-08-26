@@ -12,8 +12,10 @@ GameScene::GameScene():
 	mDiamondMass(10),
 	mTimeLimit(60.0f),
 	mTimer(mTimeLimit),
-	mGameOverGraph(LoadGraph("Data/Image/gameover.png")),
-	mGoalGraph(LoadGraph("Data/Image/goal01.png"))
+	mGameOverGraph(LoadGraph("Data/Image/gameover01.png")),
+	mGoalGraph(LoadGraph("Data/Image/goal01.png")),
+	mGameOverGraphY((float)GameSystem::GetInstance().GetScreenHeight()),
+	mGameOverGraphYSpeed(1000.0f)
 {
 	// アクターへのポインタはゲームシステムクラスのベクターデータが自動で受け取ってくれる（アクタークラスのコンストラクタ参照）
 	mPlayer = new Player(MV1LoadModel("Data/Model/Player/Boy.pmx"));
@@ -59,6 +61,11 @@ GameScene::~GameScene()
 	{
 		DeleteGraph(mGameOverGraph);
 	}
+
+	if (mGoalGraph > 0)
+	{
+		DeleteGraph(mGoalGraph);
+	}
 }
 
 void GameScene::Update(float deltaTime)
@@ -72,6 +79,25 @@ void GameScene::Update(float deltaTime)
 			SetNextScene(new TitleScene);
 
 			mGoNextSceneFlag = true;
+		}
+
+		if (mPlayer->GetState() == Actor::Dead)
+		{
+			mGameOverGraphY -= mGameOverGraphYSpeed * deltaTime;
+
+			float yLimit = 50.0f;
+			
+			/*
+			float w, h;
+			GetGraphSizeF(mGameOverGraph, &w, &h);
+
+			yLimit = (GameSystem::GetInstance().GetScreenHeight() - h) / 2.0f;
+			*/
+
+			if (mGameOverGraphY < yLimit)
+			{
+				mGameOverGraphY = yLimit;
+			}
 		}
 	}
 
@@ -110,6 +136,7 @@ void GameScene::Draw()
 		DrawStringToHandle(x, 0, timerString.c_str(), GetColor(255, 255, 255), fontHandle, GetColor(128, 0, 128));
 	}
 
+	// ゴールしていたら
 	if (mPlayer->GetPosition().x >= mGoalLine)
 	{
 		bool allItemCollected = (mPlayer->GetItemCollect() >= mDiamondMass);
@@ -154,5 +181,30 @@ void GameScene::Draw()
 
 			DrawFormatStringF(x, y, GetColor(255, 0, 0), message);
 		}
+	}
+
+	// プレイヤーが死亡していたら
+	if (mPlayer->GetState() == Actor::Dead)
+	{
+		float x;
+		float w, h;
+		//float extendRate = 0.5f;
+		GetGraphSizeF(mGameOverGraph, &w, &h);
+
+		float centerX = GameSystem::GetInstance().GetScreenWidth() / 2.0f;
+		/*
+		VECTOR scrPos;
+		scrPos.x = x;
+		scrPos.y = mGameOverGraphY;
+		scrPos.z = -55.0f;
+		*/
+
+		SetDrawScreen(GameSystem::GetInstance().GetUIScreenHandle());
+		mCamera->Init();
+		DrawExtendGraph(centerX - w / 2.0f, mGameOverGraphY, centerX + w / 2.0f, mGameOverGraphY + h, mGameOverGraph, TRUE);
+		SetDrawScreen(DX_SCREEN_BACK);
+		mCamera->Init();
+		//DrawGraphF(x, mGameOverGraphY, mGameOverGraph, TRUE);
+		//DrawGraph3D(scrPos.x, scrPos.y, scrPos.z, mGameOverGraph, TRUE);
 	}
 }
