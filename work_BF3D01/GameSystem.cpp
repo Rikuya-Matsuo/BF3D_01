@@ -25,6 +25,8 @@ GameSystem::~GameSystem()
 {
 	DeleteFontToHandle(mFontHandleForScore);
 	DeleteFontToHandle(mFontHandleForGoal);
+
+	DeleteGraph(mUIScreenHandle);
 }
 
 void GameSystem::Run()
@@ -91,7 +93,11 @@ void GameSystem::Run()
 		ScreenFlip();
 
 		// UIの描画
-		//DrawGraph(0, 0, mUIScreenHandle, TRUE);
+		int err = DrawGraph(0, 0, mUIScreenHandle, TRUE);
+		if (err)
+		{
+			WaitTimer(0);
+		}
 
 		// ポーズ要請への応答
 		RespondPauseRequest();
@@ -145,7 +151,7 @@ void GameSystem::Init()
 
 	SetFontSize(GetFontSizeToHandle(mFontHandleForGoal));
 
-	mUIScreenHandle = MakeScreen(mScreenWidth, mScreenHeight, TRUE);
+	mUIScreenHandle = MakeScreen(mScreenWidth, mScreenHeight, FALSE);
 }
 
 float GameSystem::CulculateDeltaTime()

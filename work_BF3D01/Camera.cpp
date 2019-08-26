@@ -26,7 +26,7 @@ Camera::~Camera()
 void Camera::Init()
 {
 	SetCameraNearFar(mNear, mFar);
-	SetCameraPositionAndTarget_UpVecY(mPosition, GetCameraTarget());
+	SetCameraPositionAndTarget_UpVecY(mPosition, mTarget);
 }
 
 void Camera::Update()
@@ -34,11 +34,14 @@ void Camera::Update()
 	if (mFollowFlag)
 	{
 		VECTOR pos = mFollowActor->GetPosition();
+		
+		mTarget = pos;
+
 		pos.y += 5.0f;
 		pos.z -= 95.0f;
 
 		mPosition = pos;
 
-		SetCameraPositionAndTarget_UpVecY(mPosition, mFollowActor->GetPosition());
+		SetCameraPositionAndTarget_UpVecY(mPosition, mTarget);
 	}
 }

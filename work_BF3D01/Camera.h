@@ -25,6 +25,9 @@ private:
 	// ついていくアクターへのポインタ
 	Actor * mFollowActor;
 
+	// 注視点
+	VECTOR mTarget;
+
 	// カメラ位置
 	VECTOR mPosition;
 
