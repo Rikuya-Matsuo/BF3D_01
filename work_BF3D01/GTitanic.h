@@ -19,4 +19,8 @@ namespace GTitanic
 
 	// –¢ŽÀ‘•
 	void DrawExtendGraph3D(const GraphF& graph, float extendRate, const VECTOR& norm = VGet(0, 0, -1));
+
+	void DrawGraph(const GraphF& graph);
+
+	void GetGraphCenter(VECTOR& dst, const GraphF& graph, bool useAs3D, const VECTOR& norm = VGet(0, 0, -1));
 }

@@ -7,7 +7,7 @@
 #include <string>
 
 GameScene::GameScene():
-	SceneBase(10.0f, 3700.0f),
+	SceneBase(5.0f, 3700.0f),
 	mGoalLine(2000.0f),
 	mDiamondMass(10),
 	mTimeLimit(60.0f),
@@ -18,6 +18,8 @@ GameScene::GameScene():
 {
 	// ゲームオーバー表示のロード
 	GTitanic::LoadGraph(mGameOverGraph, "Data/Image/gameover01.png");
+	GTitanic::SetTransFlag(mGameOverGraph, TRUE);
+	GTitanic::ExtendGraph(mGameOverGraph, 0.005f);
 
 	// アクターへのポインタはゲームシステムクラスのベクターデータが自動で受け取ってくれる（アクタークラスのコンストラクタ参照）
 	mPlayer = new Player(MV1LoadModel("Data/Model/Player/Boy.pmx"));
@@ -188,6 +190,7 @@ void GameScene::Draw()
 	// プレイヤーが死亡していたら
 	if (mPlayer->GetState() == Actor::Dead)
 	{
+		/*
 		float scrCntX, scrCntY;
 		GetCameraScreenCenter(&scrCntX, &scrCntY);
 
@@ -203,5 +206,26 @@ void GameScene::Draw()
 		GTitanic::SetPosition(mGameOverGraph, wldPos);
 
 		GTitanic::DrawGraph3D(mGameOverGraph);
+		*/
+
+		VECTOR pos = GetCameraPosition();
+		VECTOR camDir = GetCameraFrontVector();
+		camDir = VNorm(camDir);
+
+		pos = VAdd(pos, VScale(camDir, 15.0f));
+
+		GTitanic::SetPosition(mGameOverGraph, pos);
+
+		// 画像中央の座標
+		VECTOR grCenterPos;
+		GTitanic::GetGraphCenter(grCenterPos, mGameOverGraph, true, GetCameraBackVector());
+
+		// 原点から画像中央へのベクトル
+		VECTOR oToCenter = VSub(grCenterPos, mGameOverGraph.position);
+
+		// 画像中央が画面中央に来るようにずらす
+		mGameOverGraph.position = VSub(mGameOverGraph.position, oToCenter);
+
+		GTitanic::DrawGraph3D(mGameOverGraph, GetCameraBackVector());
 	}
 }

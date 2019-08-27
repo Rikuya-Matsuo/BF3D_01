@@ -1,5 +1,6 @@
 ﻿#include "Actor.h"
 #include "GameSystem.h"
+#include "Input.h"
 #include <cfloat>
 
 Actor::Actor(int modelHandle,State state, bool gravityFlag, float gravityRate, bool drawFlag):
@@ -71,7 +72,10 @@ void Actor::BaseOriginalDraw()
 {
 	if (mState != Actor::Dead && mDrawFlag && mModelHandle > 0)
 	{
-		MV1DrawModel(mModelHandle);
+		if (Input::GetInstance().GetInput(KEY_INPUT_SPACE) == Input::Off)
+		{
+			MV1DrawModel(mModelHandle);
+		}
 
 		mCollider->Draw();
 	}

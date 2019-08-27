@@ -1,4 +1,5 @@
 ﻿#include "Ground.h"
+#include "Input.h"
 
 Ground::Ground(const VECTOR& vertex, const VECTOR& inversionVertex, unsigned int color) :
 	Actor(-1),
@@ -19,7 +20,10 @@ void Ground::Update(float deltaTime)
 
 void Ground::Draw()
 {
-	mVisualCube.Draw();
+	if (Input::GetInstance().GetInput(KEY_INPUT_SPACE) == Input::Off)
+	{
+		mVisualCube.Draw();
+	}
 
 	mCollider->Draw();
 }

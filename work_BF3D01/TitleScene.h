@@ -2,6 +2,8 @@
 #include "SceneBase.h"
 #include "GameSystem.h"
 #include "Input.h"
+#include "Graph.h"
+#include "GTitanic.h"
 #include "GameScene.h"
 
 class TitleScene : public SceneBase
@@ -14,4 +16,6 @@ public:
 	void Draw() override;
 
 private:
+	GraphF mLogo;
+
 };

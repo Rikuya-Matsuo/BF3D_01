@@ -2,15 +2,6 @@
 #include "DxLib.h"
 #define KEY_MASS 256
 
-enum EnumKeyState
-{
-	Off,
-	PushDown,
-	Pressed,
-	PullUp,
-	Invalid_KeyState
-};
-
 class Input final
 {
 private:
@@ -24,6 +15,15 @@ private:
 	char mPrevKeyNum;
 
 public:
+	enum EnumKeyState
+	{
+		Off,
+		PushDown,
+		Pressed,
+		PullUp,
+		Invalid_KeyState
+	};
+
 	static Input& GetInstance()
 	{
 		static Input instance;
