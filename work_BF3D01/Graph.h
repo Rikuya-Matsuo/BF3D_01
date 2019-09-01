@@ -1,20 +1,20 @@
-#pragma once
+ï»¿#pragma once
 
 struct GraphF
 {
-	// ƒnƒ“ƒhƒ‹
+	// ãƒãƒ³ãƒ‰ãƒ«
 	int handle;
 
-	// “§‰ßƒtƒ‰ƒO
+	// é€éãƒ•ãƒ©ã‚°
 	int trans;
 
-	// •\¦À•W
+	// è¡¨ç¤ºåº§æ¨™
 	VECTOR position;
 
-	// ƒTƒCƒY
+	// ã‚µã‚¤ã‚º
 	float w;
 	float h;
 
-	// Šg‘å—¦
+	// æ‹¡å¤§ç‡
 	float extendRate;
 };

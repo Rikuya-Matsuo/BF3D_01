@@ -1,4 +1,4 @@
-#include "Balloon.h"
+ï»¿#include "Balloon.h"
 
 Balloon::Balloon(int modelHandle, Player * owner) :
 	Actor(modelHandle, State::Active, false, 0.0f, true),
@@ -33,13 +33,13 @@ void Balloon::Update(float deltaTime)
 
 	VECTOR prevPos = mPosition;
 
-	// 1ƒtƒŒ[ƒ€’x‚ê‚ÄƒvƒŒƒCƒ„[‚ð’Ç‚¤
+	// 1ãƒ•ãƒ¬ãƒ¼ãƒ é…ã‚Œã¦ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’è¿½ã†
 	mPosition = mNextPosition;
 
-	// ƒvƒŒƒCƒ„[‚ÌÀ•W‚ðŽæ“¾
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åº§æ¨™ã‚’å–å¾—
 	mNextPosition = mOwner->GetPosition();
 
-	// ‚‚³‚ð’²®
+	// é«˜ã•ã‚’èª¿æ•´
 	mNextPosition.y += mHeight;
 
 	BaseOriginalUpdate();
@@ -47,7 +47,7 @@ void Balloon::Update(float deltaTime)
 	mVelocity = VSub(mPosition, prevPos);
 	mCollider->Move(mVelocity);
 
-	// •R‚ð‚Â‚¯‚éˆÊ’u‚ðXV
+	// ç´ã‚’ã¤ã‘ã‚‹ä½ç½®ã‚’æ›´æ–°
 	mBottomPosition = mPosition;
 	mBottomPosition.y = mCollider->GetSmallValueVertex().y;
 }

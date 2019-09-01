@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Actor.h"
 #include "Player.h"
 
@@ -16,16 +16,16 @@ public:
 	void OnCollisionHit(const BoxCollider& opponentCollision) override;
 
 private:
-	// Š—LÒ
+	// æ‰€æœ‰è€…
 	Player * mOwner;
 
-	// ŸƒtƒŒ[ƒ€‚É‚¨‚¯‚éÀ•W
+	// æ¬¡ãƒ•ãƒ¬ãƒ¼ãƒ ã«ãŠã‘ã‚‹åº§æ¨™
 	VECTOR mNextPosition;
 
-	// •R‚ğ‚Â‚¯‚éêŠ
+	// ç´ã‚’ã¤ã‘ã‚‹å ´æ‰€
 	VECTOR mBottomPosition;
 
-	// ƒvƒŒƒCƒ„[‚É‘Î‚·‚é‘Š‘ÎˆÊ’u
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«å¯¾ã™ã‚‹ç›¸å¯¾ä½ç½®
 	const float mHeight;
 
 };

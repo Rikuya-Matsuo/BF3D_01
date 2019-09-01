@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "DxLib.h"
 #include "Graph.h"
 #include <math.h>
@@ -17,7 +17,7 @@ namespace GTitanic
 
 	void DrawGraph3D(const GraphF& graph, const VECTOR& norm = VGet(0, 0, -1));
 
-	// –¢ŽÀ‘•
+	// æœªå®Ÿè£…
 	void DrawExtendGraph3D(const GraphF& graph, float extendRate, const VECTOR& norm = VGet(0, 0, -1));
 
 	void DrawGraph(const GraphF& graph);

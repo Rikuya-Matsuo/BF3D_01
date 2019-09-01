@@ -1,4 +1,4 @@
-#include "GTitanic.h"
+ï»¿#include "GTitanic.h"
 
 int GTitanic::LoadGraph(GraphF & graph, const char * fileName)
 {
@@ -40,14 +40,14 @@ void GTitanic::ResetExtendRate(GraphF & graph)
 
 void GTitanic::DrawGraph3D(const GraphF & graph, const VECTOR& norm)
 {
-	// ƒ|ƒŠƒSƒ“‚Ì’¸“_î•ñ
+	// ãƒãƒªã‚´ãƒ³ã®é ‚ç‚¹æƒ…å ±
 	VERTEX3D vertex[6];
 	for (int i = 0; i < 6; ++i)
 	{
-		// –@ü‚Ìİ’è
+		// æ³•ç·šã®è¨­å®š
 		vertex[i].norm = norm;
 
-		// ƒeƒNƒXƒ`ƒƒÀ•W
+		// ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™
 		float uVal;
 		float vVal;
 		switch (i)
@@ -81,20 +81,20 @@ void GTitanic::DrawGraph3D(const GraphF & graph, const VECTOR& norm)
 		vertex[i].v = vVal;
 	}
 	
-	// –@ü‚Æ^‰¡‚Æ‚ÌŠp“xZo
+	// æ³•ç·šã¨çœŸæ¨ªã¨ã®è§’åº¦ç®—å‡º
 	const VECTOR rightVec = VGet(1, 0, 0);
 	float xAngle = VRad(norm, rightVec);
 
-	// –@ü‚Æ^ã‚Æ‚ÌŠp“xZo
+	// æ³•ç·šã¨çœŸä¸Šã¨ã®è§’åº¦ç®—å‡º
 	const VECTOR upVec = VGet(0, 1, 0);
 	float yAngle = VRad(norm, upVec);
 
-	// –@ü‚Æè‘O‚Æ‚ÌŠp“xZo
+	// æ³•ç·šã¨æ‰‹å‰ã¨ã®è§’åº¦ç®—å‡º
 	const VECTOR nearVec = VGet(0, 0, -1);
 	float zAngle = VRad(norm, nearVec);
 
-	// À•Wİ’è
-	// i”®‚ªA“KØ‚Å‚È‚­‚Æ‚àA×‚©‚¢‚±‚Æ‚ğAl‚¦‚é‚Å‚È‚¢‚¼AáÒ‚ç‚æEEEj
+	// åº§æ¨™è¨­å®š
+	// ï¼ˆæ•°å¼ãŒã€é©åˆ‡ã§ãªãã¨ã‚‚ã€ç´°ã‹ã„ã“ã¨ã‚’ã€è€ƒãˆã‚‹ã§ãªã„ãã€è‹¥è€…ã‚‰ã‚ˆãƒ»ãƒ»ãƒ»ï¼‰
 	vertex[0].pos = graph.position;
 
 	vertex[1].pos = graph.position;
@@ -125,26 +125,26 @@ void GTitanic::DrawGraph(const GraphF & graph)
 
 void GTitanic::GetGraphCenter(VECTOR& dst, const GraphF & graph, bool useAs3D, const VECTOR & norm)
 {
-	// ‰æ‘œ‚Ì‰EãA¶‰ºA‰E‰º‚ÌÀ•W
+	// ç”»åƒã®å³ä¸Šã€å·¦ä¸‹ã€å³ä¸‹ã®åº§æ¨™
 	VECTOR verPos[3];
 	for (int i = 0; i < 3; ++i)
 	{
 		verPos[i] = graph.position;
 	}
 
-	// –@ü‚Æ^‰¡‚Æ‚ÌŠp“xZo
+	// æ³•ç·šã¨çœŸæ¨ªã¨ã®è§’åº¦ç®—å‡º
 	const VECTOR rightVec = VGet(1, 0, 0);
 	float xAngle = VRad(norm, rightVec);
 
-	// –@ü‚Æ^ã‚Æ‚ÌŠp“xZo
+	// æ³•ç·šã¨çœŸä¸Šã¨ã®è§’åº¦ç®—å‡º
 	const VECTOR upVec = VGet(0, 1, 0);
 	float yAngle = VRad(norm, upVec);
 
-	// –@ü‚Æè‘O‚Æ‚ÌŠp“xZo
+	// æ³•ç·šã¨æ‰‹å‰ã¨ã®è§’åº¦ç®—å‡º
 	const VECTOR nearVec = VGet(0, 0, -1);
 	float zAngle = VRad(norm, nearVec);
 
-	// Še’¸“_‚ÌÀ•W‚ğŒvZ
+	// å„é ‚ç‚¹ã®åº§æ¨™ã‚’è¨ˆç®—
 	verPos[0].x += graph.w * cosf(zAngle);
 	verPos[0].z += graph.w * sinf(zAngle);
 
@@ -156,7 +156,7 @@ void GTitanic::GetGraphCenter(VECTOR& dst, const GraphF & graph, bool useAs3D, c
 	VECTOR difResult = VAdd(dif1, dif2);
 	verPos[2] = VAdd(graph.position, difResult);
 
-	// ‘ÎŠpüƒxƒNƒgƒ‹
+	// å¯¾è§’ç·šãƒ™ã‚¯ãƒˆãƒ«
 	VECTOR diagonal = VSub(verPos[2], graph.position);
 
 	dst = VAdd(graph.position, VScale(diagonal, 0.5f));
