@@ -121,7 +121,8 @@ void GameScene::Update(float deltaTime)
 
 void GameScene::Draw()
 {
-	BaseOriginalDraw();
+	// オーバーライド前の関数を呼ぶ
+	SceneBase::Draw();
 
 	{
 		int fontHandle = GameSystem::GetInstance().GetFontHandleForScore();

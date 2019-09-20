@@ -11,10 +11,13 @@ public:
 	~DiamondManager();
 
 private:
-	std::vector<Diamond *> mDiamonds;
-
+	// 保有するアイテムの数
 	const int mChildMass;
 
-	int mModelHandle;
+	// アイテムへのポインタのベクターデータ
+	std::vector<Diamond *> mDiamonds;
+
+	// アイテムのモデルのハンドル
+	static int mChildModelHandle;
 };
 

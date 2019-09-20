@@ -14,7 +14,6 @@ Cube::Cube(const VECTOR& vertex, const VECTOR& inversionVertex, bool collisionFl
 	CalculateSize();
 }
 
-
 Cube::~Cube()
 {
 }

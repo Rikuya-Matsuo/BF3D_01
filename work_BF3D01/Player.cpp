@@ -160,7 +160,7 @@ void Player::Update(float deltaTime)
 
 	Move();
 
-	BaseOriginalUpdate();
+	Actor::Update(deltaTime);
 
 	// コライダーの位置の更新
 	mCollider->SetPosition(VSub(mPosition, VGet(1.0f, 0.0f, 0.0f)));
@@ -237,7 +237,7 @@ void Player::OnCollisionHit(const BoxCollider & opponentCollision)
 
 void Player::Draw()
 {
-	BaseOriginalDraw();
+	Actor::Draw();
 
 	mTriggerCollider->Draw();
 

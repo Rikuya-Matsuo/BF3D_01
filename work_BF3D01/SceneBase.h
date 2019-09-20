@@ -22,15 +22,18 @@ public:
 	Camera& GetCamera() { return *mCamera; }
 
 protected:
-	bool mGoNextSceneFlag;
+	// 次のシーンへのポインタ
+	SceneBase *		mNextScene;
 
-	SceneBase * mNextScene;
+	// カメラへのポインタ
+	Camera *		mCamera;
 
-	Camera * mCamera;
+	// 次のシーンへ移るかのフラグ
+	bool			mGoNextSceneFlag;
 
-	Light mLight;
+	// 光の設定のデータ
+	Light			mLight;
 
-	Sky mSky;
-
-	void BaseOriginalDraw();
+	// 空の設定のデータ
+	Sky				mSky;
 };

@@ -20,7 +20,7 @@ SceneBase::~SceneBase()
 
 void SceneBase::Draw()
 {
-	BaseOriginalDraw();
+	mSky.Draw();
 }
 
 void SceneBase::SetNextScene(SceneBase * nextScene)
@@ -31,9 +31,4 @@ void SceneBase::SetNextScene(SceneBase * nextScene)
 	}
 
 	mNextScene = nextScene;
-}
-
-void SceneBase::BaseOriginalDraw()
-{
-	mSky.Draw();
 }

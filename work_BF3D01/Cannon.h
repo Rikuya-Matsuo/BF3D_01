@@ -11,4 +11,3 @@ public:
 
 	void Shoot(VECTOR direction, Bullet* shot);
 };
-

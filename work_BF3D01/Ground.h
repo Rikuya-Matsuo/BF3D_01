@@ -5,7 +5,7 @@
 class Ground : public Actor
 {
 public:
-	Ground(const VECTOR& vertex, const VECTOR& inversionVertex, unsigned int color);
+	Ground(const VECTOR & vertex, const VECTOR & inversionVertex, unsigned int color);
 	~Ground();
 
 	void Update(float deltaTime) override;
@@ -17,4 +17,3 @@ private:
 	// 描画するための矩形
 	Cube mVisualCube;
 };
-

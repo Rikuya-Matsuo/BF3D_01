@@ -16,16 +16,16 @@ public:
 	void OnCollisionHit(const BoxCollider& opponentCollision) override;
 
 private:
+	// プレイヤーに対する相対位置
+	const float		mHeight;
+
 	// 所有者
-	Player * mOwner;
+	Player *		mOwner;
 
 	// 次フレームにおける座標
-	VECTOR mNextPosition;
+	VECTOR			mNextPosition;
 
 	// 紐をつける場所
-	VECTOR mBottomPosition;
-
-	// プレイヤーに対する相対位置
-	const float mHeight;
+	VECTOR			mBottomPosition;
 
 };

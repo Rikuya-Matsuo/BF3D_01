@@ -12,10 +12,10 @@ public:
 	TitleScene();
 	~TitleScene();
 
-	void Update(float deltaTime)override;
+	void Update(float deltaTime) override;
 	void Draw() override;
 
 private:
+	// ロゴの画像データ
 	GraphF mLogo;
-
 };

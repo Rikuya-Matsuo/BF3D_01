@@ -9,55 +9,59 @@ public:
 	virtual ~Cube();
 
 	// 二つの頂点の中でも値の小さい要素を集めた頂点を返す
-	VECTOR GetSmallValueVertex() const;
+	VECTOR			GetSmallValueVertex() const;
 
 	// 二つの頂点の中でも値の大きい要素を集めた頂点を返す
-	VECTOR GetLargeValueVertex() const;
+	VECTOR			GetLargeValueVertex() const;
 
-	bool GetCollisionFlag() const { return mCollisionFlag; }
+	bool			GetCollisionFlag() const { return mCollisionFlag; }
 
-	const VECTOR& GetSize() const { return mSize; }
+	const VECTOR&	GetSize() const { return mSize; }
 
-	void SetPosition(const VECTOR& vertex);
-	void SetVertexes(const VECTOR& vertex, const VECTOR& inversion);
-	void SetColor(unsigned int value) { mColor = value; }
-	void SetDrawFlag(bool value) { mDrawFlag = value; }
-	void SetDrawSurfaceFlag(bool value) { mDrawSurfaceFlag = value; }
-	void SetCollisionFlag(bool value) { mCollisionFlag = value; }
-	void LoadTexture(const char * fileName);
-	void DeleteTexture();
+	void			SetPosition(const VECTOR& vertex);
+	void			SetVertexes(const VECTOR& vertex, const VECTOR& inversion);
+	void			SetColor(unsigned int value) { mColor = value; }
+	void			SetDrawFlag(bool value) { mDrawFlag = value; }
+	void			SetDrawSurfaceFlag(bool value) { mDrawSurfaceFlag = value; }
+	void			SetCollisionFlag(bool value) { mCollisionFlag = value; }
 
-	void Move(const VECTOR& velocity);
+	// テクスチャのロード・削除
+	void			LoadTexture(const char * fileName);
+	void			DeleteTexture();
 
-	void Draw() const;
+	// 動かす
+	void			Move(const VECTOR& velocity);
+
+	void			Draw() const;
 
 protected:
 	// キューブの頂点とその反対側の頂点の各座標
-	VECTOR mVertex;
-	VECTOR mInversionVertex;
+	VECTOR			mVertex;
+	VECTOR			mInversionVertex;
 
 	// 上の二つから算出される、立体の各方向の大きさ
-	VECTOR mSize;
+	VECTOR			mSize;
 
 	// キューブの色
-	unsigned int mColor;
+	unsigned int	mColor;
 
 	// 描画するかのフラグ
-	bool mDrawFlag;
+	bool			mDrawFlag;
 
 	// 面を描画するかのフラグ
-	bool mDrawSurfaceFlag;
+	bool			mDrawSurfaceFlag;
 
 	// コリジョンを設けるかのフラグ
-	bool mCollisionFlag;
+	bool			mCollisionFlag;
 
 	// テクスチャハンドル
-	int mTexture;
+	int				mTexture;
 
 	// テクスチャを使うフラグ
-	bool mUseTextureFlag;
+	bool			mUseTextureFlag;
 
 private:
+	// 大きさの算出
 	void CalculateSize();
 };
 

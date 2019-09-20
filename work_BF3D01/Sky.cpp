@@ -15,14 +15,14 @@ Sky::~Sky()
 	}
 }
 
-void Sky::LoadModel(const char * modelDirectory)
+void Sky::LoadModel(const char * modelPath)
 {
 	if (mModelHandle > 0)
 	{
 		MV1DeleteModel(mModelHandle);
 	}
-	mModelHandle = MV1LoadModel(modelDirectory);
-	mModelDirectory = (char *)modelDirectory;
+	mModelHandle = MV1LoadModel(modelPath);
+	mModelPath = (char *)modelPath;
 
 	MV1SetPosition(mModelHandle, VGet(0.0f, -1000.0f, 0.0f));
 

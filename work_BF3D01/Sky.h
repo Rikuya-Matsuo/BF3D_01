@@ -7,13 +7,16 @@ public:
 	Sky();
 	~Sky();
 
-	void LoadModel(const char * modelDirectory);
+	// モデルの読み込み
+	void LoadModel(const char * modelPath);
 
 	void Draw();
 
 private:
-	int mModelHandle;
+	// モデル（スカイボックス）のハンドル
+	int		mModelHandle;
 
-	char * mModelDirectory;
+	// モデルのパス
+	char *	mModelPath;
 };
 

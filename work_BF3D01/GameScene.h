@@ -18,25 +18,36 @@ public:
 	void Draw() override;
 
 private:
-	Player * mPlayer;
+	// このX座標を超えたらゴール
+	const float		mGoalLine;
 
-	DiamondManager * mDiamondManager;
+	// シーン内に設置するアイテムの数
+	const int		mDiamondMass;
 
-	const float mGoalLine;
+	// ステージクリアまでのタイムリミット（秒）
+	const float		mTimeLimit;
 
-	const int mDiamondMass;
+	// ゲームオーバー表示が画面下から登る速さ
+	const float		mGameOverGraphYSpeed;
+	
+	// プレイヤーへのポインタ
+	Player *			mPlayer;
 
-	const float mTimeLimit;
+	// アイテムマネージャへのポインタ
+	DiamondManager *	mDiamondManager;
 
-	float mTimer;
+	// タイマー
+	float				mTimer;
 
-	GraphF mGameOverGraph;
+	// ゲームオーバー表示
+	GraphF				mGameOverGraph;
 
-	int mGoalGraph;
+	// ゴール表示
+	int					mGoalGraph;
 
-	float mGameOverGraphY;
+	// ゲームオーバー表示画像のY座標
+	float				mGameOverGraphY;
 
-	const float mGameOverGraphYSpeed;
-
-	std::string mScoreString;
+	// UIとして表示するスコア
+	std::string			mScoreString;
 };

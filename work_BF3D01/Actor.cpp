@@ -44,31 +44,12 @@ Actor::~Actor()
 
 void Actor::Update(float deltaTime)
 {
-	BaseOriginalUpdate();
-}
-
-void Actor::Draw()
-{
-	BaseOriginalDraw();
-}
-
-void Actor::SetScenePointer(SceneBase * scene)
-{
-	mScenePointer = scene;
-}
-
-void Actor::OnCollisionHit(const BoxCollider & opponentCollision)
-{
-}
-
-void Actor::BaseOriginalUpdate()
-{
 	MV1SetPosition(mModelHandle, mPosition);
 
 	//mCollider->SetPosition(VSub(mPosition, VGet(1, 0, 0)));
 }
 
-void Actor::BaseOriginalDraw()
+void Actor::Draw()
 {
 	if (mState != Actor::Dead && mDrawFlag && mModelHandle > 0)
 	{
@@ -79,4 +60,13 @@ void Actor::BaseOriginalDraw()
 
 		mCollider->Draw();
 	}
+}
+
+void Actor::SetScenePointer(SceneBase * scene)
+{
+	mScenePointer = scene;
+}
+
+void Actor::OnCollisionHit(const BoxCollider & opponentCollision)
+{
 }

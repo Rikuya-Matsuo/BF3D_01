@@ -15,8 +15,13 @@ public:
 	void OnCollisionHit(const BoxCollider& opponentCollision) override;
 
 private:
-	unsigned int mColor;
-	const float mRadius;
-	const VECTOR mBetweenPosAndVertexes;
+	// 半径の大きさ
+	const float		mRadius;
+
+	// 座標の値と頂点の値の距離
+	const VECTOR	mBetweenPosAndVertexes;
+
+	// 色
+	unsigned int	mColor;
 };
 

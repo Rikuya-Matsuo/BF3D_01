@@ -42,7 +42,7 @@ void Balloon::Update(float deltaTime)
 	// 高さを調整
 	mNextPosition.y += mHeight;
 
-	BaseOriginalUpdate();
+	Actor::Update(deltaTime);
 
 	mVelocity = VSub(mPosition, prevPos);
 	mCollider->Move(mVelocity);
@@ -54,7 +54,7 @@ void Balloon::Update(float deltaTime)
 
 void Balloon::Draw()
 {
-	BaseOriginalDraw();
+	Actor::Draw();
 
 	if (mState != State::Dead)
 	{

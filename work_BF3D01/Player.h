@@ -24,59 +24,59 @@ public:
 	const VECTOR& GetHeadPosition() const { return mHeadPosition; }
 
 private:
-	// バルーンクラス
-	Balloon * mBalloon;
-
 	// 制動率
-	const float mBrakeRate;
+	const float		mBrakeRate;
 
 	// 羽ばたくことで発生するプレイヤーが上昇する力
-	const float mFlapForce;
+	const float		mFlapForce;
 
 	// スピードの制限値
-	const float mSpeedLimit;
+	const float		mSpeedLimit;
 
 	// スレスレ回避ボーナスのスコア増分
-	const int mAvoidBonusScore;
+	const int		mAvoidBonusScore;
 
 	// アイテム取得によるスコア増分
-	const int mItemScore;
-
-	// 頭の位置
-	VECTOR mHeadPosition;
-
-	// 着地フラグ
-
-	// プレイヤーにだけつけるもう一つのコライダー
-	// スレスレで弾を避けたという判定に使う
-	BoxCollider * mTriggerCollider;
-
-	// 内側のコライダーから頂点をどのくらいずらすか
-	VECTOR mTriggerColliderVertexOffset;
-
-	// 1フレーム内における接触したコライダーと、それとプレイヤーとの接触判定回数を関連付けたマップデータ
-	std::unordered_map<BoxCollider*, char> mNumberOfHit;
-
-	// 前フレームで接触した回数を弾コリジョン毎に記録
-	std::unordered_map<BoxCollider*, char> mPrevNumberOfHitBullet;
-
-	// スコア
-	int mScore;
-
-	// 集めたアイテムの数
-	int mItemCollect;
-
-	// アイテム取得エフェクトの再生フラグ
-	bool mItemEffectFlag;
+	const int		mItemScore;
 
 	// アイテム取得エフェクトのコマ数
 	const int mItemEffectFrameMass;
 
+	// バルーンクラス
+	Balloon *									mBalloon;
+
+	// プレイヤーにだけつけるもう一つのコライダー
+	// スレスレで弾を避けたという判定に使う
+	BoxCollider *								mTriggerCollider;
+
 	// アイテム取得エフェクトハンドル
-	int* mItemEffectHandleArray;
+	int*										mItemEffectHandleArray;
+
+	// 頭の位置
+	VECTOR										mHeadPosition;
+
+	// 着地フラグ
+
+	// 内側のコライダーから頂点をどのくらいずらすか
+	VECTOR										mTriggerColliderVertexOffset;
+
+	// 1フレーム内における接触したコライダーと、それとプレイヤーとの接触判定回数を関連付けたマップデータ
+	std::unordered_map<BoxCollider*, char>		mNumberOfHit;
+
+	// 前フレームで接触した回数を弾コリジョン毎に記録
+	std::unordered_map<BoxCollider*, char>		mPrevNumberOfHitBullet;
+
+	// スコア
+	int											mScore;
+
+	// 集めたアイテムの数
+	int											mItemCollect;
+
+	// アイテム取得エフェクトの再生フラグ
+	bool										mItemEffectFlag;
 
 	// 表示するアイテム取得エフェクトのコマ番号
-	int mItemEffectCounter;
+	int											mItemEffectCounter;
 
 	// 速度ベクトルを位置ベクトルに加算する関数
 	void Move();

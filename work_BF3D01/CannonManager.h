@@ -21,19 +21,27 @@ public:
 	void SetScenePointer(SceneBase * scene) override;
 
 private:
-	Actor * mTarget;
+	// 同時にアクティブにする弾丸の最大数
+	static const int	mActiveBulletMassLimit = 2;
 
-	const int mCannonMass;
+	// 大砲の数
+	const int				mCannonMass;
 
-	std::vector<Cannon *> mCannons;
+	// 発射間隔（秒）
+	const float				mShootInterval;
 
-	static const int mActiveBulletMassLimit = 2;
+	// 標的にするアクターへのポインタ
+	Actor *					mTarget;
 
-	std::vector<Bullet *> mBullets;
+	// 大砲へのポインタのベクターデータ
+	std::vector<Cannon *>	mCannons;
 
-	int mActiveBulletMass;
+	// 弾丸のベクターデータ
+	std::vector<Bullet *>	mBullets;
 
-	const float mShootInterval;
+	// 現在のアクティブな弾丸の数
+	int						mActiveBulletMass;
 
-	float mShootTimer;
+	// 発射してからの秒数を測るタイマー
+	float					mShootTimer;
 };
