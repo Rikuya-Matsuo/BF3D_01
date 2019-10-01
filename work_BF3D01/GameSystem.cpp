@@ -248,13 +248,7 @@ void GameSystem::UpdateColliders()
 
 void GameSystem::CheckColliders()
 {
-	// なぜかここでだけfor文の動きが違うため、登録コライダーがない場合はここで関数を抜ける
-	if (mColliders.empty())
-	{
-		return;
-	}
-
-	for (unsigned int i = 0; i < (mColliders.size() - 1); ++i)
+	for (int i = 0; i < ((int)mColliders.size() - 1); ++i)
 	{
 		Actor * OwnerOfI = mColliders[i]->GetOwnerPointer();
 		bool IsIActorNotActive			= (OwnerOfI->GetState() != Actor::State::Active);
@@ -264,7 +258,7 @@ void GameSystem::CheckColliders()
 			continue;
 		}
 
-		for (unsigned int j = i + 1; j < mColliders.size(); ++j)
+		for (int j = i + 1; j < (int)mColliders.size(); ++j)
 		{
 			Actor * OwnerOfJ = mColliders[j]->GetOwnerPointer();
 			bool IsJActorNotActive		= (OwnerOfJ->GetState() != Actor::State::Active);
