@@ -3,7 +3,8 @@
 Balloon::Balloon(int modelHandle, Player * owner) :
 	Actor(modelHandle, State::Active, false, 0.0f, true),
 	mOwner(owner),
-	mHeight(20.0f)
+	mHeight(20.0f),
+	mFloatingSpeed(5.0f)
 {
 	float scale = 0.3f;
 	MV1SetScale(mModelHandle, VGet(scale, scale, scale));
@@ -33,15 +34,26 @@ void Balloon::Update(float deltaTime)
 
 	VECTOR prevPos = mPosition;
 
-	// 1フレーム遅れてプレイヤーを追う
-	mPosition = mNextPosition;
+	// 生きているなら
+	if (mOwner->GetState() != State::Dead)
+	{
+		// 1フレーム遅れてプレイヤーを追う
+		mPosition = mNextPosition;
 
-	// プレイヤーの座標を取得
-	mNextPosition = mOwner->GetPosition();
+		// プレイヤーの座標を取得
+		mNextPosition = mOwner->GetPosition();
 
-	// 高さを調整
-	mNextPosition.y += mHeight;
+		// 高さを調整
+		mNextPosition.y += mHeight;
+	}
 
+	// 死んでいるなら
+	else
+	{
+		mPosition = mNextPosition;
+
+		mNextPosition.y += mFloatingSpeed * deltaTime;
+	}
 	Actor::Update(deltaTime);
 
 	mVelocity = VSub(mPosition, prevPos);
@@ -58,7 +70,19 @@ void Balloon::Draw()
 
 	if (mState != State::Dead)
 	{
-		DrawLine3D(mBottomPosition, mOwner->GetHeadPosition(), GetColor(255, 255, 255));
+		VECTOR lineEdge;
+		if (mOwner->GetState() != State::Dead)
+		{
+			lineEdge = mOwner->GetHeadPosition();
+		}
+		else
+		{
+			lineEdge = mBottomPosition;
+
+			lineEdge.y -= mHeight;
+		}
+
+		DrawLine3D(mBottomPosition, lineEdge, GetColor(255, 255, 255));
 	}
 }
 

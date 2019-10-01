@@ -19,6 +19,9 @@ private:
 	// プレイヤーに対する相対位置
 	const float		mHeight;
 
+	// プレイヤー死亡時に浮き上がる速さ
+	const float		mFloatingSpeed;
+
 	// 所有者
 	Player *		mOwner;
 
