@@ -8,6 +8,7 @@ Input::Input():
 	{
 		mKey[0][i] = 0;
 		mKey[1][i] = 0;
+		mKeyNeo[i] = 0;
 		mKeyState[i] = EnumKeyState::Off;
 	}
 	WaitTimer(0);
@@ -53,4 +54,24 @@ void Input::Update()
 		}
 	}
 	WaitTimer(0);
+}
+
+void Input::UpdateNeo()
+{
+	// このフレームにおけるキーの押下情報取得
+	char nowKey[KEY_MASS];
+	GetHitKeyStateAll(nowKey);
+
+	// キーごとの処理
+	for (int i = 0; i < KEY_MASS; ++i)
+	{
+		// 1ビット左シフト
+		mKeyNeo[i] <<= 1;
+
+		// 下1ビット目に現在のキー状態を取得
+		mKeyNeo[i] |= nowKey[i];
+
+		// 2フレーム前の情報を削除
+		mKeyNeo[i] &= 3;
+	}
 }
